@@ -1,0 +1,1334 @@
+
+
+
+
+Operations and Management Area Working Group                       Q. Ma
+Internet-Draft                                                     Q. Wu
+Intended status: Standards Track                                  Huawei
+Expires: 12 August 2023                                     M. Boucadair
+                                                                  Orange
+                                                                 D. King
+                                                      Old Dog Consulting
+                                                         8 February 2023
+
+
+                 A Policy-based Network Access Control
+                     draft-ma-opsawg-ucl-acl-latest
+
+Abstract
+
+   This document defines a YANG module for policy-based network access
+   control, which provide consistent and efficient enforcement of
+   network access control policies based on group identity.  In
+   addition, this document defines a mechanism to ease the maintenance
+   of the mapping between a user-group ID and a set of IP/MAC addresses
+   to enforce policy-based network access control.
+
+   Also, the document defines a common schedule YANG module which is
+   designed to be applicable for policy activation based on date and
+   time conditions.
+
+   In addition, the document defines a RADIUS attribute that is used to
+   communicate the user group identifier as part of identification and
+   authorization information.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Operations and
+   Management Area Working Group Working Group mailing list
+   (opsawg@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/opsawg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/boucadair/policy-based-network-acl.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 12 August 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Sample Usage
+   4.  Policy-based Network Access Control
+     4.1.  Overview
+     4.2.  Endpoint Group
+       4.2.1.  User Group
+       4.2.2.  Device Group
+   5.  YANG Modules
+     5.1.  The Schedule YANG Module
+       5.1.1.  Module Overview
+       5.1.2.  The YANG Module
+     5.2.  The UCL Extension to the ACL Model
+       5.2.1.  Module Overview
+       5.2.2.  The YANG Module
+   6.  User Access Control Group ID RADIUS Attribute
+   7.  RADIUS Attributes
+   8.  Security Considerations
+     8.1.  YANG
+     8.2.  RADIUS
+   9.  IANA Considerations
+     9.1.  YANG
+     9.2.  RADIUS
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
+   Appendix A.  Changes between Revisions
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   With the increased adoption of remote access technologies (e.g.,
+   Virtual Private Networks (VPNs)) and Bring Your Own Device (BYOD)
+   policies, enterprises adopted more flexibility related to how, where,
+   and when employees work and collaborate.  However, more flexibility
+   comes with increased risks.  Enabling office flexibility (e.g.,
+   mobility across many access locations) for large-scale employees
+   induces a set of challenges compared to conventional network access
+   management approaches.  Examples of such challenges are listed below:
+
+   *  Endpoints do not have a stable IP address.  For example, Wireless
+      LAN (WLAN) and VPN clients, as well as back-end Virtual Machine
+      (VM)-based servers, can move; their IP addresses could change as a
+      result.  This means that relying on IP/transport fields (e.g., the
+      5-tuple) is inadequate to ensure consistent and efficient security
+      policy enforcement.  IP address-based policies may not be flexible
+      enough to accommodate endpoints with volatile IP addresses.
+
+   *  With the massive adoption of teleworking, there is now a need to
+      apply different security policies to the same set of users under
+      different circumstances (e.g., prevent relaying attacks against a
+      local attachment point to the Enterprise network).  For example,
+      network access might be granted based upon criteria such as users'
+      access location, source network reputation, users' role, time-of-
+      day, type of network device used (e.g., corporate issued device
+      versus personal device), device's security posture, etc.  This
+      means the network needs to recognize the users' identity and their
+      current context, and map the users to their correct access
+      entitlement to the network.
+
+   This document defines a common schedule YANG module which is designed
+   to be applicable for policy activation based on date and time
+   condition.  This model can be used in other scheduling contexts.
+
+   The document also defines a YANG module for policy-based Network
+   Access Control ([NIST-ABAC]), which extends the IETF Access Control
+   Lists (ACLs) module defined in [RFC8519].  This module defined in
+   [NIST-ABAC] is meant to ensure consistent enforcement of ACL policies
+   based on group identity.  In addition, this document defines a
+   mechanism to establish a mapping between the user-group ID and common
+   IP packet headers and other enclosed packet data (e.g., MAC address)
+   to execute the policy-based access control.
+
+   Last, the document defines a RADIUS attribute that is used to
+   communicate the user group identifier as part of identification and
+   authorization information (Section 6).
+
+   As the ACL notion has been generalized, not to be device-specific,
+   but also be defined at network/administrative domain levels
+   [I-D.dbb-netmod-acl], the YANG module for policy-based network access
+   control defined in this document does not limit how it can be used.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   The meanings of the symbols in tree diagrams are defined in
+   [RFC8340].
+
+   The document uses the terms defined in [RFC8519].
+
+   In the current version of the draft, the term "endpoint" refers also
+   to the host or end user that actually connect to a network.  Endpoint
+   device refers to servers, IoTs and other devices owned by the
+   enterprise.
+
+3.  Sample Usage
+
+   Access to some networks (e.g., Enterprise Networks) require to
+   recognize the users' identities no matter how, where, and when they
+   connect to the network resources.  Then, the network maps the
+   (conencting) users to their access authorization rights.  Such rights
+   are defined following local policies.  As discussed in the
+   introduction, because there is a large number of users and the source
+   IP addresses of the same user are in different network segments,
+   deploying a network access control policy for each IP address or
+   network segment is heavy workload.  An alternative approach is to
+   configure endpoint groups to classify users and enterprise devices
+   and associate ACLs with endpoint groups so that endpoint in each
+   group can share a group of ACL rules.  This approach greatly reduces
+   the workload of the administrators and optimizes the ACL resources.
+   The Network ACLs (NACLs) can be provisioned on devices using specific
+   mechanisms, such as [RFC8519] or [I-D.dbb-netmod-acl].
+
+   Network access control policies may need to vary over time.  For
+   example, companies may restrict/grant employees access to specific
+   resources (internal and/or external resources) during work hours,
+   while another policy is adopted during off-hours and weekends.  A
+   network administrator may also require to enforce traffic shaping
+   (Section 2.3.3.3 of [RFC2475]) and policing (Section 2.3.3.4 of
+   [RFC2475]) during peak hours in order not to affect other data
+   services.
+
+4.  Policy-based Network Access Control
+
+4.1.  Overview
+
+   To provide real-time and consistent enforcement of access control
+   policies, the following functional entities and interfaces are
+   involved:
+
+   *  A Service Orchestrator which coordinates the overall service,
+      including security policies.  The service may be connectivity or
+      any other resources that can be hosted and offerd by a newtork.
+
+   *  The SDN Controller is responsible for maintaining endpoint-group
+      based ACLs and mapping the endpoint-group to the associated
+      attributes information (e.g., IP/MAC address).  The SDN Controller
+      also works as the Policy Decision Point (PDP) [RFC3198] and pushes
+      the required access control policies to relevant PEPs (Policy
+      Enforcement Points) that need them.  A PDP is also known as
+      "policy server" [RFC2753].
+
+      The SDN Controller may interacts with AAA server or NAS.
+
+   *  A Network Access Server (NAS) entity which handles authentication
+      requests.  The NAS interacts with an AAA server to complete user
+      authentication using Remote Authentication Dial-in User Service
+      (RADIUS) [RFC2865].  When access is granted, the AAA server
+      provides the group identifier (group ID) to which the user belongs
+      when the user first logs onto the network.  A new attribute is
+      defined in Section 6.
+
+   *  The Policy Enforcement Point (PEP) [RFC3198] is the central entity
+      which is responsible for enforcing appropriate access control
+      policies.  In some cases, A PEP may map incoming packets to their
+      associated source or destination endpoint-group IDs, and acts on
+      the endpoint-group ID based ACL policies, e.g., a NAS as the PEP
+      or a group identifier could be carried in packet header (see
+      Section 6.2.3 in [I-D.ietf-nvo3-encap]).  While in other cases,
+      the SDN controller maps group ID to the related common packet
+      header and delivers IP/MAC address based ACL policies to the
+      required PEPs.
+
+      Multiple PEPs can be involved in a network.
+
+      A PEP exposes a NETCONF interface to the SDN Controller.
+
+   Figure 1 provides the overall architecture and procedure for policy-
+   based access control management.
+
+                                          +------------+
+                                          |Orchestrator|
+                                          +------+-----+
+        Service                                  | (Step 1)
+       ------------------------------------------+-------------
+       ------------------------------------------+-------------
+        Network                                  |
+                                  (Step 4)       |
+        +-------+        +--------+     +--------+-----------+
+        |User #1+--+     | AAA    |     |    SDN Controller  |
+        +-------+  |     | Server +-----+        (PDP)       |
+                   |     +----+---+     +--------+-----------+
+                   |          |                  |
+                   |          |           +---------------+(Step 5)
+         (Step 2)  |          |(Step 3)   |               |
+                   |          |           |               |
+                   |        +-+-----------+---------------+------------+
+                   |        | +----------------------+   +------------+|
+        +-------+  +--------+ | Network Access Server|   |firewall,etc||
+        |User #2+-----------+ |       (NAS)          |   +------------+|
+        +-------+           | +----------------------+                 |
+                            |                     (PEP)                |
+                            +------------------------------------------+
+
+      Figure 1: An Architecture for Group-based Policy Management
+
+   In reference to Figure 1, the following typical flow is experienced:
+
+   Step 1: Administrators (or the Orchestrator) configure an SDN
+   controller with network-level ACLs using the YANG module defined in
+   Section 5.2.
+
+   Step 2: When a user first logs onto the network, the user is required
+   to be authenticated (e.g., using user name and password) at the NAS.
+
+   Step 3: The authentication request is then relayed to the AAA server
+   using RADIUS [RFC2865].  It is assumed that the AAA server has been
+   appropriately configured to store user credentials, e.g., user name,
+   password, group information and other user attributes.
+
+     If the authentication request succeeds, the user is placed in a
+     user-group which is returned to the network access server as the
+     authentication result (see Section 6).
+
+     If the authentication fails, the user is not assigned a user-
+     group, which also means that the user has no or limited access
+     permissions for the network (as a fucntion of the local policy).
+     ACLs are enforced so that flows from that IP address are discarded
+     (or rate-limited) by the network.  In some implementations, AAA
+     server can be integrated with an SDN controller.
+
+   Step 4: Either the AAA server or the NAS notify the SDN controller
+   the mapping between the user-group ID and related common packet
+   header attributes (e.g., IP/MAC address).
+
+   Step 5: The access control policies are maintained on relevant PEPs
+   under the controller's management.
+
+4.2.  Endpoint Group
+
+4.2.1.  User Group
+
+   The user-group ID is an identifier that represents the collective
+   identity of a group of users.  It is determined by a set of
+   predefined policy criteria (e.g., source IP address, geolocation
+   data, time of day, or device certificate).  Users may be moved to
+   different user-groups if their composite attributes, environment,
+   and/or local enterprise policy change.
+
+   A user is authenticated, and classified at the network ingress, and
+   assigned to a user-group.  A user's group membership may change as
+   aspects of the user change.  For example, if the user-group
+   membership is determined solely by the source IP address, then a
+   given user's user-group ID will change when the user moves to a new
+   IP address that falls outside of the range of addresses of the
+   previous user-group.
+
+   This document does not make any assumption about how groups are
+   defined.  Such considerations are deployment specific and are out of
+   scope.  However, and for illustration purposes, Table 1 shows an
+   example of how user-group definitions may be characterized.  User-
+   groups may share several common criteria.  That is, user-group
+   criteria are not mutually exclusive.  For example, the policy
+   criteria of user-groups R&D Regular and R&D BYOD may share the same
+   set of users that belong to the R&D organization, and differ only in
+   the type of clients (firm-issued clients vs. users' personal
+   clients).  Likewise, the same user may be assigned to different user-
+   groups depending on the time of day or the type of day (e.g.,
+   weekdays versus weekends), etc.
+
+          +--------------+------------+--------------------------------+
+          |  Group Name  |  Group ID  |        Group Definition        |
+          +--------------+------------+--------------------------------+
+          |   R&D        |     10     |  R&D employees                 |
+          +--------------+------------+--------------------------------+
+          |   R&D BYOD   |     11     |  Personal devices of R&D       |
+          |              |            |  employees                     |
+          +--------------+------------+--------------------------------+
+          |   Sales      |     20     |  Sales employees               |
+          +--------------+------------+--------------------------------+
+          |   VIP        |     30     |  VIP employees                 |
+          +--------------+------------+--------------------------------+
+          |   Workflow   |     40     |  IP addresses of Workflow      |
+          |              |            |  resource servers              |
+          +--------------+------------+--------------------------------+
+          | R&D Resource |     50     | IP addresses of R&D resource   |
+          |              |            | servers                        |
+          +--------------+------------+--------------------------------+
+          |Sales Resource|     54     | IP addresses of Sales resource |
+          |              |            | servers                        |
+          +--------------+------------+--------------------------------+
+
+                      Table 1: User-Group Example
+
+4.2.2.  Device Group
+
+   The device-group ID is an identifier that represents the collective
+   identity of a group of enterprise end devices.  An enterprise device
+   could be an server that hosts applications or software that deliver
+   services to enterprise users.  It could also be an enterprise IoT
+   device that serve a limited purpose, e.g., a printer that allows
+   users to scan, print and send emails.
+
+   Users accessing to enterprise device should be strictly controlled.
+   Matching abstract device group ID instead of specified addresses in
+   ACL polices helps shield the consequences of address change (e.g.,
+   back-end Virtual Machine (VM)-based server migration).
+
+5.  YANG Modules
+
+5.1.  The Schedule YANG Module
+
+   This module defines a common schedule YANG module.  It is inspired
+   from the "period of time" and "recurrence rule" format defined in
+   [RFC5545].
+
+   This module is defined as a standalone module rather than in the UCL
+   module with the intention that the time/date definition can be
+   reused.
+
+5.1.1.  Module Overview
+
+   Figure 2 provides an overview of the tree structure of the "ietf-
+   schedule" module.
+
+            module: ietf-schedule
+              grouping period:
+                +-- period-of-time
+                   +-- (forms)?
+                      +--:(period-explicit)
+                      |  +-- explicit-start?   yang:date-and-time
+                      |  +-- explicit-end?     yang:date-and-time
+                      +--:(period-start)
+                         +-- start?            yang:date-and-time
+                         +-- duration?         yang:time-no-zone
+              grouping recurrence:
+                +-- recurrence
+                   +-- freq           enumeration
+                   +-- (until-or-count)?
+                   |  +--:(until)
+                   |  |  +-- until?   union
+                   |  +--:(count)
+                   |     +-- count?   uint32
+                   +-- interval?      uint32
+                   +-- bysecond*      uint32
+                   +-- byminute*      uint32
+                   +-- byhour*        uint32
+                   +-- byday* [weekday]
+                   |  +-- direction?   int32
+                   |  +-- weekday?     schedule:weekday
+                   +-- bymonthday*    int32
+                   +-- byyearday*     int32
+                   +-- byyearweek*    int32
+                   +-- byyearmonth*   uint32
+                   +-- bysetpos*      int32
+                   +-- wkst*          schedule:weekday
+
+                         Figure 2: UCL Tree Diagram
+
+5.1.2.  The YANG Module
+
+   This module imports types defined in [RFC6991].
+
+   <CODE BEGINS>
+   file="ietf-schedule@2023-01-19.yang"
+      module ietf-schedule {
+        yang-version 1.1;
+        namespace "urn:ietf:params:xml:ns:yang:ietf-schedule";
+        prefix schedule;
+
+        import ietf-yang-types {
+          prefix yang;
+          reference
+            "RFC 6991: Common YANG Data Types";
+        }
+        organization
+          "IETF OPSAWG Working Group";
+        contact
+          "WG Web: <https://datatracker.ietf.org/wg/opsawg/>
+           WG List: <mailto:opsawg@ietf.org>";
+        description
+          "This YANG module defines two properties of an iSchedule
+           object:period of time and recurrence rule.
+
+           Copyright (c) 2023 IETF Trust and the persons identified
+           as authors of the code. All rights reserved.
+
+           Redistribution and use in source and binary forms, with
+           or without modification, is permitted pursuant to, and
+           subject to the license terms contained in, the Revised
+           BSD License set forth in Section 4.c of the IETF Trust's
+           Legal Provisions Relating to IETF Documents
+           (https://trustee.ietf.org/license-info).
+
+           This version of this YANG module is part of RFC XXXX
+           (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+           itself for full legal notices.";
+
+        revision 2023-01-09 {
+          description
+            "Initial revision.";
+          reference
+            "RFC XXXX: A Policy-based Network Access Control";
+        }
+
+        typedef weekday {
+
+          type enumeration {
+            enum sunday {
+              description
+                "Sunday of the week.";
+            }
+            enum monday {
+              description
+                "Monday of the week.";
+            }
+            enum tuesday {
+              description
+                "Tuesday of the week.";
+            }
+            enum wednesday {
+              description
+                "Wednesday of the week.";
+            }
+            enum thursday {
+              description
+                "Thursday of the week.";
+            }
+            enum friday {
+              description
+                "Friday of the week.";
+            }
+            enum saturday {
+              description
+                "Saturday of the week.";
+            }
+          }
+          description
+            "Seven days of the week.";
+        }
+
+        grouping period {
+          description
+            "This grouping is defined for period of time property.";
+          container period-of-time {
+            description
+              "This container is defined to identify period values that
+               contain a precise period of time.";
+            choice forms {
+              description
+                "Two forms of period of time.";
+              case period-explicit {
+                description
+                  "A period of time is identified by its start and its
+                   end.";
+                leaf explicit-start {
+                  type yang:date-and-time;
+                  description
+                    "Period start time.";
+                }
+                leaf explicit-end {
+                  type yang:date-and-time;
+                  description
+                    "Period end time.";
+                }
+              }
+              case period-start {
+                description
+                  "A period of time is defined by a start and a
+                   positive duration of time.";
+                leaf start {
+                  type yang:date-and-time;
+                  description
+                    "Period start time.";
+                }
+                leaf duration {
+                  type yang:time-no-zone;
+                  description
+                    "Duration of the time.";
+                }
+              }
+            }
+          }
+        }
+        grouping recurrence {
+          description
+            "This grouping is defined to identify properties that
+             contain a recurrence rule specification";
+          container recurrence {
+            description
+              "Recurrence rule definition.";
+            leaf freq {
+              type enumeration {
+                enum secondly {
+                  value 1;
+                  description
+                    "Repeating events based on an interval of a second
+                     or more.";
+                }
+                enum minutely {
+                  value 2;
+                  description
+                    "Repeating events based on an interval of a minute
+                     or more.";
+                }
+                enum hourly {
+                  value 3;
+                  description
+                    "Repeating events based on an interval of an hour
+                     or more.";
+                }
+                enum daily {
+                  value 4;
+                  description
+                    "Repeating events based on an interval of a day or
+                     more.";
+                }
+                enum weekly {
+                  value 5;
+                  description
+                    "Repeating events based on an interval of a week or
+                     more.";
+                }
+                enum monthly {
+                  value 6;
+                  description
+                    "Repeating events based on an interval of a month or
+                     more.";
+                }
+                enum yearly {
+                  value 7;
+                  description
+                    "Repeating events based on an interval of a year or
+                     more.";
+                }
+              }
+              mandatory true;
+              description
+                "This parameter is defined to identify the type of
+                 recurrence rule.";
+            }
+            choice until-or-count {
+              description
+                "Modes to bound the recurrence rule.";
+              case until {
+                description
+                  "This case defines a way that bounds the recurrence
+                   rule in a inclusive manner.";
+                leaf until {
+                  type union {
+                    type yang:date;
+                    type yang:date-and-time;
+                  }
+                  description
+                    "This parameter specifies a date or date-time value
+                     to bounds the recurrence.";
+                }
+              }
+              case count {
+                description
+                  "This case defines the number of occurrences at which
+                   to range-bound the recurrence.";
+                leaf count {
+                  type uint32;
+                  description
+                    "The positive number of occurrences at which to
+                     range-bound the recurrence.";
+                }
+              }
+            }
+            leaf interval {
+              type uint32;
+              default 1;
+              description
+                "A positive integer representing at which intervals the
+                 recurrence rule repeats.";
+            }
+            leaf-list bysecond {
+              type uint32 {
+                range "0..60";
+              }
+              description
+                "A list of seconds within a minute.";
+            }
+            leaf-list byminute {
+              type uint32 {
+                range "0..59";
+              }
+              description
+                "A list of minutes within an hour.";
+            }
+            leaf-list byhour {
+              type uint32 {
+                range "0..23";
+              }
+              description
+                "Specify a list of hours of the day.";
+            }
+            list byday {
+              key "weekday";
+              description
+                "Specify a list of days of the week.";
+              leaf direction {
+                when "(enum-value(../../freq) >= 6) and "+
+                "(enum-value(../../freq) = 7) and not(../../byyearweek)";
+                type int32 {
+                  range "-53..-1|1..53";
+                }
+                description
+                  "When specified, it indicates the nth occurrence of a
+                   specific day within the MONTHLY or YEARLY 'RRULE'.";
+              }
+              leaf weekday {
+                type schedule:weekday;
+                description
+                  "Corresponding to seven days of the week.";
+              }
+            }
+            leaf-list bymonthday {
+              type int32 {
+                range "-31..-1|1..31";
+              }
+              description
+                "Specify a list of days of the month.";
+            }
+            leaf-list byyearday {
+              type int32 {
+                range "-366..-1|1..366";
+              }
+              description
+                "Specify a list of days of the year.";
+            }
+            leaf-list byyearweek {
+              when "enum-value(../freq)=7";
+              type int32 {
+                range "-53..-1|1..53";
+              }
+              description
+                "Specify a list of weeks of the year.";
+            }
+            leaf-list byyearmonth {
+              type uint32 {
+                range "1..12";
+              }
+              description
+                "Specify a list of months of the year.";
+            }
+            leaf-list bysetpos {
+              type int32 {
+                range "-366..-1|1..366";
+              }
+              description
+                "Specify a list of values that corresponds to the nth
+                 occurrence within the set of recurrence instances
+                 specified by the rule.";
+            }
+            leaf-list wkst {
+              type schedule:weekday;
+              default monday;
+              description
+                "Specify the day on which the workweek starts.";
+            }
+          }
+        }
+      }
+   <CODE ENDS>
+
+5.2.  The UCL Extension to the ACL Model
+
+5.2.1.  Module Overview
+
+   Figure 3 provides the tree strcuture of the "ietf-ucl-acl" module.
+
+module: ietf-ucl-acl
+  augment /acl:acls/acl:acl:
+    +--rw endpoint-groups
+       +--rw endpoint-group* [endpoint-group-id]
+          +--rw endpoint-group-id     uint32
+          +--rw (group-type)?
+             +--:(user-group)
+             |  +--rw user-group
+             |     +--rw role?   string
+             +--:(device-group)
+                +--rw device-group
+                   +--rw device-type?   string
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+    +--rw endpoint-group {match-on-endpoint-group}?
+       +--rw source-match
+       |  +--rw endpoint-group-id?
+       |          -> ../../../../../../endpoint-groups/endpoint-group/endpoint-group-id
+       +--rw destination-match
+          +--rw endpoint-group-id?
+          |       -> ../../../../../../endpoint-groups/endpoint-group/endpoint-group-id
+  augment /acl:acls/acl:acl/acl:aces/acl:ace:
+    +--rw time-range {match-on-time}?
+       +--rw (time-range-type)?
+          +--:(periodic-range)
+          |  +--rw recurrence
+          |     +--rw freq           enumeration
+          |     +--rw (until-or-count)?
+          |     |  +--:(until)
+          |     |  |  +--rw until?   union
+          |     |  +--:(count)
+          |     |     +--rw count?   uint32
+          |     +--rw interval?      uint32
+          |     +--rw bysecond*      uint32
+          |     +--rw byminute*      uint32
+          |     +--rw byhour*        uint32
+          |     +--rw byday* [weekday]
+          |     |  +--rw direction?   int32
+          |     |  +--rw weekday      schedule:weekday
+          |     +--rw bymonthday*    int32
+          |     +--rw byyearday*     int32
+          |     +--rw byyearweek*    int32
+          |     +--rw byyearmonth*   uint32
+          |     +--rw bysetpos*      int32
+          |     +--rw wkst*          schedule:weekday
+          +--:(absolute-range)
+             +--rw period-of-time
+                +--rw (forms)?
+                   +--:(period-explicit)
+                   |  +--rw explicit-start?   yang:date-and-time
+                   |  +--rw explicit-end?     yang:date-and-time
+                   +--:(period-start)
+                      +--rw start?            yang:date-and-time
+                      +--rw duration?         yang:time-no-zone
+
+                       Figure 3: UCL Extension
+
+   This module specifies an extension to the IETF-ACL model [RFC8519]
+   such that the UCL group index may be referenced by augmenting the
+   "matches" data node.
+
+5.2.2.  The YANG Module
+
+   This module imports types defined in [RFC6991], [RFC8194], and
+   [RFC8519].
+
+   <CODE BEGINS>
+   file="ietf-ucl-acl@2023-01-19.yang"
+      module ietf-ucl-acl {
+        yang-version 1.1;
+        namespace "urn:ietf:params:xml:ns:yang:ietf-ucl-acl";
+        prefix uacl;
+
+        import ietf-access-control-list {
+          prefix acl;
+          reference
+            "RFC 8519: YANG Data Model for Network Access
+                       Control Lists (ACLs)";
+        }
+        import ietf-schedule {
+          prefix schedule;
+          reference
+            "RFC XXXX: A Policy-based Network Access Control";
+        }
+
+        organization
+          "IETF OPSWG Working Group";
+        contact
+          "WG Web: <https://datatracker.ietf.org/wg/opsawg/>
+           WG List: <mailto:opsawg@ietf.org>";
+        description
+          "This YANG module defines XXX.
+
+           Copyright (c) 2023 IETF Trust and the persons identified
+           as authors of the code. All rights reserved.
+
+           Redistribution and use in source and binary forms, with
+           or without modification, is permitted pursuant to, and
+           subject to the license terms contained in, the Revised
+           BSD License set forth in Section 4.c of the IETF Trust's
+           Legal Provisions Relating to IETF Documents
+           (https://trustee.ietf.org/license-info).
+
+           This version of this YANG module is part of RFC XXXX
+           (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+           itself for full legal notices.";
+
+        revision 2023-01-19 {
+          description
+            "Initial revision.";
+          reference
+            "RFC XXXX: A Policy-based Network Access Control";
+        }
+
+
+        feature match-on-endpoint-group {
+          description
+            "The device can support matching on endpoint groups.";
+        }
+
+        feature match-on-time {
+          description
+            "The device can support a time-based condition match.";
+        }
+
+        augment "/acl:acls/acl:acl" {
+          description
+            "add a new container to store endpoint group information.";
+          container endpoint-groups {
+            description
+              "Container definition for the endpoint group.";
+            list endpoint-group {
+              key endpoint-group-id;
+              description
+                "Definition of the endpoint group list.";
+              leaf endpoint-group-id {
+                type uint32 {
+                  range "0..4294967294";
+                }
+                description
+                  "The endpoint group ID that uniquely identifies an
+                   endpoint group.";
+              }
+              choice group-type {
+                description
+                  "Choice of each different type of endpoint.";
+                case user-group {
+                  description
+                    "The employee that actually connects to the network.";
+                  container user-group {
+                    description
+                      "Defines the user-group container.";
+                    leaf role {
+                      type string;
+                      description
+                        "The common role of this user-group.";
+                    }
+                  }
+                }
+                case device-group {
+                  description
+                    "The static resources in a network, such as a specific application.";
+                  container device-group {
+                    description
+                      "Defines the device-group container.";
+                    leaf device-type {
+                      type string;
+                      description
+                        "The type of the static resource.";
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
+          description
+            "Add another choice to allow ace match based on endpoint group id.";
+          container endpoint-group {
+            if-feature "match-on-endpoint-group";
+            description
+              "Add new match types.";
+            container source-match {
+              description
+                "The source matched information.";
+              leaf endpoint-group-id {
+                type leafref {
+                  path "../../../../../../endpoint-groups/endpoint-group/endpoint-group-id";
+                }
+                description
+                  "The matched source endpoint group ID.";
+              }
+            }
+            container destination-match {
+              description
+                "The destination matched information.";
+              leaf endpoint-group-id {
+                type leafref {
+                  path "../../../../../../endpoint-groups/endpoint-group/endpoint-group-id";
+                }
+                description
+                  "The matched destination endpoint group ID.";
+              }
+            }
+          }
+        }
+
+
+        augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
+          if-feature "match-on-time";
+          description
+            "Add a new parameter to the Access Control Entry (ACE).";
+          container time-range {
+            description
+              "This container defines when the access control
+               entry rules are in effect.
+
+               If it is not configured, the access control entry
+               is immediately and always in effect.";
+            choice time-range-type {
+              description
+                "Choice based on the type of the time range.";
+              case periodic-range {
+                description
+                  "A periodic range of time to take effect.";
+                uses schedule:recurrence;
+              }
+              case absolute-range {
+                description
+                  "A single precise period of time to take effect.";
+                uses schedule:period;
+              }
+            }
+          }
+        }
+      }
+   <CODE ENDS>
+
+6.  User Access Control Group ID RADIUS Attribute
+
+   The User-Access-Group-ID RADIUS attribute and its embedded TLVs are
+   defined with globally unique names.  The definition of the attribute
+   follows the guidelines in Section 2.7.1 of [RFC6929].  This attribute
+   is used to indicate the user-group ID to be used by the NAS.  When
+   the User-Access-Group-ID RADIUS attribute is present in the RADIUS
+   Access-Accept, the system applies the related access control to the
+   users after it authenticates.
+
+   The value fields of the Attribute are encoded in clear and not
+   encrypted as, for example, Tunnel- Password Attribute [RFC2868].
+
+   The User-Access-Group-ID Attribute is of type "string" as defined in
+   Section 3.5 of [RFC8044].
+
+   The User-Access-Group-ID Attribute MAY appear in a RADIUS Access-
+   Accept packet.  It MAY also appear in a RADIUS Access-Request packet
+   as a hint to the RADIUS server to indicate a preference.  However,
+   the server is not required to honor such a preference.
+
+   The User-Access-Group-ID Attribute MAY appear in a RADIUS CoA-Request
+   packet.
+
+   The User-Access-Group-ID Attribute MAY appear in a RADIUS Accounting-
+   Request packet.
+
+   The User-Access-Group-ID Attribute MUST NOT appear in any other
+   RADIUS packet.
+
+   The User-Access-Group-ID Attribute is structured as follows:
+
+   Type
+
+      241
+
+   Length
+
+      This field indicates the total length, in octets, of all fields of
+      this attribute, including the Type, Length, Extended-Type, and the
+      "Value".
+
+   Extended-Type
+
+      TBA1
+
+   Value
+
+      This field contains the user group ID.
+
+   The User-Access-Group-ID Attribute is associated with the following
+   identifier: 241.TBA1.
+
+7.  RADIUS Attributes
+
+   The following table provides a guide as what type of RADIUS packets
+   that may contain User-Access-Group-ID Attribute, and in what
+   quantity.
+
+Access- Access- Access-  Challenge Acct.    #        Attribute
+Request Accept  Reject             Request
+ 0+      0+      0        0         0+      241.TBA1 User-Access-Group-ID
+
+CoA-Request CoA-ACK CoA-NACK #        Attribute
+  0+          0       0      241.TBA2 User-Access-Group-ID
+
+   The following table defines the meaning of the above table entries:
+
+   0  This attribute MUST NOT be present in packet.
+   0+ Zero or more instances of this attribute MAY be present in packet.
+
+8.  Security Considerations
+
+8.1.  YANG
+
+   The YANG modules specified in this document defines schema for data
+   that is designed to be accessed via network management protocols such
+   as NETCONF [RFC6241] or RESTCONF [RFC8040].  The lowest NETCONF layer
+   is the secure transport layer, and the mandatory-to-implement secure
+   transport is Secure Shell (SSH) [RFC6242].  The lowest RESTCONF layer
+   is HTTPS, and the mandatory-to-implement secure transport is TLS
+   [RFC8446].
+
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.
+
+   There are a number of data nodes defined in this YANG module that are
+   writable, creatable, and deletable (i.e., config true, which is the
+   default).  These data nodes may be considered sensitive or vulnerable
+   in some network environments.  Write operations to these data nodes
+   could have a negative effect on network and security operations.
+
+   <<add-more-about privacy considerations as the modules manipulate PII
+   data.>>
+
+8.2.  RADIUS
+
+   RADIUS-related security considerations are discussed in [RFC2865].
+
+   This document targets deployments where a trusted relationship is in
+   place between the RADIUS client and server with communication
+   optionally secured by IPsec or Transport Layer Security (TLS)
+   [RFC6614].
+
+9.  IANA Considerations
+
+9.1.  YANG
+
+   This document registers the following URI in the "IETF XML Registry"
+   [RFC3688].
+
+           URI: urn:ietf:params:xml:ns:yang:ietf-ucl-group
+           Registrant Contact: The IESG.
+           XML: N/A, the requested URI is an XML namespace.
+
+           URI: urn:ietf:params:xml:ns:yang:ietf-ucl-acl
+           Registrant Contact: The IESG.
+           XML: N/A, the requested URI is an XML namespace.
+
+   This document registers a YANG module in the "YANG Module Names"
+   registry [RFC6020].
+
+          name:               ietf-ucl-group
+          namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-group
+          prefix:             uclg
+          maintained by IANA: N
+          reference:          RFC XXXX
+
+          name:               ietf-ucl-acl
+          namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-acl
+          prefix:             uacl
+          maintained by IANA: N
+          reference:          RFC XXXX
+
+9.2.  RADIUS
+
+   IANA is requested to assign a new RADIUS attribute typs from the IANA
+   registry "Radius Attribute Types" [RADIUS-Types]:
+
+         +==========+======================+===========+===============+
+         | Value    | Description          | Data Type | Reference     |
+         +==========+======================+===========+===============+
+         | 241.TBA1 | User-Access-Group-ID | string    | This-Document |
+         +----------+----------------------+-----------+---------------+
+
+                            Table 2: RADIUS Attribute
+
+10.  References
+
+10.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC2865]  Rigney, C., Willens, S., Rubens, A., and W. Simpson,
+              "Remote Authentication Dial In User Service (RADIUS)",
+              RFC 2865, DOI 10.17487/RFC2865, June 2000,
+              <https://www.rfc-editor.org/rfc/rfc2865>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
+              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6242>.
+
+   [RFC6929]  DeKok, A. and A. Lior, "Remote Authentication Dial In User
+              Service (RADIUS) Protocol Extensions", RFC 6929,
+              DOI 10.17487/RFC6929, April 2013,
+              <https://www.rfc-editor.org/rfc/rfc6929>.
+
+   [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
+              RFC 6991, DOI 10.17487/RFC6991, July 2013,
+              <https://www.rfc-editor.org/rfc/rfc6991>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
+   [RFC8044]  DeKok, A., "Data Types in RADIUS", RFC 8044,
+              DOI 10.17487/RFC8044, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8044>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8194]  Schoenwaelder, J. and V. Bajpai, "A YANG Data Model for
+              LMAP Measurement Agents", RFC 8194, DOI 10.17487/RFC8194,
+              August 2017, <https://www.rfc-editor.org/rfc/rfc8194>.
+
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8341>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+   [RFC8519]  Jethanandani, M., Agarwal, S., Huang, L., and D. Blair,
+              "YANG Data Model for Network Access Control Lists (ACLs)",
+              RFC 8519, DOI 10.17487/RFC8519, March 2019,
+              <https://www.rfc-editor.org/rfc/rfc8519>.
+
+10.2.  Informative References
+
+   [I-D.dbb-netmod-acl]
+              de Dios, O. G., Barguil, S., and M. Boucadair, "Extensions
+              to the Access Control Lists (ACLs) YANG Model", Work in
+              Progress, Internet-Draft, draft-dbb-netmod-acl-03, 24
+              October 2022, <https://datatracker.ietf.org/doc/html/
+              draft-dbb-netmod-acl-03>.
+
+   [I-D.ietf-nvo3-encap]
+              Boutros, S. and D. E. Eastlake, "Network Virtualization
+              Overlays (NVO3) Encapsulation Considerations", Work in
+              Progress, Internet-Draft, draft-ietf-nvo3-encap-09, 7
+              October 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-nvo3-encap-09>.
+
+   [NIST-ABAC]
+              Hu, V. C., "Guide to Attribute Based Access Control (ABAC)
+              Definition and Considerations", January 2014,
+              <https://www.iana.org/assignments/media-types>.
+
+   [RADIUS-Types]
+              IANA, "RADIUS Types",
+              <http://www.iana.org/assignments/radius-types>.
+
+   [RFC2475]  Blake, S., Black, D., Carlson, M., Davies, E., Wang, Z.,
+              and W. Weiss, "An Architecture for Differentiated
+              Services", RFC 2475, DOI 10.17487/RFC2475, December 1998,
+              <https://www.rfc-editor.org/rfc/rfc2475>.
+
+   [RFC2753]  Yavatkar, R., Pendarakis, D., and R. Guerin, "A Framework
+              for Policy-based Admission Control", RFC 2753,
+              DOI 10.17487/RFC2753, January 2000,
+              <https://www.rfc-editor.org/rfc/rfc2753>.
+
+   [RFC2868]  Zorn, G., Leifer, D., Rubens, A., Shriver, J., Holdrege,
+              M., and I. Goyret, "RADIUS Attributes for Tunnel Protocol
+              Support", RFC 2868, DOI 10.17487/RFC2868, June 2000,
+              <https://www.rfc-editor.org/rfc/rfc2868>.
+
+   [RFC3198]  Westerinen, A., Schnizlein, J., Strassner, J., Scherling,
+              M., Quinn, B., Herzog, S., Huynh, A., Carlson, M., Perry,
+              J., and S. Waldbusser, "Terminology for Policy-Based
+              Management", RFC 3198, DOI 10.17487/RFC3198, November
+              2001, <https://www.rfc-editor.org/rfc/rfc3198>.
+
+   [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
+              Scheduling Core Object Specification (iCalendar)",
+              RFC 5545, DOI 10.17487/RFC5545, September 2009,
+              <https://www.rfc-editor.org/rfc/rfc5545>.
+
+   [RFC6614]  Winter, S., McCauley, M., Venaas, S., and K. Wierenga,
+              "Transport Layer Security (TLS) Encryption for RADIUS",
+              RFC 6614, DOI 10.17487/RFC6614, May 2012,
+              <https://www.rfc-editor.org/rfc/rfc6614>.
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8340>.
+
+Appendix A.  Changes between Revisions
+
+   v00 - v01 * Define a common schedule yang module and reuse in UCL
+   yang module to support time/date-based activation condition.
+
+   *  Either group-based or address-based ACL policies could be enforced
+      at PEP, and allow group-based ACL policies maintained at the
+      network controller.
+
+   *  Optimize the process in section 4.1.
+
+   *  Extend ACL module to support a generalized endpoint-group to cover
+      both end users (e.g., enterprise employees) and enterprise hosts
+      (e.g., IoT devices or servers);
+
+   *  Simplify the definition of group in UCL model with only the most
+      necessary group ID retained.
+
+Acknowledgments
+
+   This work has benefited from the discussions of User-group-based
+   Security Policy over the years.  In particular, [I-D.you-i2nsf-user-
+   group-based-policy] and [I-D.yizhou-anima-ip-to-access-control-
+   groups] provide mechanisms to establish the mapping between the IP
+   address/prefix of user and access control group ID.
+
+   Jianjie You, Myo Zarny, Christian Jacquenet, Mohamed Boucadair, and
+   Yizhou Li contributed to an earlier version of [I-D.you-i2nsf-user-
+   group-based-policy].  We would like to thank the authors of that
+   draft on modern network access control mechanisms for material that
+   assisted in thinking about this document.
+
+   The authors would like to thank Joe Clarke, Bill Fenner, Benoit
+   Claise, Rob Wiltion, David Somers-Harris for their valuable comments
+   and great input to this work.
+
+Authors' Addresses
+
+   Qiufang Ma
+   Huawei
+   101 Software Avenue, Yuhua District
+   Jiangsu
+   210012
+   China
+   Email: maqiufang1@huawei.com
+
+
+   Qin Wu
+   Huawei
+   101 Software Avenue, Yuhua District
+   Jiangsu
+   210012
+   China
+   Email: bill.wu@huawei.com
+
+
+   Mohamed Boucadair
+   Orange
+   35000 Rennes
+   France
+   Email: mohamed.boucadair@orange.com
+
+
+   Daniel King
+   Old Dog Consulting
+   United Kingdom
+   Email: daniel@olddog.co.uk
