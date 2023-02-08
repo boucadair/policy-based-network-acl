@@ -2,7 +2,7 @@
 
 
 
-Operations and Management Area Working Group                       Q. Ma
+OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
 Expires: 12 August 2023                                     M. Boucadair
