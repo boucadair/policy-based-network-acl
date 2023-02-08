@@ -1483,26 +1483,21 @@ A PEP exposes a NETCONF interface to the SDN Controller.<a href="#section-4.1-2.
 <p id="section-4.1-8">Step 3:  The authentication request is then relayed to the AAA server
       using RADIUS <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>.  It is assumed that the AAA server has
       been appropriately configured to store user credentials, e.g.,
-      user name, password, group information and other user attributes.<a href="#section-4.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-9">
-<pre>
-  If the authentication request succeeds, the user is placed in a
-  user-group which is returned to the network access server as the
-  authentication result (see Section 6).
-
-  If the authentication fails, the user is not assigned a user-
-  group, which also means that the user has no or limited access
-  permissions for the network (as a fucntion of the local policy).
-  ACLs are enforced so that flows from that IP address are discarded
-  (or rate-limited) by the network.  In some implementations, AAA
-  server can be integrated with an SDN controller.
-</pre><a href="#section-4.1-9" class="pilcrow">¶</a>
-</div>
-<p id="section-4.1-10">Step 4:  Either the AAA server or the NAS notify the SDN controller
+      user name, password, group information and other user attributes.
+      If the authentication request succeeds, the user is placed in a
+      user-group which is returned to the network access server as the
+      authentication result (see <a href="#sec-radius" class="auto internal xref">Section 6</a>).
+      If the authentication fails, the user is not assigned a user-
+      group, which also means that the user has no or limited access
+      permissions for the network (as a fucntion of the local policy).
+      ACLs are enforced so that flows from that IP address are discarded
+      (or rate-limited) by the network.  In some implementations, AAA
+      server can be integrated with an SDN controller.<a href="#section-4.1-8" class="pilcrow">¶</a></p>
+<p id="section-4.1-9">Step 4:  Either the AAA server or the NAS notify the SDN controller
       the mapping between the user-group ID and related common packet
-      header attributes (e.g., IP/MAC address).<a href="#section-4.1-10" class="pilcrow">¶</a></p>
-<p id="section-4.1-11">Step 5:  The access control policies are maintained on relevant PEPs
-      under the controller's management.<a href="#section-4.1-11" class="pilcrow">¶</a></p>
+      header attributes (e.g., IP/MAC address).<a href="#section-4.1-9" class="pilcrow">¶</a></p>
+<p id="section-4.1-10">Step 5:  The access control policies are maintained on relevant PEPs
+      under the controller's management.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="endpoint-group">

@@ -291,18 +291,15 @@ Table of Contents
    Step 3: The authentication request is then relayed to the AAA server
    using RADIUS [RFC2865].  It is assumed that the AAA server has been
    appropriately configured to store user credentials, e.g., user name,
-   password, group information and other user attributes.
-
-     If the authentication request succeeds, the user is placed in a
-     user-group which is returned to the network access server as the
-     authentication result (see Section 6).
-
-     If the authentication fails, the user is not assigned a user-
-     group, which also means that the user has no or limited access
-     permissions for the network (as a fucntion of the local policy).
-     ACLs are enforced so that flows from that IP address are discarded
-     (or rate-limited) by the network.  In some implementations, AAA
-     server can be integrated with an SDN controller.
+   password, group information and other user attributes.  If the
+   authentication request succeeds, the user is placed in a user-group
+   which is returned to the network access server as the authentication
+   result (see Section 6).  If the authentication fails, the user is not
+   assigned a user- group, which also means that the user has no or
+   limited access permissions for the network (as a fucntion of the
+   local policy).  ACLs are enforced so that flows from that IP address
+   are discarded (or rate-limited) by the network.  In some
+   implementations, AAA server can be integrated with an SDN controller.
 
    Step 4: Either the AAA server or the NAS notify the SDN controller
    the mapping between the user-group ID and related common packet
