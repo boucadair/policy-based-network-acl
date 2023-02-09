@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 12 August 2023                                     M. Boucadair
+Expires: 13 August 2023                                     M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                         8 February 2023
+                                                         9 February 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 August 2023.
+   This Internet-Draft will expire on 13 August 2023.
 
 Copyright Notice
 
@@ -431,7 +431,7 @@ Table of Contents
 
 5.1.2.  The YANG Module
 
-   This module imports types defined in [RFC6991].
+   This module imports types defined in [I-D.ietf-netmod-rfc6991-bis].
 
    <CODE BEGINS>
    file="ietf-schedule@2023-01-19.yang"
@@ -442,8 +442,9 @@ Table of Contents
 
         import ietf-yang-types {
           prefix yang;
+          revision-date 2023-01-23;
           reference
-            "RFC 6991: Common YANG Data Types";
+            "RFC XXXX: Common YANG Data Types";
         }
         organization
           "IETF OPSAWG Working Group";
@@ -468,7 +469,7 @@ Table of Contents
            (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
            itself for full legal notices.";
 
-        revision 2023-01-09 {
+        revision 2023-01-19 {
           description
             "Initial revision.";
           reference
@@ -620,12 +621,12 @@ Table of Contents
                    rule in a inclusive manner.";
                 leaf until {
                   type union {
-                    type yang:date;
+                    type yang:date-no-zone;
                     type yang:date-and-time;
                   }
                   description
-                    "This parameter specifies a date or date-time value
-                     to bounds the recurrence.";
+                    "This parameter specifies a date-no-zone or
+                     date-time value to bounds the recurrence.";
                 }
               }
               case count {
@@ -1135,6 +1136,13 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
 
 10.1.  Normative References
 
+   [I-D.ietf-netmod-rfc6991-bis]
+              Schönwälder, J., "Common YANG Data Types", Work in
+              Progress, Internet-Draft, draft-ietf-netmod-rfc6991-bis-
+              15, 23 January 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              rfc6991-bis-15>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1218,6 +1226,22 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
               October 2022, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nvo3-encap-09>.
 
+   [I-D.yizhou-anima-ip-to-access-control-groups]
+              Li, Y., Shen, L., and Y. Zhou, "Autonomic IP Address To
+              Access Control Group ID Mapping", Work in Progress,
+              Internet-Draft, draft-yizhou-anima-ip-to-access-control-
+              groups-02, 15 November 2021,
+              <https://datatracker.ietf.org/doc/html/draft-yizhou-anima-
+              ip-to-access-control-groups-02>.
+
+   [I-D.you-i2nsf-user-group-based-policy]
+              You, J., Zarny, M., Jacquenet, C., Boucadair, M., Li, Y.,
+              Strassner, J., and S. Majee, "User-group-based Security
+              Policy for Service Layer", Work in Progress, Internet-
+              Draft, draft-you-i2nsf-user-group-based-policy-02, 8 July
+              2016, <https://datatracker.ietf.org/doc/html/draft-you-
+              i2nsf-user-group-based-policy-02>.
+
    [NIST-ABAC]
               Hu, V. C., "Guide to Attribute Based Access Control (ABAC)
               Definition and Considerations", January 2014,
@@ -1283,16 +1307,17 @@ Appendix A.  Changes between Revisions
 Acknowledgments
 
    This work has benefited from the discussions of User-group-based
-   Security Policy over the years.  In particular, [I-D.you-i2nsf-user-
-   group-based-policy] and [I-D.yizhou-anima-ip-to-access-control-
-   groups] provide mechanisms to establish the mapping between the IP
-   address/prefix of user and access control group ID.
+   Security Policy over the years.  In particular,
+   [I-D.you-i2nsf-user-group-based-policy] and
+   [I-D.yizhou-anima-ip-to-access-control-groups] provide mechanisms to
+   establish the mapping between the IP address/prefix of user and
+   access control group ID.
 
    Jianjie You, Myo Zarny, Christian Jacquenet, Mohamed Boucadair, and
-   Yizhou Li contributed to an earlier version of [I-D.you-i2nsf-user-
-   group-based-policy].  We would like to thank the authors of that
-   draft on modern network access control mechanisms for material that
-   assisted in thinking about this document.
+   Yizhou Li contributed to an earlier version of
+   [I-D.you-i2nsf-user-group-based-policy].  We would like to thank the
+   authors of that draft on modern network access control mechanisms for
+   material that assisted in thinking about this document.
 
    The authors would like to thank Joe Clarke, Bill Fenner, Benoit
    Claise, Rob Wiltion, David Somers-Harris for their valuable comments
