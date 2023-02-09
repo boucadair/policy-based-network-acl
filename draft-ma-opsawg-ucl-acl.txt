@@ -248,7 +248,7 @@ Table of Contents
 
       Multiple PEPs can be involved in a network.
 
-      A PEP exposes a NETCONF interface to the SDN Controller.
+      A PEP exposes a NETCONF interface to the SDN Controller [RFC6241].
 
    Figure 1 provides the overall architecture and procedure for policy-
    based access control management.
@@ -340,29 +340,28 @@ Table of Contents
    groups depending on the time of day or the type of day (e.g.,
    weekdays versus weekends), etc.
 
-          +--------------+------------+--------------------------------+
-          |  Group Name  |  Group ID  |        Group Definition        |
-          +--------------+------------+--------------------------------+
-          |   R&D        |     10     |  R&D employees                 |
-          +--------------+------------+--------------------------------+
-          |   R&D BYOD   |     11     |  Personal devices of R&D       |
-          |              |            |  employees                     |
-          +--------------+------------+--------------------------------+
-          |   Sales      |     20     |  Sales employees               |
-          +--------------+------------+--------------------------------+
-          |   VIP        |     30     |  VIP employees                 |
-          +--------------+------------+--------------------------------+
-          |   Workflow   |     40     |  IP addresses of Workflow      |
-          |              |            |  resource servers              |
-          +--------------+------------+--------------------------------+
-          | R&D Resource |     50     | IP addresses of R&D resource   |
-          |              |            | servers                        |
-          +--------------+------------+--------------------------------+
-          |Sales Resource|     54     | IP addresses of Sales resource |
-          |              |            | servers                        |
-          +--------------+------------+--------------------------------+
+   +============+==========+===========================================+
+   | Group Name | Group ID | Group Definition                          |
+   +============+==========+===========================================+
+   | R&D        | 10       | R&D employees                             |
+   +------------+----------+-------------------------------------------+
+   | R&D BYOD   | 11       | Personal devices of R&D employees         |
+   +------------+----------+-------------------------------------------+
+   | Sales      | 20       | Sales employees                           |
+   +------------+----------+-------------------------------------------+
+   | VIP        | 30       | VIP employees                             |
+   +------------+----------+-------------------------------------------+
+   | Workflow   | 40       | IP addresses of Workflow resource         |
+   |            |          | servers                                   |
+   +------------+----------+-------------------------------------------+
+   | R&D        | 50       | IP addresses of R&D resource              |
+   | Resource   |          | servers                                   |
+   +------------+----------+-------------------------------------------+
+   | Sales      | 54       | IP addresses of Sales resource            |
+   | Resource   |          | servers                                   |
+   +------------+----------+-------------------------------------------+
 
-                      Table 1: User-Group Example
+                        Table 1: User-Group Example
 
 4.2.2.  Device Group
 
@@ -1107,7 +1106,7 @@ Some of the readable data nodes in the "ietf-ucl-acl" YANG module may be conside
    This document registers the following URI in the "IETF XML Registry"
    [RFC3688].
 
-           URI: urn:ietf:params:xml:ns:yang:ietf-ucl-group
+           URI: urn:ietf:params:xml:ns:yang:ietf-schedule
            Registrant Contact: The IESG.
            XML: N/A, the requested URI is an XML namespace.
 
@@ -1118,30 +1117,30 @@ Some of the readable data nodes in the "ietf-ucl-acl" YANG module may be conside
    This document registers a YANG module in the "YANG Module Names"
    registry [RFC6020].
 
-          name:               ietf-ucl-group
-          namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-group
-          prefix:             uclg
-          maintained by IANA: N
-          reference:          RFC XXXX
+           name:               ietf-schedule
+           namespace:          urn:ietf:params:xml:ns:yang:ietf-schedule
+           prefix:             schedule
+           maintained by IANA: N
+           reference:          RFC XXXX
 
-          name:               ietf-ucl-acl
-          namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-acl
-          prefix:             uacl
-          maintained by IANA: N
-          reference:          RFC XXXX
+           name:               ietf-ucl-acl
+           namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-acl
+           prefix:             uacl
+           maintained by IANA: N
+           reference:          RFC XXXX
 
 9.2.  RADIUS
 
    IANA is requested to assign a new RADIUS attribute typs from the IANA
    registry "Radius Attribute Types" [RADIUS-Types]:
 
-         +==========+======================+===========+===============+
-         | Value    | Description          | Data Type | Reference     |
-         +==========+======================+===========+===============+
-         | 241.TBA1 | User-Access-Group-ID | string    | This-Document |
-         +----------+----------------------+-----------+---------------+
+      +==========+======================+===========+===============+
+      | Value    | Description          | Data Type | Reference     |
+      +==========+======================+===========+===============+
+      | 241.TBA1 | User-Access-Group-ID | string    | This-Document |
+      +----------+----------------------+-----------+---------------+
 
-                            Table 2: RADIUS Attribute
+                         Table 2: RADIUS Attribute
 
 10.  References
 
