@@ -11,7 +11,7 @@
 <meta content="Daniel King" name="author">
 <meta content="
        This document defines a YANG module for policy-based network access
-   control, which provide consistent and efficient enforcement of
+   control, which provides consistent and efficient enforcement of
    network access control policies based on group identity.  In
    addition, this document defines a mechanism to ease the maintenance
    of the mapping between a user-group ID and a set of IP/MAC addresses
@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 13 August 2023</td>
+<td class="center">Expires 14 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ma-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-09" class="published">9 February 2023</time>
+<time datetime="2023-02-10" class="published">10 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-13">13 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-14">14 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1102,7 +1102,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a YANG module for policy-based network access
-   control, which provide consistent and efficient enforcement of
+   control, which provides consistent and efficient enforcement of
    network access control policies based on group identity.  In
    addition, this document defines a mechanism to ease the maintenance
    of the mapping between a user-group ID and a set of IP/MAC addresses
@@ -1144,7 +1144,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1321,8 +1321,8 @@ entitlement to the network.<a href="#section-1-2.2" class="pilcrow">¶</a>
 <p id="section-1-4">The document also defines a YANG module for policy-based Network
    Access Control (<span>[<a href="#NIST-ABAC" class="cite xref">NIST-ABAC</a>]</span>), which extends the IETF Access Control
    Lists (ACLs) module defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.  This module defined in
-   <span>[<a href="#NIST-ABAC" class="cite xref">NIST-ABAC</a>]</span> is meant to ensure consistent enforcement of ACL policies
-   based on group identity.  In addition, this document defines a
+   <a href="#sec-UCL" class="auto internal xref">Section 5.2</a> is meant to ensure consistent enforcement of ACL policies
+   based on group identity. In addition, this document defines a
    mechanism to establish a mapping between the user-group ID and common
    IP packet headers and other enclosed packet data (e.g., MAC address)
    to execute the policy-based access control.<a href="#section-1-4" class="pilcrow">¶</a></p>
@@ -1349,8 +1349,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The document uses the terms defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">In the current version of the draft, the term "endpoint" refers also
-   to the host or end user that actually connect to a network.  Endpoint
-   device refers to servers, IoTs and other devices owned by the
+   to a host device or end user that actually connect to a network. While
+   host device here refers to servers, IoTs and other devices owned by the
    enterprise.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1411,7 +1411,7 @@ the required access control policies to relevant PEPs (Policy
 Enforcement Points) that need them.  A PDP is also known as
 "policy server" <span>[<a href="#RFC2753" class="cite xref">RFC2753</a>]</span>.<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2.2.2">
-The SDN Controller may interacts with AAA server or NAS.<a href="#section-4.1-2.2.2" class="pilcrow">¶</a></p>
+The SDN Controller may interact with AAA server or NAS.<a href="#section-4.1-2.2.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.1-2.3">A Network Access Server (NAS) entity which handles authentication
 requests.  The NAS interacts with an AAA server to complete user
@@ -1476,7 +1476,7 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 <p id="section-4.1-5">In reference to <a href="#arch" class="auto internal xref">Figure 1</a>, the following typical flow is experienced:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <p id="section-4.1-6">Step 1:  Administrators (or the Orchestrator) configure an SDN
       controller with network-level ACLs using the YANG module defined
-      in Section 5.2.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+      in <a href="#sec-UCL" class="auto internal xref">Section 5.2</a>.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 <p id="section-4.1-7">Step 2:  When a user first logs onto the network, the user is
       required to be authenticated (e.g., using user name and password)
       at the NAS.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
@@ -1496,8 +1496,8 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 <p id="section-4.1-9">Step 4:  Either the AAA server or the NAS notify the SDN controller
       the mapping between the user-group ID and related common packet
       header attributes (e.g., IP/MAC address).<a href="#section-4.1-9" class="pilcrow">¶</a></p>
-<p id="section-4.1-10">Step 5:  The access control policies are maintained on relevant PEPs
-      under the controller's management.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
+<p id="section-4.1-10">Step 5:  Either group or IP/MAC address based access control policies
+      are maintained on relevant PEPs under the controller's management.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="endpoint-group">
@@ -1516,17 +1516,17 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
    data, time of day, or device certificate).  Users may be moved to
    different user-groups if their composite attributes, environment,
    and/or local enterprise policy change.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-2">A user is authenticated, and classified at the network ingress, and
+<p id="section-4.2.1-2">A user is authenticated, and classified at the AAA server, and
    assigned to a user-group.  A user's group membership may change as
    aspects of the user change.  For example, if the user-group
    membership is determined solely by the source IP address, then a
    given user's user-group ID will change when the user moves to a new
    IP address that falls outside of the range of addresses of the
    previous user-group.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-3">This document does not make any assumption about how groups are
+<p id="section-4.2.1-3">This document does not make any assumption about how user groups are
    defined.  Such considerations are deployment specific and are out of
-   scope.  However, and for illustration purposes, <a href="#ug-example" class="auto internal xref">Table 1</a> shows an
-   example of how user-group definitions may be characterized.  User-
+   scope.  However, and for illustration purposes, <a href="#ug-example" class="auto internal xref">Table 1</a> shows
+   an example of how user-group definitions may be characterized. User-
    groups may share several common criteria.  That is, user-group
    criteria are not mutually exclusive.  For example, the policy
    criteria of user-groups R&amp;D Regular and R&amp;D BYOD may share the same
@@ -1545,7 +1545,7 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
               <tr>
                 <th class="text-left" rowspan="1" colspan="1">Group Name</th>
                 <th class="text-left" rowspan="1" colspan="1">Group ID</th>
-                <th class="text-left" rowspan="1" colspan="1">Group Definition</th>
+                <th class="text-left" rowspan="1" colspan="1">Group Role</th>
               </tr>
             </thead>
             <tbody>
@@ -1569,21 +1569,6 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
                 <td class="text-left" rowspan="1" colspan="1">30</td>
                 <td class="text-left" rowspan="1" colspan="1">VIP employees</td>
               </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">Workflow</td>
-                <td class="text-left" rowspan="1" colspan="1">40</td>
-                <td class="text-left" rowspan="1" colspan="1">IP addresses of Workflow  resource servers</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">R&amp;D Resource</td>
-                <td class="text-left" rowspan="1" colspan="1">50</td>
-                <td class="text-left" rowspan="1" colspan="1">IP addresses of R&amp;D resource servers</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">Sales Resource</td>
-                <td class="text-left" rowspan="1" colspan="1">54</td>
-                <td class="text-left" rowspan="1" colspan="1">IP addresses of Sales resource servers</td>
-              </tr>
             </tbody>
           </table>
 </div>
@@ -1599,11 +1584,44 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
    could be an server that hosts applications or software that deliver
    services to enterprise users.  It could also be an enterprise IoT
    device that serve a limited purpose, e.g., a printer that allows
-   users to scan, print and send emails.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.2-2">Users accessing to enterprise device should be strictly controlled.
+   users to scan, print and send emails. <a href="#dg-example" class="auto internal xref">Table 2</a> shows an example
+   of how device-group definitions may be characterized.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+<span id="name-device-group-example"></span><div id="dg-example">
+<table class="center" id="table-2">
+            <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-device-group-example" class="selfRef">Device-Group Example</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Group Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Group ID</th>
+                <th class="text-left" rowspan="1" colspan="1">Group Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Workflow</td>
+                <td class="text-left" rowspan="1" colspan="1">40</td>
+                <td class="text-left" rowspan="1" colspan="1">Workflow  resource servers</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">R&amp;D Resource</td>
+                <td class="text-left" rowspan="1" colspan="1">50</td>
+                <td class="text-left" rowspan="1" colspan="1">R&amp;D resource servers</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Sales Resource</td>
+                <td class="text-left" rowspan="1" colspan="1">54</td>
+                <td class="text-left" rowspan="1" colspan="1">Sales resource servers</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+<p id="section-4.2.2-3">Users accessing to enterprise device should be strictly controlled.
    Matching abstract device group ID instead of specified addresses in
    ACL polices helps shield the consequences of address change (e.g.,
-   back-end Virtual Machine (VM)-based server migration).<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
+   back-end Virtual Machine (VM)-based server migration).<a href="#section-4.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1995,7 +2013,7 @@ module ietf-schedule {
 </div>
 </section>
 </div>
-<div id="the-ucl-extension-to-the-acl-model">
+<div id="sec-UCL">
 <section id="section-5.2">
         <h3 id="name-the-ucl-extension-to-the-ac">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-the-ucl-extension-to-the-ac" class="section-name selfRef">The UCL Extension to the ACL Model</a>
@@ -2451,9 +2469,9 @@ nodes and their sensitivity/vulnerability:
 <p id="section-9.2-1">This document requests IANA to assign a new RADIUS attribute types from the IANA
    registry "Radius Attribute Types" <span>[<a href="#RADIUS-Types" class="cite xref">RADIUS-Types</a>]</span>:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <span id="name-radius-attribute"></span><div id="rad-reg">
-<table class="center" id="table-2">
+<table class="center" id="table-3">
           <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#table-3" class="selfRef">Table 3</a>:
 <a href="#name-radius-attribute" class="selfRef">RADIUS Attribute</a>
           </caption>
 <thead>

@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 13 August 2023                                     M. Boucadair
+Expires: 14 August 2023                                     M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                         9 February 2023
+                                                        10 February 2023
 
 
                  A Policy-based Network Access Control
@@ -18,7 +18,7 @@ Expires: 13 August 2023                                     M. Boucadair
 Abstract
 
    This document defines a YANG module for policy-based network access
-   control, which provide consistent and efficient enforcement of
+   control, which provides consistent and efficient enforcement of
    network access control policies based on group identity.  In
    addition, this document defines a mechanism to ease the maintenance
    of the mapping between a user-group ID and a set of IP/MAC addresses
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 August 2023.
+   This Internet-Draft will expire on 14 August 2023.
 
 Copyright Notice
 
@@ -145,7 +145,7 @@ Table of Contents
    The document also defines a YANG module for policy-based Network
    Access Control ([NIST-ABAC]), which extends the IETF Access Control
    Lists (ACLs) module defined in [RFC8519].  This module defined in
-   [NIST-ABAC] is meant to ensure consistent enforcement of ACL policies
+   Section 5.2 is meant to ensure consistent enforcement of ACL policies
    based on group identity.  In addition, this document defines a
    mechanism to establish a mapping between the user-group ID and common
    IP packet headers and other enclosed packet data (e.g., MAC address)
@@ -174,9 +174,9 @@ Table of Contents
    The document uses the terms defined in [RFC8519].
 
    In the current version of the draft, the term "endpoint" refers also
-   to the host or end user that actually connect to a network.  Endpoint
-   device refers to servers, IoTs and other devices owned by the
-   enterprise.
+   to a host device or end user that actually connect to a network.
+   While host device here refers to servers, IoTs and other devices
+   owned by the enterprise.
 
 3.  Sample Usage
 
@@ -225,7 +225,7 @@ Table of Contents
       Enforcement Points) that need them.  A PDP is also known as
       "policy server" [RFC2753].
 
-      The SDN Controller may interacts with AAA server or NAS.
+      The SDN Controller may interact with AAA server or NAS.
 
    *  A Network Access Server (NAS) entity which handles authentication
       requests.  The NAS interacts with an AAA server to complete user
@@ -305,8 +305,8 @@ Table of Contents
    the mapping between the user-group ID and related common packet
    header attributes (e.g., IP/MAC address).
 
-   Step 5: The access control policies are maintained on relevant PEPs
-   under the controller's management.
+   Step 5: Either group or IP/MAC address based access control policies
+   are maintained on relevant PEPs under the controller's management.
 
 4.2.  Endpoint Group
 
@@ -319,7 +319,7 @@ Table of Contents
    different user-groups if their composite attributes, environment,
    and/or local enterprise policy change.
 
-   A user is authenticated, and classified at the network ingress, and
+   A user is authenticated, and classified at the AAA server, and
    assigned to a user-group.  A user's group membership may change as
    aspects of the user change.  For example, if the user-group
    membership is determined solely by the source IP address, then a
@@ -327,7 +327,7 @@ Table of Contents
    IP address that falls outside of the range of addresses of the
    previous user-group.
 
-   This document does not make any assumption about how groups are
+   This document does not make any assumption about how user groups are
    defined.  Such considerations are deployment specific and are out of
    scope.  However, and for illustration purposes, Table 1 shows an
    example of how user-group definitions may be characterized.  User-
@@ -340,26 +340,17 @@ Table of Contents
    groups depending on the time of day or the type of day (e.g.,
    weekdays versus weekends), etc.
 
-   +============+==========+===========================================+
-   | Group Name | Group ID | Group Definition                          |
-   +============+==========+===========================================+
-   | R&D        | 10       | R&D employees                             |
-   +------------+----------+-------------------------------------------+
-   | R&D BYOD   | 11       | Personal devices of R&D employees         |
-   +------------+----------+-------------------------------------------+
-   | Sales      | 20       | Sales employees                           |
-   +------------+----------+-------------------------------------------+
-   | VIP        | 30       | VIP employees                             |
-   +------------+----------+-------------------------------------------+
-   | Workflow   | 40       | IP addresses of Workflow resource         |
-   |            |          | servers                                   |
-   +------------+----------+-------------------------------------------+
-   | R&D        | 50       | IP addresses of R&D resource              |
-   | Resource   |          | servers                                   |
-   +------------+----------+-------------------------------------------+
-   | Sales      | 54       | IP addresses of Sales resource            |
-   | Resource   |          | servers                                   |
-   +------------+----------+-------------------------------------------+
+       +============+==========+===================================+
+       | Group Name | Group ID | Group Role                        |
+       +============+==========+===================================+
+       | R&D        | 10       | R&D employees                     |
+       +------------+----------+-----------------------------------+
+       | R&D BYOD   | 11       | Personal devices of R&D employees |
+       +------------+----------+-----------------------------------+
+       | Sales      | 20       | Sales employees                   |
+       +------------+----------+-----------------------------------+
+       | VIP        | 30       | VIP employees                     |
+       +------------+----------+-----------------------------------+
 
                         Table 1: User-Group Example
 
@@ -370,7 +361,20 @@ Table of Contents
    could be an server that hosts applications or software that deliver
    services to enterprise users.  It could also be an enterprise IoT
    device that serve a limited purpose, e.g., a printer that allows
-   users to scan, print and send emails.
+   users to scan, print and send emails.  Table 2 shows an example of
+   how device-group definitions may be characterized.
+
+         +================+==========+===========================+
+         | Group Name     | Group ID | Group Type                |
+         +================+==========+===========================+
+         | Workflow       | 40       | Workflow resource servers |
+         +----------------+----------+---------------------------+
+         | R&D Resource   | 50       | R&D resource servers      |
+         +----------------+----------+---------------------------+
+         | Sales Resource | 54       | Sales resource servers    |
+         +----------------+----------+---------------------------+
+
+                       Table 2: Device-Group Example
 
    Users accessing to enterprise device should be strictly controlled.
    Matching abstract device group ID instead of specified addresses in
@@ -1145,7 +1149,7 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
       | 241.TBA1 | User-Access-Group-ID | string    | This-Document |
       +----------+----------------------+-----------+---------------+
 
-                         Table 2: RADIUS Attribute
+                         Table 3: RADIUS Attribute
 
 10.  References
 
