@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 14 August 2023                                     M. Boucadair
+Expires: 17 August 2023                                     M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                        10 February 2023
+                                                        13 February 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 August 2023.
+   This Internet-Draft will expire on 17 August 2023.
 
 Copyright Notice
 
@@ -679,8 +679,8 @@ Table of Contents
            description
              "Specify a list of days of the week.";
            leaf direction {
-             when '(enum-value(../../freq) >= 6) and '
-                + '(enum-value(../../freq) = 7) and not(../../byyearweek)';
+             when '(enum-value(../../freq) >= 6) and ' +
+               '(enum-value(../../freq) = 7) and not(../../byyearweek)';
              type int32 {
                range "-53..-1|1..53";
              }
@@ -906,7 +906,8 @@ Table of Contents
              }
              case device-group {
                description
-                 "The static resources in a network, such as a specific application.";
+                 "The static resources in a network, such as a specific
+                  application.";
                container device-group {
                  description
                    "Defines the device-group container.";
@@ -924,7 +925,8 @@ Table of Contents
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
        description
-         "Add another choice to allow ace match based on endpoint group id.";
+         "Add another choice to allow ace match based on endpoint group
+          id.";
        container endpoint-group {
          if-feature "match-on-endpoint-group";
          description
@@ -934,7 +936,8 @@ Table of Contents
              "The source matched information.";
            leaf endpoint-group-id {
              type leafref {
-               path "../../../../../../endpoint-groups/endpoint-group/endpoint-group-id";
+               path "../../../../../../endpoint-groups/endpoint-group/"+
+                    "endpoint-group-id";
              }
              description
                "The matched source endpoint group ID.";
@@ -945,7 +948,8 @@ Table of Contents
              "The destination matched information.";
            leaf endpoint-group-id {
              type leafref {
-               path "../../../../../../endpoint-groups/endpoint-group/endpoint-group-id";
+               path "../../../../../../endpoint-groups/endpoint-group/"+
+                    "endpoint-group-id";
              }
              description
                "The matched destination endpoint group ID.";
