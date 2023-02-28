@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-26T01:16:18.145163+00:00",
+  "timestamp": "2023-02-28T01:09:39.473677+00:00",
   "repo": "boucadair/policy-based-network-acl",
   "labels": [
     {
@@ -67,5 +67,303 @@
       "comments": []
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOI7U4Jc5KzUI0",
+      "title": "optimize the YANG modules",
+      "url": "https://github.com/boucadair/policy-based-network-acl/pull/2",
+      "state": "OPEN",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-27T07:09:56Z",
+      "updatedAt": "2023-02-27T14:31:29Z",
+      "baseRepository": "boucadair/policy-based-network-acl",
+      "baseRefName": "main",
+      "baseRefOid": "5420a69170eff3f25be7bfbf8ff2c8fa4005d55f",
+      "headRepository": "QiufangMa/policy-based-network-acl",
+      "headRefName": "main",
+      "headRefOid": "5bd6c4fce677f1032995a3c7f202a95d37100126",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI7U4Jc5OYrin",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T08:23:59Z",
+          "updatedAt": "2023-02-27T08:29:51Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\n     module complies with Sections 3.3.9 and 3.3.10 in RFC5545. \r\n```",
+              "createdAt": "2023-02-27T08:24:00Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "Shouldn't this be schedule rather that calendar?",
+              "createdAt": "2023-02-27T08:24:53Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "Why nvo3 specifically?",
+              "createdAt": "2023-02-27T08:26:09Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "\"abstract group identities\" is too abstract, IMO. ",
+              "createdAt": "2023-02-27T08:28:14Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "which list?",
+              "createdAt": "2023-02-27T08:28:23Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "Idem as for the comment related to IPv4.",
+              "createdAt": "2023-02-27T08:28:46Z",
+              "updatedAt": "2023-02-27T08:29:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZvXw",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:10:50Z",
+          "updatedAt": "2023-02-27T11:10:50Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "fixed.",
+              "createdAt": "2023-02-27T11:10:50Z",
+              "updatedAt": "2023-02-27T11:10:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZyOx",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:18:50Z",
+          "updatedAt": "2023-02-27T11:18:50Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Yes, we are defining a schedule module, but it came from the icalendar(which is the title of RFC5545) data value type definition. So I am still using iCalendar concept here but use the 'schedule' elsewhere. Make sense?",
+              "createdAt": "2023-02-27T11:18:50Z",
+              "updatedAt": "2023-02-27T11:18:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZyr9",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:20:01Z",
+          "updatedAt": "2023-02-27T11:20:02Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "how about this: s/NVO3 header extension/packet header extension/?",
+              "createdAt": "2023-02-27T11:20:01Z",
+              "updatedAt": "2023-02-27T11:20:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZzF7",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:21:10Z",
+          "updatedAt": "2023-02-27T11:21:11Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "how about this: s/abstract group identities/endpoint group identities/?",
+              "createdAt": "2023-02-27T11:21:10Z",
+              "updatedAt": "2023-02-27T11:21:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZzxH",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:23:01Z",
+          "updatedAt": "2023-02-27T11:23:02Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "It follows RFC8519. Or how about this: s/in the list/in the ACL entries/?",
+              "createdAt": "2023-02-27T11:23:01Z",
+              "updatedAt": "2023-02-27T11:23:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OZz71",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T11:23:28Z",
+          "updatedAt": "2023-02-27T11:23:29Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "See comments above.",
+              "createdAt": "2023-02-27T11:23:29Z",
+              "updatedAt": "2023-02-27T11:23:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Oa_Xh",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T14:26:08Z",
+          "updatedAt": "2023-02-27T14:26:08Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "OK, thanks.",
+              "createdAt": "2023-02-27T14:26:08Z",
+              "updatedAt": "2023-02-27T14:26:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5ObAmc",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T14:28:41Z",
+          "updatedAt": "2023-02-27T14:28:42Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "If the intent is to cover encap schemes, e.g., outer/inner headers, then I would make make that explicit. Thanks.",
+              "createdAt": "2023-02-27T14:28:42Z",
+              "updatedAt": "2023-02-27T14:28:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5ObBeA",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T14:30:26Z",
+          "updatedAt": "2023-02-27T14:30:26Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "That is better, but still the description should be updated to call out what is meant by \"endpoint group identities\"; otherwise it is not that easy for readers to get the intent. Thanks.",
+              "createdAt": "2023-02-27T14:30:26Z",
+              "updatedAt": "2023-02-27T14:30:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5ObB2b",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T14:31:15Z",
+          "updatedAt": "2023-02-27T14:31:16Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "I would then change to \"ACEs\".",
+              "createdAt": "2023-02-27T14:31:15Z",
+              "updatedAt": "2023-02-27T14:31:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5ObB8h",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-27T14:31:28Z",
+          "updatedAt": "2023-02-27T14:31:29Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Same replies ;-)",
+              "createdAt": "2023-02-27T14:31:28Z",
+              "updatedAt": "2023-02-27T14:31:29Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
