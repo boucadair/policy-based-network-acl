@@ -31,7 +31,7 @@
 <meta content="draft-ma-opsawg-ucl-acl-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.16.0
-    Python 3.10.9
+    Python 3.10.10
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -376,7 +376,7 @@ ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 100%;
+  line-height: 1;
   margin: 0 0 0 2em;
 }
 
@@ -386,9 +386,12 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
+  margin-right: 2ch;
   min-width: 8ch;
 }
 dl.dlNewline > dt {
@@ -398,6 +401,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -598,10 +604,14 @@ hr {
 .bcp14 {
   font-variant: small-caps;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--small-font-size);
 }
 .role {
   font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
 }
 
 /* info block */
@@ -1058,7 +1068,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 17 August 2023</td>
+<td class="center">Expires 1 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1081,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ma-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-13" class="published">13 February 2023</time>
+<time datetime="2023-02-28" class="published">28 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-17">17 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-01">1 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1144,7 +1154,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1657,7 +1667,7 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 <pre>
 module: ietf-schedule
 
-  grouping period
+  grouping period:
     +-- period-of-time
        +-- (forms)?
           +--:(period-explicit)
@@ -1666,10 +1676,10 @@ module: ietf-schedule
           +--:(period-start)
              +-- start?            yang:date-and-time
              +-- duration?         yang:time-no-zone
-  grouping recurrence
+  grouping recurrence:
     +-- recurrence
        +-- freq           enumeration
-       +-- (until-or-count)?
+       +-- (recurrence-bound)?
        |  +--:(until)
        |  |  +-- until?   union
        |  +--:(count)
@@ -1722,8 +1732,12 @@ module ietf-schedule {
     "WG Web: &lt;https://datatracker.ietf.org/wg/opsawg/&gt;
      WG List: &lt;mailto:opsawg@ietf.org&gt;";
   description
-    "This YANG module defines two properties of an iSchedule
-     object:period of time and recurrence rule.
+    "This YANG module defines two groupings for iCalendar (Internet
+     Calendaring and Scheduling Core Object Specification) data
+     types:period of time and recurrence rule, for representing and
+     exchanging calendaring and scheduling information. The YANG
+     module complies with sections 3.3.9 and 3.3.10 in RFC 5545.
+     Future extensions may define more as needed.
 
      Copyright (c) 2023 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
@@ -1749,30 +1763,37 @@ module ietf-schedule {
   typedef weekday {
     type enumeration {
       enum sunday {
+        value 0;
         description
           "Sunday of the week.";
       }
       enum monday {
+        value 1;
         description
           "Monday of the week.";
       }
       enum tuesday {
+        value 2;
         description
           "Tuesday of the week.";
       }
       enum wednesday {
+        value 3;
         description
           "Wednesday of the week.";
       }
       enum thursday {
+        value 4;
         description
           "Thursday of the week.";
       }
       enum friday {
+        value 5;
         description
           "Friday of the week.";
       }
       enum saturday {
+        value 6;
         description
           "Saturday of the week.";
       }
@@ -1784,6 +1805,9 @@ module ietf-schedule {
   grouping period {
     description
       "This grouping is defined for period of time property.";
+    reference
+      "RFC 5545: Internet Calendaring and Scheduling Core Object
+       Specification (iCalendar)";
     container period-of-time {
       description
         "This container is defined to identify period values that
@@ -1829,6 +1853,9 @@ module ietf-schedule {
     description
       "This grouping is defined to identify properties that
        contain a recurrence rule specification";
+    reference
+      "RFC 5545: Internet Calendaring and Scheduling Core Object
+       Specification (iCalendar)";
     container recurrence {
       description
         "Recurrence rule definition.";
@@ -1882,13 +1909,15 @@ module ietf-schedule {
           "This parameter is defined to identify the type of
            recurrence rule.";
       }
-      choice until-or-count {
+      choice recurrence-bound {
         description
-          "Modes to bound the recurrence rule.";
+          "Modes to bound the recurrence rule. If no choice is
+           indicated, the recurrence rule is considered to repeat
+           forever.";
         case until {
           description
             "This case defines a way that bounds the recurrence
-             rule in a inclusive manner.";
+             rule in an inclusive manner.";
           leaf until {
             type union {
               type yang:date-no-zone;
@@ -1896,7 +1925,9 @@ module ietf-schedule {
             }
             description
               "This parameter specifies a date-no-zone or
-               date-time value to bounds the recurrence.";
+               date-time value to bounds the recurrence. The
+               specified value becomes the last instance of the
+               recurrence.";
           }
         }
         case count {
@@ -1916,7 +1947,12 @@ module ietf-schedule {
         default "1";
         description
           "A positive integer representing at which intervals the
-           recurrence rule repeats.";
+           recurrence rule repeats. The default value is '1',
+           meaning every second for a secondly rule, every minute
+           for a minutely rule, every hour for an hourly rule, every
+           day for a daily rule, every week for a weekly rule, every
+           month for a monthly rule, and every year for a yearly
+           rule.";
       }
       leaf-list bysecond {
         type uint32 {
@@ -2007,6 +2043,7 @@ module ietf-schedule {
   }
 }
 
+
 &lt;CODE ENDS&gt;</pre><a href="#section-5.1.2-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2029,10 +2066,11 @@ module ietf-schedule {
             <div class="alignCenter art-text artwork" id="section-5.2.1-2.1">
 <pre>
 module: ietf-ucl-acl
+
   augment /acl:acls/acl:acl:
     +--rw endpoint-groups
-       +--rw endpoint-group* [endpoint-group-id]
-          +--rw endpoint-group-id     uint32
+       +--rw endpoint-group* [group-id]
+          +--rw group-id              uint32
           +--rw (group-type)?
              +--:(user-group)
              |  +--rw user-group
@@ -2041,18 +2079,16 @@ module: ietf-ucl-acl
                 +--rw device-group
                    +--rw device-type?   string
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
-    +--rw endpoint-group {match-on-endpoint-group}?
-       +--rw source-match
-       |  +--rw endpoint-group-id?   leafref
-       +--rw destination-match
-          +--rw endpoint-group-id?   leafref
+    +--rw endpoint-group {match-on-group}?
+       +--rw source-group-id?        leafref
+       +--rw destination-group-id?   leafref
   augment /acl:acls/acl:acl/acl:aces/acl:ace:
-    +--rw time-range {match-on-time}?
+    +--rw time-range {time-condition}?
        +--rw (time-range-type)?
           +--:(periodic-range)
           |  +--rw recurrence
           |     +--rw freq           enumeration
-          |     +--rw (until-or-count)?
+          |     +--rw (recurrence-bound)?
           |     |  +--:(until)
           |     |  |  +--rw until?   union
           |     |  +--:(count)
@@ -2123,7 +2159,9 @@ module ietf-ucl-acl {
     "WG Web: &lt;https://datatracker.ietf.org/wg/opsawg/&gt;
      WG List: &lt;mailto:opsawg@ietf.org&gt;";
   description
-    "This YANG module defines XXX.
+    "This YANG module augments the IETF access control lists(ACLs)
+     module and is meant to ensure consistent enforcement of ACL
+     policies based on the group identity.
 
      Copyright (c) 2023 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
@@ -2146,14 +2184,81 @@ module ietf-ucl-acl {
       "RFC XXXX: A Policy-based Network Access Control";
   }
 
-  feature match-on-endpoint-group {
+  identity group-acl-type {
+    if-feature "group";
+    base acl:acl-base;
+    description
+      "An ACL that matches based on an endpoint group identity,
+       which can represent the collective identity of a group of
+       authenticated users or enterprise end devices. An endpoint
+       group identity may be carried in the outer/inner packet
+       header(e.g., via NVO3 encapsulation), but may not correspond
+       to any field in the packet header.";
+  }
+  identity mixed-ipv4-group-type {
+    if-feature "mixed-ipv4-group";
+    base acl:ipv4-acl-type;
+    base uacl:group-acl-type;
+    description
+      "An ACL that contains a mix of entries that match on fields
+       in IPv4 headers and endpoint group identities, which can
+       represent the collective identity of a group of authenticated
+       users or enterprise end devices. Matching on Layer 4 header
+       fields may also exist in the ACEs.";
+  }
+  identity mixed-ipv6-group-type {
+    if-feature "mixed-ipv6-group";
+    base acl:ipv6-acl-type;
+    base uacl:group-acl-type;
+    description
+      "An ACL that contains a mix of entries that match on fields
+       in IPv6 headers and endpoint group identities, which can
+       represent the collective identity of a group of authenticated
+       users or enterprise end devices. Matching on Layer 4 header
+       fields may also exist in the ACEs.";
+  }
+  identity mixed-ipv4-ipv6-group-type {
+    if-feature "mixed-ipv4-ipv6-group";
+    base acl:ipv4-acl-type;
+    base acl:ipv6-acl-type;
+    base uacl:group-acl-type;
+    description
+      "An ACL that contains a mix of entries that match on fields
+       in IPv4 headers, IPv6 headers and endpoint group identities,
+       which can represent the collective identity of a group of
+       authenticated users or enterprise end devices. Matching on
+       Layer 4 header fields may also exist in the ACEs.";
+  }
+  feature match-on-group {
     description
       "The device can support matching on endpoint groups.";
   }
-
-  feature match-on-time {
+  feature group {
+    if-feature "uacl:match-on-group";
     description
-      "The device can support a time-based condition match.";
+      "Plain group ACL supported.";
+  }
+  feature mixed-ipv4-group {
+    if-feature "acl:match-on-ipv4 and uacl:match-on-group";
+    description
+      "IPv4 and group ACL combinations supported.";
+  }
+  feature mixed-ipv6-group {
+    if-feature "acl:match-on-ipv6 and uacl:match-on-group";
+    description
+      "IPv6 and group ACL combinations supported.";
+  }
+  feature mixed-ipv4-ipv6-group {
+    if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and " + "
+                uacl:match-on-group";
+    description
+      "IPv4, IPv6 and group ACL combinations supported.";
+  }
+
+  feature time-condition {
+    description
+      "The device can support a time condition based ACL policy
+       enforcement.";
   }
 
   augment "/acl:acls/acl:acl" {
@@ -2163,10 +2268,10 @@ module ietf-ucl-acl {
       description
         "Container definition for the endpoint group.";
       list endpoint-group {
-        key "endpoint-group-id";
+        key "group-id";
         description
           "Definition of the endpoint group list.";
-        leaf endpoint-group-id {
+        leaf group-id {
           type uint32 {
             range "0..4294967294";
           }
@@ -2214,38 +2319,32 @@ module ietf-ucl-acl {
       "Add another choice to allow ace match based on endpoint group
        id.";
     container endpoint-group {
-      if-feature "match-on-endpoint-group";
+      when "derived-from-or-self(/acl:acls/acl:acl/acl:type, "
+         + "'uacl:group-acl-type')";
+      if-feature "match-on-group";
       description
         "Add new match types.";
-      container source-match {
-        description
-          "The source matched information.";
-        leaf endpoint-group-id {
-          type leafref {
-            path "../../../../../../endpoint-groups/endpoint-group/"+
-                 "endpoint-group-id";
-          }
-          description
-            "The matched source endpoint group ID.";
+      leaf source-group-id {
+        type leafref {
+          path "../../../../../endpoint-groups/endpoint-group/"+
+               "group-id";
         }
+        description
+          "The matched source endpoint group ID.";
       }
-      container destination-match {
-        description
-          "The destination matched information.";
-        leaf endpoint-group-id {
-          type leafref {
-            path "../../../../../../endpoint-groups/endpoint-group/"+
-                 "endpoint-group-id";
-          }
-          description
-            "The matched destination endpoint group ID.";
+      leaf destination-group-id {
+        type leafref {
+          path "../../../../../endpoint-groups/endpoint-group/"+
+               "group-id";
         }
+        description
+          "The matched destination endpoint group ID.";
       }
     }
   }
 
   augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
-    if-feature "match-on-time";
+    if-feature "time-condition";
     description
       "Add a new parameter to the Access Control Entry (ACE).";
     container time-range {
@@ -2272,6 +2371,7 @@ module ietf-ucl-acl {
     }
   }
 }
+
 
 &lt;CODE ENDS&gt;</pre><a href="#section-5.2.2-2" class="pilcrow">¶</a>
 </div>
