@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 September 2023                                   M. Boucadair
+Expires: 3 September 2023                                   M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                        28 February 2023
+                                                            2 March 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2023.
+   This Internet-Draft will expire on 3 September 2023.
 
 Copyright Notice
 
@@ -103,7 +103,11 @@ Table of Contents
    10. References
      10.1.  Normative References
      10.2.  Informative References
-   Appendix A.  Changes between Revisions
+   Appendix A.  Example Usage
+     A.1.  Configuring the Controller Using Group based ACL
+     A.2.  Configuring the PEP Using Group based ACL
+     A.3.  Configuring the PEP Using Address based ACL
+   Appendix B.  Changes between Revisions
    Acknowledgments
    Authors' Addresses
 
@@ -143,13 +147,13 @@ Table of Contents
    condition.  This model can be used in other scheduling contexts.
 
    The document also defines a YANG module for policy-based Network
-   Access Control ([NIST-ABAC]), which extends the IETF Access Control
-   Lists (ACLs) module defined in [RFC8519].  This module defined in
-   Section 5.2 is meant to ensure consistent enforcement of ACL policies
-   based on group identity.  In addition, this document defines a
-   mechanism to establish a mapping between the user-group ID and common
-   IP packet headers and other enclosed packet data (e.g., MAC address)
-   to execute the policy-based access control.
+   Access Control, which extends the IETF Access Control Lists (ACLs)
+   module defined in [RFC8519].  This module defined in Section 5.2 is
+   meant to ensure consistent enforcement of ACL policies based on the
+   group identity.  In addition, this document defines a mechanism to
+   establish a mapping between the user-group ID and common IP packet
+   headers and other enclosed packet data (e.g., MAC address) to execute
+   the policy-based access control.
 
    Last, the document defines a RADIUS attribute that is used to
    communicate the user group identifier as part of identification and
@@ -180,10 +184,10 @@ Table of Contents
 
 3.  Sample Usage
 
-   Access to some networks (e.g., Enterprise Networks) require to
+   Access to some networks (e.g., Enterprise Networks) requires to
    recognize the users' identities no matter how, where, and when they
    connect to the network resources.  Then, the network maps the
-   (conencting) users to their access authorization rights.  Such rights
+   (connecting) users to their access authorization rights.  Such rights
    are defined following local policies.  As discussed in the
    introduction, because there is a large number of users and the source
    IP addresses of the same user are in different network segments,
@@ -215,7 +219,7 @@ Table of Contents
 
    *  A Service Orchestrator which coordinates the overall service,
       including security policies.  The service may be connectivity or
-      any other resources that can be hosted and offerd by a newtork.
+      any other resources that can be hosted and offered by a network.
 
    *  The SDN Controller is responsible for maintaining endpoint-group
       based ACLs and mapping the endpoint-group to the associated
@@ -225,15 +229,24 @@ Table of Contents
       Enforcement Points) that need them.  A PDP is also known as
       "policy server" [RFC2753].
 
-      The SDN Controller may interact with AAA server or NAS.
+      The SDN Controller may interact with AAA (Authentication,
+      Authorization and Accounting) server or NAS.
 
    *  A Network Access Server (NAS) entity which handles authentication
       requests.  The NAS interacts with an AAA server to complete user
-      authentication using Remote Authentication Dial-in User Service
-      (RADIUS) [RFC2865].  When access is granted, the AAA server
-      provides the group identifier (group ID) to which the user belongs
-      when the user first logs onto the network.  A new attribute is
-      defined in Section 6.
+      authentication using protocols like Remote Authentication Dial-in
+      User Service (RADIUS) [RFC2865].  When access is granted, the AAA
+      server provides the group identifier (group ID) to which the user
+      belongs when the user first logs onto the network.  A new
+      attribute is defined in Section 6.
+
+   *  The AAA server provides a collection of authentication,
+      authorization and accounting functions and is responsible for
+      centralized user information management.  The AAA server is
+      preconfigured with user credentials (e.g., user name and
+      password), possible group identities and related user attributes
+      (users may be divided into different groups based on different
+      user attributes).
 
    *  The Policy Enforcement Point (PEP) [RFC3198] is the central entity
       which is responsible for enforcing appropriate access control
@@ -283,22 +296,23 @@ Table of Contents
 
    Step 1: Administrators (or the Orchestrator) configure an SDN
    controller with network-level ACLs using the YANG module defined in
-   Section 5.2.
+   Section 5.2.  An example of this is provided in Appendix A.1.
 
    Step 2: When a user first logs onto the network, the user is required
    to be authenticated (e.g., using user name and password) at the NAS.
 
    Step 3: The authentication request is then relayed to the AAA server
-   using RADIUS [RFC2865].  It is assumed that the AAA server has been
-   appropriately configured to store user credentials, e.g., user name,
-   password, group information and other user attributes.  If the
-   authentication request succeeds, the user is placed in a user-group
-   which is returned to the network access server as the authentication
-   result (see Section 6).  If the authentication fails, the user is not
-   assigned a user- group, which also means that the user has no or
-   limited access permissions for the network (as a fucntion of the
-   local policy).  ACLs are enforced so that flows from that IP address
-   are discarded (or rate-limited) by the network.  In some
+   using protocols like RADIUS [RFC2865].  It is assumed that the AAA
+   server has been appropriately configured to store user credentials,
+   e.g., user name, password, group information and other user
+   attributes.  If the authentication request succeeds, the user is
+   placed in a user-group which is returned to the network access server
+   as the authentication result (see Section 6).  If the authentication
+   fails, the user is not assigned any user- group, which also means
+   that the user has no access; or the user is assigned a special group
+   with very limited access permissions for the network (as a function
+   of the local policy).  ACLs are enforced so that flows from that IP
+   address are discarded (or rate-limited) by the network.  In some
    implementations, AAA server can be integrated with an SDN controller.
 
    Step 4: Either the AAA server or the NAS notify the SDN controller
@@ -307,6 +321,9 @@ Table of Contents
 
    Step 5: Either group or IP/MAC address based access control policies
    are maintained on relevant PEPs under the controller's management.
+   Whether the PEP enforces the group or IP/MAC address based ACL is
+   implementation specific.  Either type of ACL policies may exist on
+   the PEP.  Appendix A.2 and Appendix A.3 elaborate on each case.
 
 4.2.  Endpoint Group
 
@@ -408,7 +425,7 @@ Table of Contents
                      |  +-- explicit-end?     yang:date-and-time
                      +--:(period-start)
                         +-- start?            yang:date-and-time
-                        +-- duration?         yang:time-no-zone
+                        +-- duration?         duration
              grouping recurrence:
                +-- recurrence
                   +-- freq           enumeration
@@ -422,7 +439,7 @@ Table of Contents
                   +-- byminute*      uint32
                   +-- byhour*        uint32
                   +-- byday* [weekday]
-                  |  +-- direction?   int32
+                  |  +-- direction*   int32
                   |  +-- weekday?     schedule:weekday
                   +-- bymonthday*    int32
                   +-- byyearday*     int32
@@ -527,6 +544,24 @@ Table of Contents
          "Seven days of the week.";
      }
 
+     typedef duration {
+       type string {
+         pattern '((\+)?|\-)P((([0-9]+)D)?(T(0[0-9]|1[0-9]|2[0-3])'
+               + ':[0-5][0-9]:[0-5][0-9]))|P([0-9]+)W';
+       }
+       description
+         "Duration of the time. The format can represent nominal
+          durations (weeks and days) and accurate durations (hours,
+          minutes, and seconds). Note that this value type doesn't
+          support the 'Y' and 'M' designators to specify durations in
+          terms of years and months. Negative durations are typically
+          used to schedule an alarm to trigger before an associated time.";
+       reference
+         "RFC 5545: Internet Calendaring and Scheduling Core Object
+          Specification (iCalendar)";
+
+     }
+
      grouping period {
        description
          "This grouping is defined for period of time property.";
@@ -565,9 +600,12 @@ Table of Contents
                  "Period start time.";
              }
              leaf duration {
-               type yang:time-no-zone;
+               type duration {
+                 pattern 'P((([0-9]+)D)?(T(0[0-9]|1[0-9]|2[0-3])'
+                       + ':[0-5][0-9]:[0-5][0-9]))|P([0-9]+)W';
+               }
                description
-                 "Duration of the time.";
+                 "A positive duration of the time.";
              }
            }
          }
@@ -704,15 +742,18 @@ Table of Contents
            key "weekday";
            description
              "Specify a list of days of the week.";
-           leaf direction {
-             when '(enum-value(../../freq) >= 6) and ' +
+           leaf-list direction {
+             when '(enum-value(../../freq) = 6) or ' +
                '(enum-value(../../freq) = 7) and not(../../byyearweek)';
              type int32 {
                range "-53..-1|1..53";
              }
              description
                "When specified, it indicates the nth occurrence of a
-                specific day within the MONTHLY or YEARLY 'RRULE'.";
+                specific day within the MONTHLY or YEARLY 'RRULE'. For
+                example, within a MONTHLY rule, +1 monday represents the
+                first monday within the month, whereas -1 monday
+                represents the last monday of the month.";
            }
            leaf weekday {
              type schedule:weekday;
@@ -720,6 +761,7 @@ Table of Contents
                "Corresponding to seven days of the week.";
            }
          }
+
          leaf-list bymonthday {
            type int32 {
              range "-31..-1|1..31";
@@ -756,7 +798,8 @@ Table of Contents
            description
              "Specifies a list of values that corresponds to the nth
               occurrence within the set of recurrence instances
-              specified by the rule.";
+              specified by the rule. It must only be used in conjunction
+              with another byXXX rule part.";
          }
          leaf-list wkst {
            type schedule:weekday;
@@ -808,7 +851,7 @@ Table of Contents
                |     +--rw byminute*      uint32
                |     +--rw byhour*        uint32
                |     +--rw byday* [weekday]
-               |     |  +--rw direction?   int32
+               |     |  +--rw direction*   int32
                |     |  +--rw weekday      schedule:weekday
                |     +--rw bymonthday*    int32
                |     +--rw byyearday*     int32
@@ -816,6 +859,7 @@ Table of Contents
                |     +--rw byyearmonth*   uint32
                |     +--rw bysetpos*      int32
                |     +--rw wkst*          schedule:weekday
+               |     +--rw duration?      schedule:duration
                +--:(absolute-range)
                   +--rw period-of-time
                      +--rw (forms)?
@@ -824,7 +868,7 @@ Table of Contents
                         |  +--rw explicit-end?     yang:date-and-time
                         +--:(period-start)
                            +--rw start?            yang:date-and-time
-                           +--rw duration?         yang:time-no-zone
+                           +--rw duration?         duration
 
                           Figure 3: UCL Extension
 
@@ -1063,7 +1107,22 @@ Table of Contents
            case periodic-range {
              description
                "A periodic range of time to take effect.";
-             uses schedule:recurrence;
+             uses schedule:recurrence {
+               augment recurrence {
+                 description
+                   "Add a parameter to specify the duration of each
+                    recurrence trigger.";
+                 leaf duration {
+                   type schedule:duration {
+                     pattern '((\+)?|\-)PT(0[0-9]|1[0-9]|2[0-3]):'
+                           + '[0-5][0-9]:[0-5][0-9]';
+                   }
+                   description
+                     "A duration of time in terms of days when policies
+                      are activated in each occurrence.";
+                 }
+               }
+             }
            }
            case absolute-range {
              description
@@ -1337,6 +1396,13 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
               October 2022, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nvo3-encap-09>.
 
+   [I-D.smith-vxlan-group-policy]
+              Smith, M. and L. Kreeger, "VXLAN Group Policy Option",
+              Work in Progress, Internet-Draft, draft-smith-vxlan-group-
+              policy-05, 22 October 2018,
+              <https://datatracker.ietf.org/doc/html/draft-smith-vxlan-
+              group-policy-05>.
+
    [I-D.yizhou-anima-ip-to-access-control-groups]
               Li, Y., Shen, L., and Y. Zhou, "Autonomic IP Address To
               Access Control Group ID Mapping", Work in Progress,
@@ -1397,10 +1463,221 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8340>.
 
-Appendix A.  Changes between Revisions
+Appendix A.  Example Usage
 
-   v00 - v01 * Define a common schedule yang module and reuse in UCL
-   yang module to support time/date-based activation condition.
+A.1.  Configuring the Controller Using Group based ACL
+
+   Let's consider an organization that would like to restrict the access
+   of R&D employees that bring personally owned devices (BYOD) into the
+   workplace.
+
+   The access requirements are as follows:
+
+   *  Permit traffic from R&D BYOD of employees, destined to R&D
+      employees' devices.
+
+   *  Deny traffic from R&D BYOD of employees, destined to finance
+      servers located in the enterprise DC network.
+
+   The following example illustrates the configuration of the SDN
+   controller using the group-based ACL:
+
+   <?xml version="1.0" encoding="utf-8"?>
+
+   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
+         xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+     <acl>
+       <name>sample-group-acl</name>
+       <type>uacl:group-acl-type</type>
+       <endpoint-groups
+         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+         <endpoint-group>
+           <group-id>20</group-id>
+           <user-group>
+             <role>R&amp;D</role>
+           </user-group>
+         </endpoint-group>
+         <endpoint-group>
+           <group-id>22</group-id>
+           <user-group>
+             <role>R&amp;D BYOD</role>
+           </user-group>
+         </endpoint-group>
+         <endpoint-group>
+           <group-id>50</group-id>
+           <device-group>
+             <device-type>finance server</device-type>
+           </device-group>
+         </endpoint-group>
+       </endpoint-groups>
+       <aces>
+         <ace>
+           <name>rule1</name>
+           <matches>
+             <endpoint-group
+               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+               <source-group-id>22</source-group-id>
+               <destination-group-id>20</destination-group-id>
+             </endpoint-group>
+           </matches>
+           <actions>
+             <forwarding>accept</forwarding>
+           </actions>
+         </ace>
+         <ace>
+           <name>rule2</name>
+           <matches>
+             <endpoint-group
+               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+               <source-group-id>22</source-group-id>
+               <destination-group-id>50</destination-group-id>
+             </endpoint-group>
+           </matches>
+           <actions>
+             <forwarding>reject</forwarding>
+           </actions>
+         </ace>
+       </aces>
+     </acl>
+   </acls>
+
+A.2.  Configuring the PEP Using Group based ACL
+
+   This section illustrates an example to configure a PEP using the
+   group-based ACL.
+
+   The PEP which enforces group-based ACL may acquire group identities
+   from the AAA server if working as a NAS authenticating both the
+   source endpoint and the destination endpoint users.  Another case for
+   a PEP enforcing a group-based ACL is to obtain the group identity of
+   the source endpoint directly from the packet field
+   [I-D.smith-vxlan-group-policy].  This does not intend to be
+   exhaustive.
+
+   Assume the mapping between device group ID and IP addresses is
+   predefined or acquired via device authentication.  The following
+   example shows ACL configurations delivered from the controller to the
+   PEP.  This example is consistent with the example presented in
+   Appendix A.1.
+
+   <?xml version="1.0" encoding="utf-8"?>
+
+   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
+         xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+     <acl>
+       <name>sample-group-acl</name>
+       <type>uacl:mixed-ipv4-group-type</type>
+       <endpoint-groups
+         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+         <endpoint-group>
+           <group-id>20</group-id>
+           <user-group>
+             <role>R&amp;D</role>
+           </user-group>
+         </endpoint-group>
+         <endpoint-group>
+           <group-id>22</group-id>
+           <user-group>
+             <role>R&amp;D BYOD</role>
+           </user-group>
+         </endpoint-group>
+       </endpoint-groups>
+       <aces>
+         <ace>
+           <name>rule1</name>
+           <matches>
+             <endpoint-group
+               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+               <source-group-id>22</source-group-id>
+               <destination-group-id>20</destination-group-id>
+             </endpoint-group>
+           </matches>
+           <actions>
+             <forwarding>accept</forwarding>
+           </actions>
+         </ace>
+         <ace>
+           <name>rule2</name>
+           <matches>
+             <endpoint-group
+               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+               <source-group-id>22</source-group-id>
+             </endpoint-group>
+             <ipv4>
+               <destination-ipv4-network>10.1.1.0/24</destination\
+   -ipv4-network>
+             </ipv4>
+           </matches>
+           <actions>
+             <forwarding>reject</forwarding>
+           </actions>
+         </ace>
+       </aces>
+     </acl>
+   </acls>
+
+A.3.  Configuring the PEP Using Address based ACL
+
+   The section illustrates an example of configuring a PEP using IP
+   address based ACL.  IP address based access control policies could be
+   applied to the PEP that may not understand the group information,
+   e.g., firewall.
+
+   Assume an employee in the R&D department accesses the network
+   wirelessly from a non-corporate laptop using IP address 192.168.1.10.
+   The SDN controller associates the user group to which the employee
+   belongs with the user address according to step 1 to 4 in
+   Section 4.1.
+
+   Assume the mapping between device group ID and IP addresses is
+   predefined or acquired via device authentication.  The following
+   example shows IPv4 address based ACL configurations delivered from
+   the controller to the PEP.  This example is consistent with the
+   example presented in Appendix A.1.
+
+   <?xml version="1.0" encoding="utf-8"?>
+
+   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list">
+     <acl>
+       <name>sample-group-acl</name>
+       <type>ipv4-acl-type</type>
+       <aces>
+         <ace>
+           <name>rule1</name>
+           <matches>
+             <ipv4>
+               <destination-ipv4-network>192.168.2.1/24</destination\
+   -ipv4-network>
+               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
+             </ipv4>
+           </matches>
+           <actions>
+             <forwarding>accept</forwarding>
+           </actions>
+         </ace>
+         <ace>
+           <name>rule2</name>
+           <matches>
+             <ipv4>
+               <destination-ipv4-network>10.1.1.0/24</destination\
+   -ipv4-network>
+               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
+             </ipv4>
+           </matches>
+           <actions>
+             <forwarding>reject</forwarding>
+           </actions>
+         </ace>
+       </aces>
+     </acl>
+   </acls>
+
+Appendix B.  Changes between Revisions
+
+   v00 - v01
+
+   *  Define a common schedule yang module and reuse in UCL yang module
+      to support time/date-based activation condition.
 
    *  Either group-based or address-based ACL policies could be enforced
       at PEP, and allow group-based ACL policies maintained at the
