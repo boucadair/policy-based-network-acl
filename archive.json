@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-28T01:09:39.473677+00:00",
+  "timestamp": "2023-03-02T01:14:34.041225+00:00",
   "repo": "boucadair/policy-based-network-acl",
   "labels": [
     {
@@ -58,11 +58,31 @@
       "state": "OPEN",
       "author": "boucadair",
       "authorAssociation": "OWNER",
-      "assignees": [],
+      "assignees": [
+        "QiufangMa"
+      ],
       "labels": [],
       "body": "",
       "createdAt": "2023-02-22T14:33:31Z",
-      "updatedAt": "2023-02-22T14:33:31Z",
+      "updatedAt": "2023-02-28T16:41:08Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOI7U4Jc5fjFIl",
+      "title": "Perform editorial review of main text. ",
+      "url": "https://github.com/boucadair/policy-based-network-acl/issues/4",
+      "state": "OPEN",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "danielkinguk"
+      ],
+      "labels": [],
+      "body": "Will clean up grammar and some typos. ",
+      "createdAt": "2023-02-28T13:02:57Z",
+      "updatedAt": "2023-02-28T13:02:58Z",
       "closedAt": null,
       "comments": []
     }
@@ -73,24 +93,26 @@
       "id": "PR_kwDOI7U4Jc5KzUI0",
       "title": "optimize the YANG modules",
       "url": "https://github.com/boucadair/policy-based-network-acl/pull/2",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "QiufangMa",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-02-27T07:09:56Z",
-      "updatedAt": "2023-02-27T14:31:29Z",
+      "updatedAt": "2023-02-28T12:42:27Z",
       "baseRepository": "boucadair/policy-based-network-acl",
       "baseRefName": "main",
       "baseRefOid": "5420a69170eff3f25be7bfbf8ff2c8fa4005d55f",
       "headRepository": "QiufangMa/policy-based-network-acl",
       "headRefName": "main",
-      "headRefOid": "5bd6c4fce677f1032995a3c7f202a95d37100126",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "079c562f6eec530e0e1abef3e3bf4cf66d8d5090",
+      "closedAt": "2023-02-28T12:42:27Z",
+      "mergedAt": "2023-02-28T12:42:27Z",
+      "mergedBy": "QiufangMa",
+      "mergeCommit": {
+        "oid": "884fb951abfbb455de28c12d170c05bb9528abc8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -360,6 +382,300 @@
               "body": "Same replies ;-)",
               "createdAt": "2023-02-27T14:31:28Z",
               "updatedAt": "2023-02-27T14:31:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Oe6ep",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T02:50:16Z",
+          "updatedAt": "2023-02-28T02:50:16Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "fixed.",
+              "createdAt": "2023-02-28T02:50:16Z",
+              "updatedAt": "2023-02-28T02:50:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Oe7e7",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T02:56:18Z",
+          "updatedAt": "2023-02-28T02:56:19Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "I have updated with: An endpoint\r\n       group identity may be carried in the outer/inner packet\r\n       header(e.g., via NVO3 encapsulation), but may not correspond\r\n       to any field in the packet header.\r\nAny suggestion?",
+              "createdAt": "2023-02-28T02:56:19Z",
+              "updatedAt": "2023-02-28T02:56:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Oe7r0",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T02:57:34Z",
+          "updatedAt": "2023-02-28T02:57:35Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "Updated with: An ACL that matches based on an endpoint group identity,\r\n       which can represent the collective identity of a group of \r\n       authenticated users or enterprise end devices.\r\nWould this be okay?",
+              "createdAt": "2023-02-28T02:57:34Z",
+              "updatedAt": "2023-02-28T02:57:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Ogd3Y",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T09:41:51Z",
+          "updatedAt": "2023-02-28T09:41:52Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "That's much more better, @QiufangMa. Thanks",
+              "createdAt": "2023-02-28T09:41:52Z",
+              "updatedAt": "2023-02-28T09:41:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OgfJ6",
+          "commit": {
+            "abbreviatedOid": "204121d"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T09:44:05Z",
+          "updatedAt": "2023-02-28T09:44:05Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Works for me.  thanks. ",
+              "createdAt": "2023-02-28T09:44:05Z",
+              "updatedAt": "2023-02-28T09:44:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Ogf_d",
+          "commit": {
+            "abbreviatedOid": "a4d6aaf"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T09:45:20Z",
+          "updatedAt": "2023-02-28T09:50:26Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\r\n          \"Modes to bound the recurrence rule. If no choice is indicated,\r\n```",
+              "createdAt": "2023-02-28T09:45:20Z",
+              "updatedAt": "2023-02-28T09:50:26Z"
+            },
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\n     module complies with Sections 3.3.9 and 3.3.10 in RFC 5545. \r\n```",
+              "createdAt": "2023-02-28T09:46:59Z",
+              "updatedAt": "2023-02-28T09:50:26Z"
+            },
+            {
+              "originalPosition": 79,
+              "body": "Please add a reference statement to point to https://www.rfc-editor.org/rfc/rfc5545#section-3.3.10.",
+              "createdAt": "2023-02-28T09:49:38Z",
+              "updatedAt": "2023-02-28T09:50:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Ohhw5",
+          "commit": {
+            "abbreviatedOid": "a4d6aaf"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T12:19:17Z",
+          "updatedAt": "2023-02-28T12:19:18Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "fixed.",
+              "createdAt": "2023-02-28T12:19:18Z",
+              "updatedAt": "2023-02-28T12:19:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Ohh0M",
+          "commit": {
+            "abbreviatedOid": "a4d6aaf"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T12:19:25Z",
+          "updatedAt": "2023-02-28T12:19:25Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "fixed.",
+              "createdAt": "2023-02-28T12:19:25Z",
+              "updatedAt": "2023-02-28T12:19:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OhiLg",
+          "commit": {
+            "abbreviatedOid": "a4d6aaf"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-28T12:20:22Z",
+          "updatedAt": "2023-02-28T12:20:22Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "Sure. I 've add as the grouping's substatement.",
+              "createdAt": "2023-02-28T12:20:22Z",
+              "updatedAt": "2023-02-28T12:20:22Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOI7U4Jc5K7ZMg",
+      "title": "Adding UCL examples & editorial updates",
+      "url": "https://github.com/boucadair/policy-based-network-acl/pull/3",
+      "state": "OPEN",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add examples showing how group-based ACLs are used. The current examples haven't consider the schedule mechanism yet, which needs to be added in following commits. But I'd like to let my co-authors to review this part firstly.",
+      "createdAt": "2023-02-28T12:52:18Z",
+      "updatedAt": "2023-03-01T02:34:21Z",
+      "baseRepository": "boucadair/policy-based-network-acl",
+      "baseRefName": "main",
+      "baseRefOid": "884fb951abfbb455de28c12d170c05bb9528abc8",
+      "headRepository": "QiufangMa/policy-based-network-acl",
+      "headRefName": "main",
+      "headRefOid": "7b9dd0f8d2103fea8e36ed8b2d7624c22054846b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI7U4Jc5Oh5Mi",
+          "commit": {
+            "abbreviatedOid": "53bc943"
+          },
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The proposed changes fix a few NITs, I'd like to do a full review of the document text to squash some additional typos. ",
+          "createdAt": "2023-02-28T13:00:27Z",
+          "updatedAt": "2023-02-28T13:00:27Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Oj-yh",
+          "commit": {
+            "abbreviatedOid": "53bc943"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "some few nits fixes",
+          "createdAt": "2023-02-28T16:37:08Z",
+          "updatedAt": "2023-02-28T16:40:49Z",
+          "comments": [
+            {
+              "originalPosition": 128,
+              "body": "```suggestion\r\n   The access requirements are as follows:\r\n```",
+              "createdAt": "2023-02-28T16:37:08Z",
+              "updatedAt": "2023-02-28T16:40:49Z"
+            },
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\n   Let's consider an organization that would like to restrict the access of R&D\r\n```",
+              "createdAt": "2023-02-28T16:37:27Z",
+              "updatedAt": "2023-02-28T16:40:49Z"
+            },
+            {
+              "originalPosition": 126,
+              "body": "```suggestion\r\n   employees that bring personally owned devices (BYOD) into the workplace.\r\n```",
+              "createdAt": "2023-02-28T16:37:42Z",
+              "updatedAt": "2023-02-28T16:40:49Z"
+            },
+            {
+              "originalPosition": 130,
+              "body": "```suggestion\r\n   * Permit traffic from R&D BYOD of employees, destined to R&D employees' devices.\r\n```",
+              "createdAt": "2023-02-28T16:38:18Z",
+              "updatedAt": "2023-02-28T16:40:49Z"
+            },
+            {
+              "originalPosition": 132,
+              "body": "```suggestion\r\n   * Deny traffic from R&D BYOD of employees, destined to finance servers\r\n```",
+              "createdAt": "2023-02-28T16:38:35Z",
+              "updatedAt": "2023-02-28T16:40:50Z"
+            },
+            {
+              "originalPosition": 135,
+              "body": "```suggestion\r\n   The following example illustrates the configuration of the SDN controller\r\n```",
+              "createdAt": "2023-02-28T16:39:23Z",
+              "updatedAt": "2023-02-28T16:40:50Z"
+            },
+            {
+              "originalPosition": 144,
+              "body": "```suggestion\r\n   This section illustrates an example to configure a PEP  using\r\n```",
+              "createdAt": "2023-02-28T16:39:55Z",
+              "updatedAt": "2023-02-28T16:40:50Z"
+            },
+            {
+              "originalPosition": 165,
+              "body": "```suggestion\r\n   The section illustrates an example of configuring a PEP using\r\n```",
+              "createdAt": "2023-02-28T16:40:27Z",
+              "updatedAt": "2023-02-28T16:40:50Z"
             }
           ]
         }
