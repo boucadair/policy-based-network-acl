@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 3 September 2023                                   M. Boucadair
+Expires: 4 September 2023                                   M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                            2 March 2023
+                                                            3 March 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2023.
+   This Internet-Draft will expire on 4 September 2023.
 
 Copyright Notice
 
@@ -89,6 +89,7 @@ Table of Contents
      5.1.  The Schedule YANG Module
        5.1.1.  Module Overview
        5.1.2.  The YANG Module
+       5.1.3.  Examples
      5.2.  The UCL Extension to the ACL Model
        5.2.1.  Module Overview
        5.2.2.  The YANG Module
@@ -446,7 +447,7 @@ Table of Contents
                   +-- byyearweek*    int32
                   +-- byyearmonth*   uint32
                   +-- bysetpos*      int32
-                  +-- wkst*          schedule:weekday
+                  +-- wkst?          schedule:weekday
 
                          Figure 2: UCL Tree Diagram
 
@@ -801,7 +802,7 @@ Table of Contents
               specified by the rule. It must only be used in conjunction
               with another byXXX rule part.";
          }
-         leaf-list wkst {
+         leaf wkst {
            type schedule:weekday;
            default "monday";
            description
@@ -811,6 +812,106 @@ Table of Contents
      }
    }
    <CODE ENDS>
+
+5.1.3.  Examples
+
+   Here are some examples to illustrate the use of the period and
+   recurrence formats defined as YANG groupings.  Only the message body
+   is provided with JSON used for encoding [RFC7951]
+
+5.1.3.1.  Period of Time
+
+   The example of a period that starts at 08:00:00 UTC, on January 1,
+   2023 and ends at 18:00:00 UTC on December 31, 2025 is encoded as
+   follows:
+
+   {
+     "period-of-time": {
+       "explicit-start": "2023-01-01T08:00:00Z",
+       "explicit-end": "2025-12-01T18:00:00Z"
+     }
+   }
+
+   An example of a period that starts at 08:00:00 UTC, on January 1,
+   2023 and lasts 15 days and 5 hours and 20 minutes is encoded as
+   follows:
+
+   {
+     "period-of-time": {
+       "start": "2023-01-01T08:00:00Z",
+       "duration": "P15DT05:20:00"
+     }
+   }
+
+   Now, consider the example of a period that starts at 08:00:00 UTC, on
+   January 1, 2023 and lasts 20 weeks:
+
+   {
+     "period-of-time": {
+       "start": "2023-01-01T08:00:00Z",
+       "duration": "P20W"
+     }
+   }
+
+5.1.3.2.  Recurrence Rule
+
+   The following snippet can be used to indicate a daily recurrent in
+   December:
+
+   {
+     "recurrence": {
+       "freq": "daily",
+       "byyearmonth": [12]
+     }
+   }
+
+   The following snippet can be used to indicate 10 occurrences that
+   occur every last Saturday of the month:
+
+   {
+     "recurrence": {
+       "freq": "monthly",
+       "count": 10,
+       "byday": [
+         {
+           "direction": [-1],
+           "weekday": "saturday"
+         }
+       ]
+     }
+   }
+
+   The following indicates the example of a recurrence that occurs on
+   the last workday of the month until December 25, 2023:
+
+   {
+     "recurrence": {
+       "freq": "monthly",
+       "until": "2023-12-25",
+       "byday": [
+         { "weekday": "monday" },
+         { "weekday": "tuesday" },
+         { "weekday": "wednesday" },
+         { "weekday": "thursday" },
+         { "weekday": "friday" }
+       ],
+       "bysetpos": [-1]
+     }
+   }
+
+   Every other week on Tuesday and Sunday, the week starts from Monday:
+
+   {
+     "recurrence": {
+       "freq": "weekly",
+       "interval": 2,
+       "byday": [
+         { "weekday": "tuesday" },
+         { "weekday": "sunday" }
+       ],
+       "wkst": "monday"
+     }
+   }
 
 5.2.  The UCL Extension to the ACL Model
 
@@ -1459,6 +1560,10 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
               RFC 6614, DOI 10.17487/RFC6614, May 2012,
               <https://www.rfc-editor.org/rfc/rfc6614>.
 
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7951>.
+
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8340>.
@@ -1474,72 +1579,103 @@ A.1.  Configuring the Controller Using Group based ACL
    The access requirements are as follows:
 
    *  Permit traffic from R&D BYOD of employees, destined to R&D
-      employees' devices.
+      employees' devices every work day from 8:00 to 18:00.
 
    *  Deny traffic from R&D BYOD of employees, destined to finance
-      servers located in the enterprise DC network.
+      servers located in the enterprise DC network starting at 8:30:00
+      of January 20, 2023 with an offset of -08:00 from UTC (Pacific
+      Standard Time) and ending at 18:00:00 in Pacific Standard Time on
+      December 31, 2023.
 
    The following example illustrates the configuration of the SDN
    controller using the group-based ACL:
 
-   <?xml version="1.0" encoding="utf-8"?>
+  <?xml version="1.0" encoding="utf-8"?>
 
-   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
-         xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-     <acl>
-       <name>sample-group-acl</name>
-       <type>uacl:group-acl-type</type>
-       <endpoint-groups
-         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-         <endpoint-group>
-           <group-id>20</group-id>
-           <user-group>
-             <role>R&amp;D</role>
-           </user-group>
-         </endpoint-group>
-         <endpoint-group>
-           <group-id>22</group-id>
-           <user-group>
-             <role>R&amp;D BYOD</role>
-           </user-group>
-         </endpoint-group>
-         <endpoint-group>
-           <group-id>50</group-id>
-           <device-group>
-             <device-type>finance server</device-type>
-           </device-group>
-         </endpoint-group>
-       </endpoint-groups>
-       <aces>
-         <ace>
-           <name>rule1</name>
-           <matches>
-             <endpoint-group
-               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>20</destination-group-id>
-             </endpoint-group>
-           </matches>
-           <actions>
-             <forwarding>accept</forwarding>
-           </actions>
-         </ace>
-         <ace>
-           <name>rule2</name>
-           <matches>
-             <endpoint-group
-               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>50</destination-group-id>
-             </endpoint-group>
-           </matches>
-           <actions>
-             <forwarding>reject</forwarding>
-           </actions>
-         </ace>
-       </aces>
-     </acl>
-   </acls>
+  <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
+        xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+    <acl>
+      <name>sample-group-acl</name>
+      <type>uacl:group-acl-type</type>
+      <endpoint-groups
+        xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+        <endpoint-group>
+          <group-id>20</group-id>
+          <user-group>
+            <role>R&amp;D</role>
+          </user-group>
+        </endpoint-group>
+        <endpoint-group>
+          <group-id>22</group-id>
+          <user-group>
+            <role>R&amp;D BYOD</role>
+          </user-group>
+        </endpoint-group>
+        <endpoint-group>
+          <group-id>50</group-id>
+          <device-group>
+            <device-type>finance server</device-type>
+          </device-group>
+        </endpoint-group>
+      </endpoint-groups>
+      <aces>
+        <ace>
+          <name>rule1</name>
+          <matches>
+            <endpoint-group
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+              <source-group-id>22</source-group-id>
+              <destination-group-id>20</destination-group-id>
+            </endpoint-group>
+          </matches>
+          <actions>
+            <forwarding>accept</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <recurrence>
+              <freq>daily</freq>
+              <byhour>8</byhour>
+              <byday>
+                <weekday>monday</weekday>
+              </byday>
+              <byday>
+                <weekday>tuesday</weekday>
+              </byday>
+              <byday>
+                <weekday>wednesday</weekday>
+              </byday>
+              <byday>
+                <weekday>thursday</weekday>
+              </byday>
+              <byday>
+                <weekday>friday</weekday>
+              </byday>
+              <duration>PT10:00:00</duration>
+            </recurrence>
+          </time-range>
+        </ace>
+        <ace>
+          <name>rule2</name>
+          <matches>
+            <endpoint-group
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+              <source-group-id>22</source-group-id>
+              <destination-group-id>50</destination-group-id>
+            </endpoint-group>
+          </matches>
+          <actions>
+            <forwarding>reject</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <period-of-time>
+              <explicit-start>2023-01-20T08:30:00-08:00</explicit-start>
+              <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
+            </period-of-time>
+          </time-range>
+        </ace>
+      </aces>
+    </acl>
+  </acls>
 
 A.2.  Configuring the PEP Using Group based ACL
 
@@ -1560,61 +1696,89 @@ A.2.  Configuring the PEP Using Group based ACL
    PEP.  This example is consistent with the example presented in
    Appendix A.1.
 
-   <?xml version="1.0" encoding="utf-8"?>
+  <?xml version="1.0" encoding="utf-8"?>
 
-   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
-         xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-     <acl>
-       <name>sample-group-acl</name>
-       <type>uacl:mixed-ipv4-group-type</type>
-       <endpoint-groups
-         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-         <endpoint-group>
-           <group-id>20</group-id>
-           <user-group>
-             <role>R&amp;D</role>
-           </user-group>
-         </endpoint-group>
-         <endpoint-group>
-           <group-id>22</group-id>
-           <user-group>
-             <role>R&amp;D BYOD</role>
-           </user-group>
-         </endpoint-group>
-       </endpoint-groups>
-       <aces>
-         <ace>
-           <name>rule1</name>
-           <matches>
-             <endpoint-group
-               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>20</destination-group-id>
-             </endpoint-group>
-           </matches>
-           <actions>
-             <forwarding>accept</forwarding>
-           </actions>
-         </ace>
-         <ace>
-           <name>rule2</name>
-           <matches>
-             <endpoint-group
-               xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-             </endpoint-group>
-             <ipv4>
-               <destination-ipv4-network>10.1.1.0/24</destination\
-   -ipv4-network>
-             </ipv4>
-           </matches>
-           <actions>
-             <forwarding>reject</forwarding>
-           </actions>
-         </ace>
-       </aces>
-     </acl>
-   </acls>
+  <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
+        xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+    <acl>
+      <name>sample-group-acl</name>
+      <type>uacl:mixed-ipv4-group-type</type>
+      <endpoint-groups
+        xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+        <endpoint-group>
+          <group-id>20</group-id>
+          <user-group>
+            <role>R&amp;D</role>
+          </user-group>
+        </endpoint-group>
+        <endpoint-group>
+          <group-id>22</group-id>
+          <user-group>
+            <role>R&amp;D BYOD</role>
+          </user-group>
+        </endpoint-group>
+      </endpoint-groups>
+      <aces>
+        <ace>
+          <name>rule1</name>
+          <matches>
+            <endpoint-group
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+              <source-group-id>22</source-group-id>
+              <destination-group-id>20</destination-group-id>
+            </endpoint-group>
+          </matches>
+          <actions>
+            <forwarding>accept</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <recurrence>
+              <freq>daily</freq>
+              <byhour>8</byhour>
+              <byday>
+                <weekday>monday</weekday>
+              </byday>
+              <byday>
+                <weekday>tuesday</weekday>
+              </byday>
+              <byday>
+                <weekday>wednesday</weekday>
+              </byday>
+              <byday>
+                <weekday>thursday</weekday>
+              </byday>
+              <byday>
+                <weekday>friday</weekday>
+              </byday>
+              <duration>PT10:00:00</duration>
+            </recurrence>
+          </time-range>
+        </ace>
+        <ace>
+          <name>rule2</name>
+          <matches>
+            <endpoint-group
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+              <source-group-id>22</source-group-id>
+            </endpoint-group>
+            <ipv4>
+              <destination-ipv4-network>10.1.1.0/24</destination\
+  -ipv4-network>
+            </ipv4>
+          </matches>
+          <actions>
+            <forwarding>reject</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <period-of-time>
+              <explicit-start>2023-01-20T08:30:00-08:00</explicit-start>
+              <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
+            </period-of-time>
+          </time-range>
+        </ace>
+      </aces>
+    </acl>
+  </acls>
 
 A.3.  Configuring the PEP Using Address based ACL
 
@@ -1635,42 +1799,70 @@ A.3.  Configuring the PEP Using Address based ACL
    the controller to the PEP.  This example is consistent with the
    example presented in Appendix A.1.
 
-   <?xml version="1.0" encoding="utf-8"?>
+  <?xml version="1.0" encoding="utf-8"?>
 
-   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list">
-     <acl>
-       <name>sample-group-acl</name>
-       <type>ipv4-acl-type</type>
-       <aces>
-         <ace>
-           <name>rule1</name>
-           <matches>
-             <ipv4>
-               <destination-ipv4-network>192.168.2.1/24</destination\
-   -ipv4-network>
-               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
-             </ipv4>
-           </matches>
-           <actions>
-             <forwarding>accept</forwarding>
-           </actions>
-         </ace>
-         <ace>
-           <name>rule2</name>
-           <matches>
-             <ipv4>
-               <destination-ipv4-network>10.1.1.0/24</destination\
-   -ipv4-network>
-               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
-             </ipv4>
-           </matches>
-           <actions>
-             <forwarding>reject</forwarding>
-           </actions>
-         </ace>
-       </aces>
-     </acl>
-   </acls>
+  <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list">
+    <acl>
+      <name>sample-group-acl</name>
+      <type>ipv4-acl-type</type>
+      <aces>
+        <ace>
+          <name>rule1</name>
+          <matches>
+            <ipv4>
+              <destination-ipv4-network>192.168.2.1/24</destination\
+  -ipv4-network>
+              <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
+            </ipv4>
+          </matches>
+          <actions>
+            <forwarding>accept</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <recurrence>
+              <freq>daily</freq>
+              <byhour>8</byhour>
+              <byday>
+                <weekday>monday</weekday>
+              </byday>
+              <byday>
+                <weekday>tuesday</weekday>
+              </byday>
+              <byday>
+                <weekday>wednesday</weekday>
+              </byday>
+              <byday>
+                <weekday>thursday</weekday>
+              </byday>
+              <byday>
+                <weekday>friday</weekday>
+              </byday>
+              <duration>PT10:00:00</duration>
+            </recurrence>
+          </time-range>
+        </ace>
+        <ace>
+          <name>rule2</name>
+          <matches>
+            <ipv4>
+              <destination-ipv4-network>10.1.1.0/24</destination\
+  -ipv4-network>
+              <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
+            </ipv4>
+          </matches>
+          <actions>
+            <forwarding>reject</forwarding>
+          </actions>
+          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <period-of-time>
+              <explicit-start>2023-01-20T08:30:00-08:00</explicit-start>
+              <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
+            </period-of-time>
+          </time-range>
+        </ace>
+      </aces>
+    </acl>
+  </acls>
 
 Appendix B.  Changes between Revisions
 
