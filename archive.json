@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-03-02T01:14:34.041225+00:00",
+  "timestamp": "2023-03-05T01:19:01.738815+00:00",
   "repo": "boucadair/policy-based-network-acl",
   "labels": [
     {
@@ -55,7 +55,7 @@
       "id": "I_kwDOI7U4Jc5fFQwt",
       "title": "Add More Examples",
       "url": "https://github.com/boucadair/policy-based-network-acl/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -64,8 +64,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-02-22T14:33:31Z",
-      "updatedAt": "2023-02-28T16:41:08Z",
-      "closedAt": null,
+      "updatedAt": "2023-03-03T09:37:18Z",
+      "closedAt": "2023-03-03T09:37:18Z",
       "comments": []
     },
     {
@@ -584,24 +584,26 @@
       "id": "PR_kwDOI7U4Jc5K7ZMg",
       "title": "Adding UCL examples & editorial updates",
       "url": "https://github.com/boucadair/policy-based-network-acl/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "QiufangMa",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add examples showing how group-based ACLs are used. The current examples haven't consider the schedule mechanism yet, which needs to be added in following commits. But I'd like to let my co-authors to review this part firstly.",
       "createdAt": "2023-02-28T12:52:18Z",
-      "updatedAt": "2023-03-01T02:34:21Z",
+      "updatedAt": "2023-03-02T09:39:30Z",
       "baseRepository": "boucadair/policy-based-network-acl",
       "baseRefName": "main",
       "baseRefOid": "884fb951abfbb455de28c12d170c05bb9528abc8",
       "headRepository": "QiufangMa/policy-based-network-acl",
       "headRefName": "main",
-      "headRefOid": "7b9dd0f8d2103fea8e36ed8b2d7624c22054846b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "911d3b1edbd82baa5f143568492bc0b60f2cfc41",
+      "closedAt": "2023-03-02T09:39:30Z",
+      "mergedAt": "2023-03-02T09:39:30Z",
+      "mergedBy": "QiufangMa",
+      "mergeCommit": {
+        "oid": "202cc7887480c7d56031d95ed2020842987f2afd"
+      },
       "comments": [],
       "reviews": [
         {
@@ -676,6 +678,194 @@
               "body": "```suggestion\r\n   The section illustrates an example of configuring a PEP using\r\n```",
               "createdAt": "2023-02-28T16:40:27Z",
               "updatedAt": "2023-02-28T16:40:50Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOI7U4Jc5LHKUc",
+      "title": "update examples with schedule mechanism",
+      "url": "https://github.com/boucadair/policy-based-network-acl/pull/5",
+      "state": "MERGED",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adding delicated examples to show how to use period and recurrence formats defined in ietf schedule YANG module; update examples in Appendix considering schedule and period mechanism. All of the examples have passed the yanglint validation.",
+      "createdAt": "2023-03-02T09:52:55Z",
+      "updatedAt": "2023-03-03T09:37:17Z",
+      "baseRepository": "boucadair/policy-based-network-acl",
+      "baseRefName": "main",
+      "baseRefOid": "202cc7887480c7d56031d95ed2020842987f2afd",
+      "headRepository": "QiufangMa/policy-based-network-acl",
+      "headRefName": "main",
+      "headRefOid": "8e5f9661b0932b948d030398c484875e5697c559",
+      "closedAt": "2023-03-03T09:37:17Z",
+      "mergedAt": "2023-03-03T09:37:17Z",
+      "mergedBy": "QiufangMa",
+      "mergeCommit": {
+        "oid": "e2a05f5e26619b081fa816deb06180502b9c3903"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI7U4Jc5OxCa1",
+          "commit": {
+            "abbreviatedOid": "9be6a48"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "DISMISSED",
+          "body": "",
+          "createdAt": "2023-03-02T10:14:32Z",
+          "updatedAt": "2023-03-03T09:37:02Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\n   Here are some examples to illustrate the use of the period and recurrence formats defined as\r\n```",
+              "createdAt": "2023-03-02T10:14:32Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\n   YANG groupings. Only the message body is provided with JSON used for encoding {{?RFC7951}}\r\n```",
+              "createdAt": "2023-03-02T10:15:45Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\n   The example of a period that starts at 08:00:00 UTC, on January 1, 2023 and ends at 18:00:00 UTC\r\n```",
+              "createdAt": "2023-03-02T10:16:23Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\n   An example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 15 days and\r\n```",
+              "createdAt": "2023-03-02T10:17:13Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n   5 hours and 20 minutes is encoded as follows:\r\n```",
+              "createdAt": "2023-03-02T10:17:27Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n   on December 31, 2025 is encoded as follows:\r\n```",
+              "createdAt": "2023-03-02T10:18:03Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\n   Now, consider the example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 20 weeks:\r\n```",
+              "createdAt": "2023-03-02T10:18:42Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\n  The following snippet can be used to indicate a daily recurrent in December:\r\n```",
+              "createdAt": "2023-03-02T10:19:36Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\r\n   The following snippet can be used to indicate 10 occurrences that occur every last Saturday of the month:\r\n```",
+              "createdAt": "2023-03-02T10:20:30Z",
+              "updatedAt": "2023-03-02T10:25:31Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "```suggestion\r\n   The following indicates the example of a recurrence that occurs last workday of the month until December 25, 2023:\r\n```",
+              "createdAt": "2023-03-02T10:21:29Z",
+              "updatedAt": "2023-03-02T10:25:32Z"
+            },
+            {
+              "originalPosition": 75,
+              "body": "Not sure to get this one. Also, isn't \"bysetpos\" defined as a leaf-list?",
+              "createdAt": "2023-03-02T10:23:51Z",
+              "updatedAt": "2023-03-02T10:25:32Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "Isn't \"direction\" a leaf-list? Or I'm not reading the latest version of the yang module?",
+              "createdAt": "2023-03-02T10:25:00Z",
+              "updatedAt": "2023-03-02T10:25:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OxKt5",
+          "commit": {
+            "abbreviatedOid": "1ca2bca"
+          },
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-03-02T10:28:47Z",
+          "updatedAt": "2023-03-02T10:28:47Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OxRaV",
+          "commit": {
+            "abbreviatedOid": "9be6a48"
+          },
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-02T10:40:31Z",
+          "updatedAt": "2023-03-02T10:40:32Z",
+          "comments": [
+            {
+              "originalPosition": 75,
+              "body": "Yup, leaf-list and integer - I think. It would limit the number of instances within a specific time period. The text might be improved with \"on the\"... But just checking the example to make sure it is the case.\r\n\r\n\"The following indicates the example of a recurrence that occurs on the last workday of the month until December 25, 2023:\"",
+              "createdAt": "2023-03-02T10:40:32Z",
+              "updatedAt": "2023-03-02T10:40:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5OxzmJ",
+          "commit": {
+            "abbreviatedOid": "9be6a48"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-02T11:56:52Z",
+          "updatedAt": "2023-03-02T11:56:53Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "Sorry, the direction is indeed a leaf-list, I will fix the json snippet.",
+              "createdAt": "2023-03-02T11:56:53Z",
+              "updatedAt": "2023-03-02T11:56:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI7U4Jc5Ox0Tm",
+          "commit": {
+            "abbreviatedOid": "9be6a48"
+          },
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-02T11:58:52Z",
+          "updatedAt": "2023-03-02T11:58:53Z",
+          "comments": [
+            {
+              "originalPosition": 75,
+              "body": "Sorry, you guys are right, I will fix that. ",
+              "createdAt": "2023-03-02T11:58:53Z",
+              "updatedAt": "2023-03-02T11:58:53Z"
             }
           ]
         }
