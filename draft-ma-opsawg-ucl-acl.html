@@ -14,7 +14,7 @@
    control, which provides consistent and efficient enforcement of
    network access control policies based on group identity.  In
    addition, this document defines a mechanism to ease the maintenance
-   of the mapping between a user-group ID and a set of IP/MAC addresses
+   of the mapping between a user-group identifier and a set of IP/MAC addresses
    to enforce policy-based network access control. 
        Also, the document defines a common schedule YANG module which is
    designed to be applicable for policy activation based on date and
@@ -1103,7 +1103,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">D. King</div>
-<div class="org">Old Dog Consulting</div>
+<div class="org">Lancaster University</div>
 </div>
 </dd>
 </dl>
@@ -1115,7 +1115,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
    control, which provides consistent and efficient enforcement of
    network access control policies based on group identity.  In
    addition, this document defines a mechanism to ease the maintenance
-   of the mapping between a user-group ID and a set of IP/MAC addresses
+   of the mapping between a user-group identifier and a set of IP/MAC addresses
    to enforce policy-based network access control.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Also, the document defines a common schedule YANG module which is
    designed to be applicable for policy activation based on date and
@@ -1212,96 +1212,93 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-yang-modules" class="internal xref">YANG Modules</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-modules-overview" class="internal xref">Modules Overview</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-the-schedule-yang-module" class="internal xref">The Schedule YANG Module</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-module-overview" class="internal xref">Module Overview</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
-                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-the-yang-module" class="internal xref">The YANG Module</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.3">
-                    <p id="section-toc.1-1.5.2.1.2.3.1"><a href="#section-5.1.3" class="auto internal xref">5.1.3</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
 </li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-the-ucl-extension-to-the-ac" class="internal xref">The UCL Extension to the ACL Model</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-module-overview-2" class="internal xref">Module Overview</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-the-yang-module-2" class="internal xref">The YANG Module</a></p>
-</li>
-                </ul>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-user-access-control-group-i" class="internal xref">User Access Control Group ID RADIUS Attribute</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-radius-attributes" class="internal xref">RADIUS Attributes</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-yang-modules" class="internal xref">YANG Modules</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-yang" class="internal xref">YANG</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-ietf-schedule-yang-modu" class="internal xref">The "ietf-schedule" YANG Module</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-radius" class="internal xref">RADIUS</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-the-ietf-ucl-acl-yang-modul" class="internal xref">The "ietf-ucl-acl" YANG Module</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-user-access-control-group-i" class="internal xref">User Access Control Group ID RADIUS Attribute</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-radius-attributes" class="internal xref">RADIUS Attributes</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-yang-2" class="internal xref">YANG</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-yang" class="internal xref">YANG</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-radius-2" class="internal xref">RADIUS</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-radius" class="internal xref">RADIUS</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-yang-2" class="internal xref">YANG</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-radius-2" class="internal xref">RADIUS</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-example-usage" class="internal xref">Example Usage</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-configuring-the-controller-" class="internal xref">Configuring the Controller Using Group based ACL</a></p>
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
-                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-the-pep-using-g" class="internal xref">Configuring the PEP Using Group based ACL</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
-                <p id="section-toc.1-1.11.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-the-pep-using-a" class="internal xref">Configuring the PEP Using Address based ACL</a></p>
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-changes-between-revisions" class="internal xref">Changes between Revisions</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-examples-usage" class="internal xref">Examples Usage</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-configuring-the-controller-" class="internal xref">Configuring the Controller Using Group based ACL</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-the-pep-using-g" class="internal xref">Configuring the PEP Using Group based ACL</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-the-pep-using-a" class="internal xref">Configuring the PEP Using Address based ACL</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-changes-between-revisions" class="internal xref">Changes between Revisions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1344,23 +1341,23 @@ entitlement to the network.<a href="#section-1-2.2" class="pilcrow">¶</a>
       </ul>
 <p id="section-1-3">This document defines a common schedule YANG module which is designed
    to be applicable for policy activation based on date and time
-   condition.  This model can be used in other scheduling contexts.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">The document also defines a YANG module for policy-based Network
+   conditions. This model is designed with the intent to be reusable in other scheduling contexts.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4"><a href="#sec-UCL" class="auto internal xref">Section 5.2</a> defines a YANG module for policy-based Network
    Access Control, which extends the IETF Access Control
-   Lists (ACLs) module defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.  This module defined in
-   <a href="#sec-UCL" class="auto internal xref">Section 5.2</a> is meant to ensure consistent enforcement of ACL policies
-   based on the group identity. In addition, this document defines a
-   mechanism to establish a mapping between the user-group ID and common
+   Lists (ACLs) module defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.  This module can be used to ensure consistent enforcement of ACL policies
+   based on the group identity.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document defines also a mechanism to establish a mapping between the user-group identifier (ID) and common
    IP packet headers and other enclosed packet data (e.g., MAC address)
-   to execute the policy-based access control.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">Last, the document defines a RADIUS attribute that is used to
+   to execute the policy-based access control.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">Last, the document defines a Remote Authentication Dial-in
+   User Service (RADIUS) <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span> attribute that is used to
    communicate the user group identifier as part of identification and
-   authorization information (<a href="#sec-radius" class="auto internal xref">Section 6</a>).<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">As the ACL notion has been generalized, not to be device-specific,
+   authorization information (<a href="#sec-radius" class="auto internal xref">Section 7</a>).<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">As the ACL notion has been generalized, not to be device-specific,
    but also be defined at network/administrative domain
    levels <span>[<a href="#I-D.dbb-netmod-acl" class="cite xref">I-D.dbb-netmod-acl</a>]</span>, the YANG module for policy-based network
-   access control defined in this document does not limit how it can be
-   used.<a href="#section-1-6" class="pilcrow">¶</a></p>
+   access control defined in <a href="#sec-UCL" class="auto internal xref">Section 5.2</a> does not limit how it can be
+   used.<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1375,7 +1372,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-2-2">The meanings of the symbols in tree diagrams are defined in
    <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The document uses the terms defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">In the current version of the draft, the term "endpoint" refers also
+<p id="section-2-4">In the current version of the document, the term "endpoint" refers also
    to a host device or end user that actually connect to a network. While
    host device here refers to servers, IoTs and other devices owned by the
    enterprise.<a href="#section-2-4" class="pilcrow">¶</a></p>
@@ -1443,14 +1440,13 @@ Authorization and Accounting) server or NAS.<a href="#section-4.1-2.2.2" class="
 </li>
           <li class="normal" id="section-4.1-2.3">A Network Access Server (NAS) entity which handles authentication
 requests.  The NAS interacts with an AAA server to complete user
-authentication using protocols like Remote Authentication Dial-in
-User Service (RADIUS) <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>. When access is granted, the AAA
+authentication using protocols like RADIUS <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>. When access is granted, the AAA
 server provides the group identifier (group ID) to which the user
-belongs when the user first logs onto the network. A new attribute
-is defined in <a href="#sec-radius" class="auto internal xref">Section 6</a>.<a href="#section-4.1-2.3" class="pilcrow">¶</a>
+belongs when the user first logs onto the network. A new RADIUS attribute
+is defined in <a href="#sec-radius" class="auto internal xref">Section 7</a>.<a href="#section-4.1-2.3" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-2.4">The AAA server provides a collection of authentication, authorization
-and accounting functions and is responsible for centralized user
+          <li class="normal" id="section-4.1-2.4">The AAA server provides a collection of authentication, authorization,
+and accounting functions. The AAA serveris responsible for centralized user
 information management. The AAA server is preconfigured with user
 credentials (e.g., user name and password), possible group identities
 and related user attributes (users may be divided into different
@@ -1521,7 +1517,7 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
       e.g., user name, password, group information and other user attributes.
       If the authentication request succeeds, the user is placed in a
       user-group which is returned to the network access server as the
-      authentication result (see <a href="#sec-radius" class="auto internal xref">Section 6</a>).
+      authentication result (see <a href="#sec-radius" class="auto internal xref">Section 7</a>).
       If the authentication fails, the user is not assigned any user-
       group, which also means that the user has no access; or the user
       is assigned a special group with very limited access permissions
@@ -1667,10 +1663,10 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 </div>
 </section>
 </div>
-<div id="yang-modules">
+<div id="modules-overview">
 <section id="section-5">
-      <h2 id="name-yang-modules">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-yang-modules" class="section-name selfRef">YANG Modules</a>
+      <h2 id="name-modules-overview">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-modules-overview" class="section-name selfRef">Modules Overview</a>
       </h2>
 <div id="the-schedule-yang-module">
 <section id="section-5.1">
@@ -1683,16 +1679,11 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 <p id="section-5.1-2">This module is defined as a standalone module rather than in the UCL
    module with the intention that the time/date definition can be
    reused.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<div id="module-overview">
-<section id="section-5.1.1">
-          <h4 id="name-module-overview">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-module-overview" class="section-name selfRef">Module Overview</a>
-          </h4>
-<p id="section-5.1.1-1"><a href="#schedule-tree" class="auto internal xref">Figure 2</a> provides an overview of the tree structure of the "ietf-
-   schedule" module.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<span id="name-ucl-tree-diagram"></span><div id="schedule-tree">
+<p id="section-5.1-3"><a href="#schedule-tree" class="auto internal xref">Figure 2</a> provides an overview of the tree structure of the "ietf-
+   schedule" module.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<span id="name-schedule-tree-structure"></span><div id="schedule-tree">
 <figure id="figure-2">
-            <div class="alignCenter art-text artwork" id="section-5.1.1-2.1">
+          <div class="alignCenter art-text artwork" id="section-5.1-4.1">
 <pre>
 module: ietf-schedule
 
@@ -1729,18 +1720,218 @@ module: ietf-schedule
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-ucl-tree-diagram" class="selfRef">UCL Tree Diagram</a>
-            </figcaption></figure>
+<a href="#name-schedule-tree-structure" class="selfRef">Schedule Tree Structure</a>
+          </figcaption></figure>
+</div>
+<div id="examples">
+<section id="section-5.1.1">
+          <h4 id="name-examples">
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+          </h4>
+<p id="section-5.1.1-1">The following subsections provide some examples to illustrate the use of the period and recurrence formats defined as
+   YANG groupings. Only the message body is provided with JSON used for encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span>.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<div id="period-of-time">
+<section id="section-5.1.1.1">
+            <h5 id="name-period-of-time">
+<a href="#section-5.1.1.1" class="section-number selfRef">5.1.1.1. </a><a href="#name-period-of-time" class="section-name selfRef">Period of Time</a>
+            </h5>
+<p id="section-5.1.1.1-1">The example of a period that starts at 08:00:00 UTC, on January 1, 2023 and ends at 18:00:00 UTC
+   on December 31, 2025 is encoded as follows:<a href="#section-5.1.1.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.1-2">
+<pre>
+{
+  "period-of-time": {
+    "explicit-start": "2023-01-01T08:00:00Z",
+    "explicit-end": "2025-12-01T18:00:00Z"
+  }
+}
+</pre><a href="#section-5.1.1.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1.1.1-3">An example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 15 days and
+   5 hours and 20 minutes is encoded as follows:<a href="#section-5.1.1.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.1-4">
+<pre>
+{
+  "period-of-time": {
+    "start": "2023-01-01T08:00:00Z",
+    "duration": "P15DT05:20:00"
+  }
+}
+</pre><a href="#section-5.1.1.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1.1.1-5">Now, consider the example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 20 weeks:<a href="#section-5.1.1.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.1-6">
+<pre>
+{
+  "period-of-time": {
+    "start": "2023-01-01T08:00:00Z",
+    "duration": "P20W"
+  }
+}
+</pre><a href="#section-5.1.1.1-6" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="the-yang-module">
-<section id="section-5.1.2">
-          <h4 id="name-the-yang-module">
-<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-the-yang-module" class="section-name selfRef">The YANG Module</a>
-          </h4>
-<p id="section-5.1.2-1">This module imports types defined in <span>[<a href="#I-D.ietf-netmod-rfc6991-bis" class="cite xref">I-D.ietf-netmod-rfc6991-bis</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<div class="breakable sourcecode" id="section-5.1.2-2">
+<div id="recurrence-rule">
+<section id="section-5.1.1.2">
+            <h5 id="name-recurrence-rule">
+<a href="#section-5.1.1.2" class="section-number selfRef">5.1.1.2. </a><a href="#name-recurrence-rule" class="section-name selfRef">Recurrence Rule</a>
+            </h5>
+<p id="section-5.1.1.2-1">The following snippet can be used to indicate a daily recurrent in December:<a href="#section-5.1.1.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.2-2">
+<pre>
+{
+  "recurrence": {
+    "freq": "daily",
+    "byyearmonth": [12]
+  }
+}
+</pre><a href="#section-5.1.1.2-2" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1.1.2-3">The following snippet can be used to indicate 10 occurrences that occur every last Saturday of the month:<a href="#section-5.1.1.2-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.2-4">
+<pre>
+{
+  "recurrence": {
+    "freq": "monthly",
+    "count": 10,
+    "byday": [
+      {
+        "direction": [-1],
+        "weekday": "saturday"
+      }
+    ]
+  }
+}
+</pre><a href="#section-5.1.1.2-4" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1.1.2-5">The following indicates the example of a recurrence that occurs on the last workday of the month until December 25, 2023:<a href="#section-5.1.1.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.2-6">
+<pre>
+{
+  "recurrence": {
+    "freq": "monthly",
+    "until": "2023-12-25",
+    "byday": [
+      { "weekday": "monday" },
+      { "weekday": "tuesday" },
+      { "weekday": "wednesday" },
+      { "weekday": "thursday" },
+      { "weekday": "friday" }
+    ],
+    "bysetpos": [-1]
+  }
+}
+</pre><a href="#section-5.1.1.2-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1.1.2-7">Every other week on Tuesday and Sunday, the week starts from Monday:<a href="#section-5.1.1.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1.2-8">
+<pre>
+{
+  "recurrence": {
+    "freq": "weekly",
+    "interval": 2,
+    "byday": [
+      { "weekday": "tuesday" },
+      { "weekday": "sunday" }
+    ],
+    "wkst": "monday"
+  }
+}
+</pre><a href="#section-5.1.1.2-8" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="sec-UCL">
+<section id="section-5.2">
+        <h3 id="name-the-ucl-extension-to-the-ac">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-the-ucl-extension-to-the-ac" class="section-name selfRef">The UCL Extension to the ACL Model</a>
+        </h3>
+<p id="section-5.2-1"><a href="#ucl-tree" class="auto internal xref">Figure 3</a> provides the tree strcuture of the "ietf-ucl-acl" module.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<span id="name-ucl-extension"></span><div id="ucl-tree">
+<figure id="figure-3">
+          <div class="alignCenter art-text artwork" id="section-5.2-2.1">
+<pre>
+module: ietf-ucl-acl
+
+  augment /acl:acls/acl:acl:
+    +--rw endpoint-groups
+       +--rw endpoint-group* [group-id]
+          +--rw group-id              uint32
+          +--rw (group-type)?
+             +--:(user-group)
+             |  +--rw user-group
+             |     +--rw role?   string
+             +--:(device-group)
+                +--rw device-group
+                   +--rw device-type?   string
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+    +--rw endpoint-group {match-on-group}?
+       +--rw source-group-id?        leafref
+       +--rw destination-group-id?   leafref
+  augment /acl:acls/acl:acl/acl:aces/acl:ace:
+    +--rw time-range {time-condition}?
+       +--rw (time-range-type)?
+          +--:(periodic-range)
+          |  +--rw recurrence
+          |     +--rw freq           enumeration
+          |     +--rw (recurrence-bound)?
+          |     |  +--:(until)
+          |     |  |  +--rw until?   union
+          |     |  +--:(count)
+          |     |     +--rw count?   uint32
+          |     +--rw interval?      uint32
+          |     +--rw bysecond*      uint32
+          |     +--rw byminute*      uint32
+          |     +--rw byhour*        uint32
+          |     +--rw byday* [weekday]
+          |     |  +--rw direction*   int32
+          |     |  +--rw weekday      schedule:weekday
+          |     +--rw bymonthday*    int32
+          |     +--rw byyearday*     int32
+          |     +--rw byyearweek*    int32
+          |     +--rw byyearmonth*   uint32
+          |     +--rw bysetpos*      int32
+          |     +--rw wkst*          schedule:weekday
+          |     +--rw duration?      schedule:duration
+          +--:(absolute-range)
+             +--rw period-of-time
+                +--rw (forms)?
+                   +--:(period-explicit)
+                   |  +--rw explicit-start?   yang:date-and-time
+                   |  +--rw explicit-end?     yang:date-and-time
+                   +--:(period-start)
+                      +--rw start?            yang:date-and-time
+                      +--rw duration?         duration
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-ucl-extension" class="selfRef">UCL Extension</a>
+          </figcaption></figure>
+</div>
+<p id="section-5.2-3">This module specifies an extension to the IETF ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>
+   such that the UCL group index can be referenced by augmenting the
+   "match" data node.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="yang-modules">
+<section id="section-6">
+      <h2 id="name-yang-modules">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-yang-modules" class="section-name selfRef">YANG Modules</a>
+      </h2>
+<div id="the-ietf-schedule-yang-module">
+<section id="section-6.1">
+        <h3 id="name-the-ietf-schedule-yang-modu">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-the-ietf-schedule-yang-modu" class="section-name selfRef">The "ietf-schedule" YANG Module</a>
+        </h3>
+<p id="section-6.1-1">This module imports types defined in <span>[<a href="#I-D.ietf-netmod-rfc6991-bis" class="cite xref">I-D.ietf-netmod-rfc6991-bis</a>]</span>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div class="breakable sourcecode" id="section-6.1-2">
 <pre>&lt;CODE BEGINS&gt;
 file="ietf-schedule@2023-01-19.yang"
 module ietf-schedule {
@@ -2099,218 +2290,18 @@ module ietf-schedule {
 }
 
 
-&lt;CODE ENDS&gt;</pre><a href="#section-5.1.2-2" class="pilcrow">¶</a>
+&lt;CODE ENDS&gt;</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="examples">
-<section id="section-5.1.3">
-          <h4 id="name-examples">
-<a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
-          </h4>
-<p id="section-5.1.3-1">Here are some examples to illustrate the use of the period and recurrence formats defined as
-   YANG groupings. Only the message body is provided with JSON used for encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span><a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
-<div id="period-of-time">
-<section id="section-5.1.3.1">
-            <h5 id="name-period-of-time">
-<a href="#section-5.1.3.1" class="section-number selfRef">5.1.3.1. </a><a href="#name-period-of-time" class="section-name selfRef">Period of Time</a>
-            </h5>
-<p id="section-5.1.3.1-1">The example of a period that starts at 08:00:00 UTC, on January 1, 2023 and ends at 18:00:00 UTC
-   on December 31, 2025 is encoded as follows:<a href="#section-5.1.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.1-2">
-<pre>
-{
-  "period-of-time": {
-    "explicit-start": "2023-01-01T08:00:00Z",
-    "explicit-end": "2025-12-01T18:00:00Z"
-  }
-}
-</pre><a href="#section-5.1.3.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-5.1.3.1-3">An example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 15 days and
-   5 hours and 20 minutes is encoded as follows:<a href="#section-5.1.3.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.1-4">
-<pre>
-{
-  "period-of-time": {
-    "start": "2023-01-01T08:00:00Z",
-    "duration": "P15DT05:20:00"
-  }
-}
-</pre><a href="#section-5.1.3.1-4" class="pilcrow">¶</a>
-</div>
-<p id="section-5.1.3.1-5">Now, consider the example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 20 weeks:<a href="#section-5.1.3.1-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.1-6">
-<pre>
-{
-  "period-of-time": {
-    "start": "2023-01-01T08:00:00Z",
-    "duration": "P20W"
-  }
-}
-</pre><a href="#section-5.1.3.1-6" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="recurrence-rule">
-<section id="section-5.1.3.2">
-            <h5 id="name-recurrence-rule">
-<a href="#section-5.1.3.2" class="section-number selfRef">5.1.3.2. </a><a href="#name-recurrence-rule" class="section-name selfRef">Recurrence Rule</a>
-            </h5>
-<p id="section-5.1.3.2-1">The following snippet can be used to indicate a daily recurrent in December:<a href="#section-5.1.3.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.2-2">
-<pre>
-{
-  "recurrence": {
-    "freq": "daily",
-    "byyearmonth": [12]
-  }
-}
-</pre><a href="#section-5.1.3.2-2" class="pilcrow">¶</a>
-</div>
-<p id="section-5.1.3.2-3">The following snippet can be used to indicate 10 occurrences that occur every last Saturday of the month:<a href="#section-5.1.3.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.2-4">
-<pre>
-{
-  "recurrence": {
-    "freq": "monthly",
-    "count": 10,
-    "byday": [
-      {
-        "direction": [-1],
-        "weekday": "saturday"
-      }
-    ]
-  }
-}
-</pre><a href="#section-5.1.3.2-4" class="pilcrow">¶</a>
-</div>
-<p id="section-5.1.3.2-5">The following indicates the example of a recurrence that occurs on the last workday of the month until December 25, 2023:<a href="#section-5.1.3.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.2-6">
-<pre>
-{
-  "recurrence": {
-    "freq": "monthly",
-    "until": "2023-12-25",
-    "byday": [
-      { "weekday": "monday" },
-      { "weekday": "tuesday" },
-      { "weekday": "wednesday" },
-      { "weekday": "thursday" },
-      { "weekday": "friday" }
-    ],
-    "bysetpos": [-1]
-  }
-}
-</pre><a href="#section-5.1.3.2-6" class="pilcrow">¶</a>
-</div>
-<p id="section-5.1.3.2-7">Every other week on Tuesday and Sunday, the week starts from Monday:<a href="#section-5.1.3.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.3.2-8">
-<pre>
-{
-  "recurrence": {
-    "freq": "weekly",
-    "interval": 2,
-    "byday": [
-      { "weekday": "tuesday" },
-      { "weekday": "sunday" }
-    ],
-    "wkst": "monday"
-  }
-}
-</pre><a href="#section-5.1.3.2-8" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-<div id="sec-UCL">
-<section id="section-5.2">
-        <h3 id="name-the-ucl-extension-to-the-ac">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-the-ucl-extension-to-the-ac" class="section-name selfRef">The UCL Extension to the ACL Model</a>
+<div id="the-ietf-ucl-acl-yang-module">
+<section id="section-6.2">
+        <h3 id="name-the-ietf-ucl-acl-yang-modul">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-the-ietf-ucl-acl-yang-modul" class="section-name selfRef">The "ietf-ucl-acl" YANG Module</a>
         </h3>
-<div id="module-overview-1">
-<section id="section-5.2.1">
-          <h4 id="name-module-overview-2">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-module-overview-2" class="section-name selfRef">Module Overview</a>
-          </h4>
-<p id="section-5.2.1-1"><a href="#ucl-tree" class="auto internal xref">Figure 3</a> provides the tree strcuture of the "ietf-ucl-acl" module.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<span id="name-ucl-extension"></span><div id="ucl-tree">
-<figure id="figure-3">
-            <div class="alignCenter art-text artwork" id="section-5.2.1-2.1">
-<pre>
-module: ietf-ucl-acl
-
-  augment /acl:acls/acl:acl:
-    +--rw endpoint-groups
-       +--rw endpoint-group* [group-id]
-          +--rw group-id              uint32
-          +--rw (group-type)?
-             +--:(user-group)
-             |  +--rw user-group
-             |     +--rw role?   string
-             +--:(device-group)
-                +--rw device-group
-                   +--rw device-type?   string
-  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
-    +--rw endpoint-group {match-on-group}?
-       +--rw source-group-id?        leafref
-       +--rw destination-group-id?   leafref
-  augment /acl:acls/acl:acl/acl:aces/acl:ace:
-    +--rw time-range {time-condition}?
-       +--rw (time-range-type)?
-          +--:(periodic-range)
-          |  +--rw recurrence
-          |     +--rw freq           enumeration
-          |     +--rw (recurrence-bound)?
-          |     |  +--:(until)
-          |     |  |  +--rw until?   union
-          |     |  +--:(count)
-          |     |     +--rw count?   uint32
-          |     +--rw interval?      uint32
-          |     +--rw bysecond*      uint32
-          |     +--rw byminute*      uint32
-          |     +--rw byhour*        uint32
-          |     +--rw byday* [weekday]
-          |     |  +--rw direction*   int32
-          |     |  +--rw weekday      schedule:weekday
-          |     +--rw bymonthday*    int32
-          |     +--rw byyearday*     int32
-          |     +--rw byyearweek*    int32
-          |     +--rw byyearmonth*   uint32
-          |     +--rw bysetpos*      int32
-          |     +--rw wkst*          schedule:weekday
-          |     +--rw duration?      schedule:duration
-          +--:(absolute-range)
-             +--rw period-of-time
-                +--rw (forms)?
-                   +--:(period-explicit)
-                   |  +--rw explicit-start?   yang:date-and-time
-                   |  +--rw explicit-end?     yang:date-and-time
-                   +--:(period-start)
-                      +--rw start?            yang:date-and-time
-                      +--rw duration?         duration
-</pre>
-</div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-ucl-extension" class="selfRef">UCL Extension</a>
-            </figcaption></figure>
-</div>
-<p id="section-5.2.1-3">This module specifies an extension to the IETF ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>
-   such that the UCL group index can be referenced by augmenting the
-   "match" data node.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="the-yang-module-1">
-<section id="section-5.2.2">
-          <h4 id="name-the-yang-module-2">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-the-yang-module-2" class="section-name selfRef">The YANG Module</a>
-          </h4>
-<p id="section-5.2.2-1">This module imports types defined in <span>[<a href="#RFC6991" class="cite xref">RFC6991</a>]</span>, <span>[<a href="#RFC8194" class="cite xref">RFC8194</a>]</span>, and
-   <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<div class="breakable sourcecode" id="section-5.2.2-2">
+<p id="section-6.2-1">This module imports types defined in <span>[<a href="#RFC6991" class="cite xref">RFC6991</a>]</span>, <span>[<a href="#RFC8194" class="cite xref">RFC8194</a>]</span>, and
+   <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<div class="breakable sourcecode" id="section-6.2-2">
 <pre>&lt;CODE BEGINS&gt;
 file="ietf-ucl-acl@2023-01-19.yang"
 module ietf-ucl-acl {
@@ -2565,42 +2556,40 @@ module ietf-ucl-acl {
 }
 
 
-&lt;CODE ENDS&gt;</pre><a href="#section-5.2.2-2" class="pilcrow">¶</a>
-</div>
-</section>
+&lt;CODE ENDS&gt;</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-radius">
-<section id="section-6">
+<section id="section-7">
       <h2 id="name-user-access-control-group-i">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-user-access-control-group-i" class="section-name selfRef">User Access Control Group ID RADIUS Attribute</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-user-access-control-group-i" class="section-name selfRef">User Access Control Group ID RADIUS Attribute</a>
       </h2>
-<p id="section-6-1">The User-Access-Group-ID RADIUS attribute and its embedded TLVs are
+<p id="section-7-1">The User-Access-Group-ID RADIUS attribute and its embedded TLVs are
    defined with globally unique names.  The definition of the attribute
    follows the guidelines in Section 2.7.1 of <span>[<a href="#RFC6929" class="cite xref">RFC6929</a>]</span>.  This attribute
    is used to indicate the user-group ID to be used by the NAS.  When
    the User-Access-Group-ID RADIUS attribute is present in the RADIUS
    Access-Accept, the system applies the related access control to the
-   users after it authenticates.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The value fields of the Attribute are encoded in clear and not
-   encrypted as, for example, Tunnel- Password Attribute <span>[<a href="#RFC2868" class="cite xref">RFC2868</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">The User-Access-Group-ID Attribute is of type "string" as defined in
-   Section 3.5 of <span>[<a href="#RFC8044" class="cite xref">RFC8044</a>]</span>.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p id="section-6-4">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS Access-
+   users after it authenticates.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The value fields of the Attribute are encoded in clear and not
+   encrypted as, for example, Tunnel- Password Attribute <span>[<a href="#RFC2868" class="cite xref">RFC2868</a>]</span>.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">The User-Access-Group-ID Attribute is of type "string" as defined in
+   Section 3.5 of <span>[<a href="#RFC8044" class="cite xref">RFC8044</a>]</span>.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS Access-
    Accept packet.  It <span class="bcp14">MAY</span> also appear in a RADIUS Access-Request packet
    as a hint to the RADIUS server to indicate a preference.  However,
-   the server is not required to honor such a preference.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<p id="section-6-5">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS CoA-Request
-   packet.<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS Accounting-
-   Request packet.<a href="#section-6-6" class="pilcrow">¶</a></p>
-<p id="section-6-7">The User-Access-Group-ID Attribute <span class="bcp14">MUST NOT</span> appear in any other
-   RADIUS packet.<a href="#section-6-7" class="pilcrow">¶</a></p>
-<p id="section-6-8">The User-Access-Group-ID Attribute is structured as follows:<a href="#section-6-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6-9">
+   the server is not required to honor such a preference.<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-5">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS CoA-Request
+   packet.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">The User-Access-Group-ID Attribute <span class="bcp14">MAY</span> appear in a RADIUS Accounting-
+   Request packet.<a href="#section-7-6" class="pilcrow">¶</a></p>
+<p id="section-7-7">The User-Access-Group-ID Attribute <span class="bcp14">MUST NOT</span> appear in any other
+   RADIUS packet.<a href="#section-7-7" class="pilcrow">¶</a></p>
+<p id="section-7-8">The User-Access-Group-ID Attribute is structured as follows:<a href="#section-7-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7-9">
 <pre>
    Type
 
@@ -2619,21 +2608,21 @@ module ietf-ucl-acl {
    Value
 
       This field contains the user group ID.
-</pre><a href="#section-6-9" class="pilcrow">¶</a>
+</pre><a href="#section-7-9" class="pilcrow">¶</a>
 </div>
-<p id="section-6-10">The User-Access-Group-ID Attribute is associated with the following
-   identifier: 241.TBA1.<a href="#section-6-10" class="pilcrow">¶</a></p>
+<p id="section-7-10">The User-Access-Group-ID Attribute is associated with the following
+   identifier: 241.TBA1.<a href="#section-7-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="radius-attributes">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-radius-attributes">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-radius-attributes" class="section-name selfRef">RADIUS Attributes</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-radius-attributes" class="section-name selfRef">RADIUS Attributes</a>
       </h2>
-<p id="section-7-1">The following table provides a guide as what type of RADIUS packets
+<p id="section-8-1">The following table provides a guide as what type of RADIUS packets
    that may contain User-Access-Group-ID Attribute, and in what
-   quantity.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7-2">
+   quantity.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8-2">
 <pre>
 Access- Access- Access-  Challenge Acct.    #        Attribute
 Request Accept  Reject             Request
@@ -2646,49 +2635,49 @@ CoA-Request CoA-ACK CoA-NACK #        Attribute
 
    0  This attribute MUST NOT be present in packet.
    0+ Zero or more instances of this attribute MAY be present in packet.
-</pre><a href="#section-7-2" class="pilcrow">¶</a>
+</pre><a href="#section-8-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-security-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <div id="yang">
-<section id="section-8.1">
+<section id="section-9.1">
         <h3 id="name-yang">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-yang" class="section-name selfRef">YANG</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-yang" class="section-name selfRef">YANG</a>
         </h3>
-<p id="section-8.1-1">The YANG modules specified in this document defines schema for data
+<p id="section-9.1-1">The YANG modules specified in this document defines schema for data
    that is designed to be accessed via network management protocols such
    as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  The lowest NETCONF layer
    is the secure transport layer, and the mandatory-to-implement secure
    transport is Secure Shell (SSH) <span>[<a href="#RFC6242" class="cite xref">RFC6242</a>]</span>.  The lowest RESTCONF layer
    is HTTPS, and the mandatory-to-implement secure transport is TLS
-   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
+   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
-   RESTCONF protocol operations and content.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
-<p id="section-8.1-3">The "ietf-schedule" module defines a set of types and
+   RESTCONF protocol operations and content.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">The "ietf-schedule" module defines a set of types and
    groupings.  These nodes are intended to be reused by other YANG
    modules.  The module by itself does not expose any data nodes that
    are writable, data nodes that contain read-only state, or RPCs.  As
    such, there are no additional security issues related to the "ietf-
-   schedule" module that need to be considered.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
-<p id="section-8.1-4">There are a number of data nodes defined in the "ietf-ucl-acl" YANG module that are
+   schedule" module that need to be considered.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">There are a number of data nodes defined in the "ietf-ucl-acl" YANG module that are
    writable, creatable, and deletable (i.e., config true, which is the
    default).  These data nodes may be considered sensitive or vulnerable
    in some network environments.  Write operations to these data nodes
-   could have a negative effect on network and security operations.<a href="#section-8.1-4" class="pilcrow">¶</a></p>
+   could have a negative effect on network and security operations.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-8.1-5.1">TBC<a href="#section-8.1-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-9.1-5.1">TBC<a href="#section-9.1-5.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-8.1-5.2">TBC<a href="#section-8.1-5.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-9.1-5.2">TBC<a href="#section-9.1-5.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-8.1-6">
+<div class="alignLeft art-text artwork" id="section-9.1-6">
 <pre>
 Some of the readable data nodes in the "ietf-ucl-acl" YANG module may
 be considered sensitive or vulnerable in some network environments. It
@@ -2698,36 +2687,36 @@ nodes and their sensitivity/vulnerability:
 
 *  &lt;list subtrees and data nodes and state why they are sensitive&gt;
 *  &lt;list subtrees and data nodes and state why they are sensitive&gt;
-</pre><a href="#section-8.1-6" class="pilcrow">¶</a>
+</pre><a href="#section-9.1-6" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="radius">
-<section id="section-8.2">
+<section id="section-9.2">
         <h3 id="name-radius">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-radius" class="section-name selfRef">RADIUS</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-radius" class="section-name selfRef">RADIUS</a>
         </h3>
-<p id="section-8.2-1">RADIUS-related security considerations are discussed in <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">This document targets deployments where a trusted relationship is in
+<p id="section-9.2-1">RADIUS-related security considerations are discussed in <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">This document targets deployments where a trusted relationship is in
    place between the RADIUS client and server with communication
    optionally secured by IPsec or Transport Layer Security (TLS)
-   <span>[<a href="#RFC6614" class="cite xref">RFC6614</a>]</span>.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+   <span>[<a href="#RFC6614" class="cite xref">RFC6614</a>]</span>.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-iana-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <div id="yang-1">
-<section id="section-9.1">
+<section id="section-10.1">
         <h3 id="name-yang-2">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-yang-2" class="section-name selfRef">YANG</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-yang-2" class="section-name selfRef">YANG</a>
         </h3>
-<p id="section-9.1-1">This document registers the following URIs in the "IETF XML Registry" <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.1-2">
+<p id="section-10.1-1">This document registers the following URIs in the "IETF XML Registry" <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.1-2">
 <pre>
         URI: urn:ietf:params:xml:ns:yang:ietf-schedule
         Registrant Contact: The IESG.
@@ -2736,11 +2725,11 @@ nodes and their sensitivity/vulnerability:
         URI: urn:ietf:params:xml:ns:yang:ietf-ucl-acl
         Registrant Contact: The IESG.
         XML: N/A, the requested URI is an XML namespace.
-</pre><a href="#section-9.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-10.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-9.1-3">This document registers the following YANG modules in the "YANG Module Names"
-   registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.1-4">
+<p id="section-10.1-3">This document registers the following YANG modules in the "YANG Module Names"
+   registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.1-4">
 <pre>
         name:               ietf-schedule
         namespace:          urn:ietf:params:xml:ns:yang:ietf-schedule
@@ -2753,17 +2742,17 @@ nodes and their sensitivity/vulnerability:
         prefix:             uacl
         maintained by IANA: N
         reference:          RFC XXXX
-</pre><a href="#section-9.1-4" class="pilcrow">¶</a>
+</pre><a href="#section-10.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="radius-1">
-<section id="section-9.2">
+<section id="section-10.2">
         <h3 id="name-radius-2">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-radius-2" class="section-name selfRef">RADIUS</a>
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-radius-2" class="section-name selfRef">RADIUS</a>
         </h3>
-<p id="section-9.2-1">This document requests IANA to assign a new RADIUS attribute types from the IANA
-   registry "Radius Attribute Types" <span>[<a href="#RADIUS-Types" class="cite xref">RADIUS-Types</a>]</span>:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-10.2-1">This document requests IANA to assign a new RADIUS attribute types from the IANA
+   registry "Radius Attribute Types" <span>[<a href="#RADIUS-Types" class="cite xref">RADIUS-Types</a>]</span>:<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 <span id="name-radius-attribute"></span><div id="rad-reg">
 <table class="center" id="table-3">
           <caption>
@@ -2792,13 +2781,13 @@ nodes and their sensitivity/vulnerability:
 </div>
 </section>
 </div>
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-normative-references">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc6991-bis">[I-D.ietf-netmod-rfc6991-bis]</dt>
@@ -2867,9 +2856,9 @@ nodes and their sensitivity/vulnerability:
 <dd class="break"></dd>
 </dl>
 </section>
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-informative-references">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.dbb-netmod-acl">[I-D.dbb-netmod-acl]</dt>
@@ -2935,10 +2924,10 @@ nodes and their sensitivity/vulnerability:
 </dl>
 </section>
 </section>
-<div id="example-usage">
+<div id="examples-usage">
 <section id="appendix-A">
-      <h2 id="name-example-usage">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-example-usage" class="section-name selfRef">Example Usage</a>
+      <h2 id="name-examples-usage">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-examples-usage" class="section-name selfRef">Examples Usage</a>
       </h2>
 <div id="controller-ucl">
 <section id="appendix-A.1">
@@ -3291,14 +3280,14 @@ necessary group ID retained.<a href="#appendix-B-4.5" class="pilcrow">¶</a>
 <p id="appendix-C-1">This work has benefited from the discussions of User-group-based
    Security Policy over the years.  In particular, <span>[<a href="#I-D.you-i2nsf-user-group-based-policy" class="cite xref">I-D.you-i2nsf-user-group-based-policy</a>]</span>
    and <span>[<a href="#I-D.yizhou-anima-ip-to-access-control-groups" class="cite xref">I-D.yizhou-anima-ip-to-access-control-groups</a>]</span> provide mechanisms to
-   establish the mapping between the IP address/prefix of user and access
-   control group ID.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+   establish a mapping between the IP address/prefix of users and access
+   control group IDs.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">Jianjie You, Myo Zarny, Christian Jacquenet, Mohamed Boucadair, and
    Yizhou Li contributed to an earlier version of <span>[<a href="#I-D.you-i2nsf-user-group-based-policy" class="cite xref">I-D.you-i2nsf-user-group-based-policy</a>]</span>.
    We would like to thank the authors of that draft on modern network access
    control mechanisms for material that assisted in thinking about this document.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <p id="appendix-C-3">The authors would like to thank Joe Clarke, Bill Fenner, Benoit
-   Claise, Rob Wiltion, David Somers-Harris for their valuable comments
+   Claise, Rob Wiltion, and David Somers-Harris for their valuable comments
    and great input to this work.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3345,11 +3334,11 @@ necessary group ID retained.<a href="#appendix-B-4.5" class="pilcrow">¶</a>
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Daniel King</span></div>
-<div dir="auto" class="left"><span class="org">Old Dog Consulting</span></div>
+<div dir="auto" class="left"><span class="org">Lancaster University</span></div>
 <div dir="auto" class="left"><span class="country-name">United Kingdom</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:daniel@olddog.co.uk" class="email">daniel@olddog.co.uk</a>
+<a href="mailto:d.king@lancaster.ac.uk" class="email">d.king@lancaster.ac.uk</a>
 </div>
 </address>
 </section>
