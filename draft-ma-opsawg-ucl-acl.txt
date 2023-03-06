@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 4 September 2023                                   M. Boucadair
+Expires: 7 September 2023                                   M. Boucadair
                                                                   Orange
                                                                  D. King
                                                       Old Dog Consulting
-                                                            3 March 2023
+                                                            6 March 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2023.
+   This Internet-Draft will expire on 7 September 2023.
 
 Copyright Notice
 
@@ -1865,6 +1865,10 @@ A.3.  Configuring the PEP Using Address based ACL
   </acls>
 
 Appendix B.  Changes between Revisions
+
+   v01 - v02
+
+   *  Add more examples.
 
    v00 - v01
 
