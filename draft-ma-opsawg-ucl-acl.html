@@ -1068,7 +1068,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 7 September 2023</td>
+<td class="center">Expires 8 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1081,12 +1081,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ma-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-03-06" class="published">6 March 2023</time>
+<time datetime="2023-03-07" class="published">7 March 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-09-07">7 September 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-08">8 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1154,7 +1154,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1284,7 +1284,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-configuring-the-controller-" class="internal xref">Configuring the Controller Using Group based ACL</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
-                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-the-pep-using-g" class="internal xref">Configuring the PEP Using Group based ACL</a></p>
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-a-pep-using-gro" class="internal xref">Configuring a PEP Using Group based ACL</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
                 <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-the-pep-using-a" class="internal xref">Configuring the PEP Using Address based ACL</a></p>
@@ -1304,7 +1304,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </nav>
 </section>
 </div>
-<div id="introduction">
+<div id="intro">
 <section id="section-1">
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
@@ -1383,29 +1383,29 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-sample-usage">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-sample-usage" class="section-name selfRef">Sample Usage</a>
       </h2>
-<p id="section-3-1">Access to some networks (e.g., Enterprise Networks) requires to
-   recognize the users' identities no matter how, where, and when they
+<p id="section-3-1">Access to some networks (e.g., Enterprise networks) requires to
+   recognize the users'identities no matter how, where, and when they
    connect to the network resources.  Then, the network maps the
    (connecting) users to their access authorization rights.  Such rights
-   are defined following local policies.  As discussed in the
-   introduction, because there is a large number of users and the source
+   are defined following local policies.  As discussed in <a href="#intro" class="auto internal xref">Section 1</a>,
+   because (1) there is a large number of users and (2) the source
    IP addresses of the same user are in different network segments,
    deploying a network access control policy for each IP address or
-   network segment is heavy workload.  An alternative approach is to
+   network segment is heavy workload.  An alternate approach is to
    configure endpoint groups to classify users and enterprise devices
-   and associate ACLs with endpoint groups so that endpoint in each
+   and associate ACLs with endpoint groups so that endpoints in each
    group can share a group of ACL rules.  This approach greatly reduces
-   the workload of the administrators and optimizes the ACL resources.
-   The Network ACLs (NACLs) can be provisioned on devices using specific
-   mechanisms, such as <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> or <span>[<a href="#I-D.dbb-netmod-acl" class="cite xref">I-D.dbb-netmod-acl</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Network access control policies may need to vary over time.  For
-   example, companies may restrict/grant employees access to specific
-   resources (internal and/or external resources) during work hours,
+   the workload of the administrators and optimizes the ACL resources.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">The Network ACLs (NACLs) can be provisioned on devices using specific
+   mechanisms, such as <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> or <span>[<a href="#I-D.dbb-netmod-acl" class="cite xref">I-D.dbb-netmod-acl</a>]</span>.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">NACL policies may need to vary over time.  For
+   example, companies may restrict (or grant) employees access to specific
+   internal or external resources during work hours,
    while another policy is adopted during off-hours and weekends.  A
    network administrator may also require to enforce traffic shaping
    (Section 2.3.3.3 of <span>[<a href="#RFC2475" class="cite xref">RFC2475</a>]</span>) and policing (Section 2.3.3.4 of
    <span>[<a href="#RFC2475" class="cite xref">RFC2475</a>]</span>) during peak hours in order not to affect other data
-   services.<a href="#section-3-2" class="pilcrow">¶</a></p>
+   services.<a href="#section-3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="policy-based-network-access-control">
@@ -1427,26 +1427,26 @@ including security policies.  The service may be connectivity or
 any other resources that can be hosted and offered by a network.<a href="#section-4.1-2.1" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.1-2.2">
-            <p id="section-4.1-2.2.1">The SDN Controller is responsible for maintaining endpoint-group
+            <p id="section-4.1-2.2.1">An SDN Controller which is responsible for maintaining endpoint-group
 based ACLs and mapping the endpoint-group to the associated
-attributes information (e.g., IP/MAC address).  The SDN Controller
-also works as the Policy Decision Point (PDP) <span>[<a href="#RFC3198" class="cite xref">RFC3198</a>]</span> and pushes
-the required access control policies to relevant PEPs (Policy
-Enforcement Points) that need them.  A PDP is also known as
+attributes information (e.g., IP/MAC address).  An SDN Controller
+also behaves as a Policy Decision Point (PDP) <span>[<a href="#RFC3198" class="cite xref">RFC3198</a>]</span> and pushes
+the required access control policies to relevant Policy
+Enforcement Points (PEPs).  A PDP is also known as
 "policy server" <span>[<a href="#RFC2753" class="cite xref">RFC2753</a>]</span>.<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2.2.2">
-The SDN Controller may interact with AAA (Authentication,
-Authorization and Accounting) server or NAS.<a href="#section-4.1-2.2.2" class="pilcrow">¶</a></p>
+An SDN Controller may interact with an Authentication,
+Authorization and Accounting (AAA) server or a Network Access Server (NAS).<a href="#section-4.1-2.2.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.1-2.3">A Network Access Server (NAS) entity which handles authentication
 requests.  The NAS interacts with an AAA server to complete user
 authentication using protocols like RADIUS <span>[<a href="#RFC2865" class="cite xref">RFC2865</a>]</span>. When access is granted, the AAA
 server provides the group identifier (group ID) to which the user
 belongs when the user first logs onto the network. A new RADIUS attribute
-is defined in <a href="#sec-radius" class="auto internal xref">Section 7</a>.<a href="#section-4.1-2.3" class="pilcrow">¶</a>
+is defined in <a href="#sec-radius" class="auto internal xref">Section 7</a> for this purpose.<a href="#section-4.1-2.3" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-4.1-2.4">The AAA server provides a collection of authentication, authorization,
-and accounting functions. The AAA serveris responsible for centralized user
+and accounting functions. The AAA server is responsible for centralized user
 information management. The AAA server is preconfigured with user
 credentials (e.g., user name and password), possible group identities
 and related user attributes (users may be divided into different
@@ -1455,16 +1455,16 @@ groups based on different user attributes).<a href="#section-4.1-2.4" class="pil
           <li class="normal" id="section-4.1-2.5">
             <p id="section-4.1-2.5.1">The Policy Enforcement Point (PEP) <span>[<a href="#RFC3198" class="cite xref">RFC3198</a>]</span> is the central entity
 which is responsible for enforcing appropriate access control
-policies.  In some cases, A PEP may map incoming packets to their
+policies.  In some cases, a PEP may map incoming packets to their
 associated source or destination endpoint-group IDs, and acts on
 the endpoint-group ID based ACL policies, e.g., a NAS as the PEP
 or a group identifier could be carried in packet header (see
 Section 6.2.3 in <span>[<a href="#I-D.ietf-nvo3-encap" class="cite xref">I-D.ietf-nvo3-encap</a>]</span>).  While in other cases,
-the SDN controller maps group ID to the related common packet
+the SDN controller maps the group ID to the related common packet
 header and delivers IP/MAC address based ACL policies to the
 required PEPs.<a href="#section-4.1-2.5.1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2.5.2">
-Multiple PEPs can be involved in a network.<a href="#section-4.1-2.5.2" class="pilcrow">¶</a></p>
+Multiple PEPs may be involved in a network.<a href="#section-4.1-2.5.2" class="pilcrow">¶</a></p>
 <p id="section-4.1-2.5.3">
 A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span>.<a href="#section-4.1-2.5.3" class="pilcrow">¶</a></p>
 </li>
@@ -1676,7 +1676,7 @@ A PEP exposes a NETCONF interface to the SDN Controller <span>[<a href="#RFC6241
 <p id="section-5.1-1">This module defines a common schedule YANG module.  It is inspired
    from the "period of time" and "recurrence rule" format defined in
    <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">This module is defined as a standalone module rather than in the UCL
+<p id="section-5.1-2">This module is defined as a standalone module rather than as part of the UCL
    module with the intention that the time/date definition can be
    reused.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3"><a href="#schedule-tree" class="auto internal xref">Figure 2</a> provides an overview of the tree structure of the "ietf-
@@ -3047,8 +3047,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
 </div>
 <div id="PEP-ucl">
 <section id="appendix-A.2">
-        <h3 id="name-configuring-the-pep-using-g">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-configuring-the-pep-using-g" class="section-name selfRef">Configuring the PEP Using Group based ACL</a>
+        <h3 id="name-configuring-a-pep-using-gro">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-configuring-a-pep-using-gro" class="section-name selfRef">Configuring a PEP Using Group based ACL</a>
         </h3>
 <p id="appendix-A.2-1">This section illustrates an example to configure a PEP  using
    the group-based ACL.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
