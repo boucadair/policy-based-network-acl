@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-03-05T01:19:01.738815+00:00",
+  "timestamp": "2023-03-07T01:15:38.423586+00:00",
   "repo": "boucadair/policy-based-network-acl",
   "labels": [
     {
@@ -85,6 +85,39 @@
       "updatedAt": "2023-02-28T13:02:58Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOI7U4Jc5gB4Hg",
+      "title": "Change of affiliation ",
+      "url": "https://github.com/boucadair/policy-based-network-acl/issues/7",
+      "state": "CLOSED",
+      "author": "danielkinguk",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "danielkinguk"
+      ],
+      "labels": [],
+      "body": "Folks, if there is no objection I would like to use my Lancaster affiliation in the next version of the document. \r\n\r\nDaniel King \r\nLancaster University\r\nd.king@lancaster.ac.uk\r\n\r\nAs we will be implementing the model as part of a new project TUDOR:\r\n\r\nhttps://www.lancaster.ac.uk/dsi/about-us/news/new-12m-project-to-make-future-telecommunications-network-greener-more-resilient-and-ubiquitous\r\n\r\nA key component of the project is scheduled access control to resources. I am leading some of the management and control plane work on TUDOR and will be using ETSI TFS (an SDN Controller I helped develop in the EC project TERAFLOW) and a RADIUS server to manage authentication and authorisation. This I-D will be implemented and tested, so I'll have some implementation feedback in the near future.    \r\n",
+      "createdAt": "2023-03-06T10:28:04Z",
+      "updatedAt": "2023-03-06T12:15:55Z",
+      "closedAt": "2023-03-06T12:15:55Z",
+      "comments": [
+        {
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sure, just update your affiliation whenever you like, but be aware that the submission window will be closed next Monday. So happy to know that you will be implementing this draft, that's a very exciting news! Looking forward to your implementation feedback;-)",
+          "createdAt": "2023-03-06T11:08:59Z",
+          "updatedAt": "2023-03-06T11:08:59Z"
+        },
+        {
+          "author": "danielkinguk",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks! I will also present the I-D on the next ETSI TFS call. I will be keen to see if any of the TeraFlow vendor partners will support the work.  ",
+          "createdAt": "2023-03-06T11:25:13Z",
+          "updatedAt": "2023-03-06T11:25:13Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -870,6 +903,42 @@
           ]
         }
       ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOI7U4Jc5LWKM4",
+      "title": "add changes between revision v01-v02",
+      "url": "https://github.com/boucadair/policy-based-network-acl/pull/6",
+      "state": "MERGED",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "add changes between revision v01-v02",
+      "createdAt": "2023-03-06T09:22:55Z",
+      "updatedAt": "2023-03-06T09:23:57Z",
+      "baseRepository": "boucadair/policy-based-network-acl",
+      "baseRefName": "main",
+      "baseRefOid": "e2a05f5e26619b081fa816deb06180502b9c3903",
+      "headRepository": "QiufangMa/policy-based-network-acl",
+      "headRefName": "main",
+      "headRefOid": "69e095a6e6e5794cf77a45aced7ccd5f303e114e",
+      "closedAt": "2023-03-06T09:23:57Z",
+      "mergedAt": "2023-03-06T09:23:57Z",
+      "mergedBy": "QiufangMa",
+      "mergeCommit": {
+        "oid": "434371ca27f6b7dc2f0f34ce8d45a0d390611691"
+      },
+      "comments": [
+        {
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Just minor updates. I'll merge it directly.",
+          "createdAt": "2023-03-06T09:23:46Z",
+          "updatedAt": "2023-03-06T09:23:46Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
