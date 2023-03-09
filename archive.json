@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-03-07T01:15:38.423586+00:00",
+  "timestamp": "2023-03-09T01:12:49.781308+00:00",
   "repo": "boucadair/policy-based-network-acl",
   "labels": [
     {
@@ -116,6 +116,44 @@
           "body": "Thanks! I will also present the I-D on the next ETSI TFS call. I will be keen to see if any of the TeraFlow vendor partners will support the work.  ",
           "createdAt": "2023-03-06T11:25:13Z",
           "updatedAt": "2023-03-06T11:25:13Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOI7U4Jc5gKj3z",
+      "title": "Should we define domain-name for each group?",
+      "url": "https://github.com/boucadair/policy-based-network-acl/issues/8",
+      "state": "OPEN",
+      "author": "QiufangMa",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Unsure if a domain-name parameter is needed for each endpoint group. The follow-up question is whether we need to distinguish between local and global groups. Thoughts?\r\n\r\n",
+      "createdAt": "2023-03-07T12:52:59Z",
+      "updatedAt": "2023-03-08T07:32:35Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "What would be the use of that domain name? \r\n\r\nAs a side comment, I think that its is better to use a string/group-name to uniquely identify a a group rather than an int32:\r\n\r\n>        +--rw endpoint-group* [group-id]\r\n>           +--rw group-id              uint32",
+          "createdAt": "2023-03-07T15:45:57Z",
+          "updatedAt": "2023-03-07T15:45:57Z"
+        },
+        {
+          "author": "QiufangMa",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Unsure yet, but a user belongs to a specific domain which is bound with specific AAA schemes, but not sure for a collective user or device group.\r\n\r\nIs it because a group-name itself is descriptive? Using a unique groupID can have benefits if we would like the ID to be carried in the encapsulation headers.",
+          "createdAt": "2023-03-08T03:03:09Z",
+          "updatedAt": "2023-03-08T03:03:09Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> Using a unique groupID can have benefits if we would like the ID to be carried in the encapsulation headers.\r\n\r\nThe use of string or even uri allows for some hierarchy that can ease coordination within an administrative domain. We can always map strings to keys if there is a need to tag packets with the group they belong to. The tagging does not need to mirror exactly the one used to populate the policy. \r\n\r\nWe may even consider customized mapping per encapsulation scheme, but it is too early to dive into this. Thanks",
+          "createdAt": "2023-03-08T07:32:35Z",
+          "updatedAt": "2023-03-08T07:32:35Z"
         }
       ]
     }
