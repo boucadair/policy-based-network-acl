@@ -1356,8 +1356,10 @@ entitlement to the network.<a href="#section-1-2.2" class="pilcrow">¶</a>
    levels <span>[<a href="#I-D.dbb-netmod-acl" class="cite xref">I-D.dbb-netmod-acl</a>]</span>, the YANG module for policy-based network
    access control defined in <a href="#sec-UCL" class="auto internal xref">Section 5.2</a> does not limit how it can be
    used.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">The YANG data models in this document conform to the Network
-   Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-8">Although the document cites MAC address as an example in some sections, the document does not make an assumption about which identifiers are used to trigger ACLs.
+These examples should not be considered as recommendations. Readers should be aware that MAC-based ACLs can be bypassed by flushing out the MAC address. Other implications related to the change of MAC addresses are discussed in <span>[<a href="#I-D.ietf-madinas-use-cases" class="cite xref">I-D.ietf-madinas-use-cases</a>]</span>.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">The YANG data models in this document conform to the Network
+   Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -2866,6 +2868,10 @@ nodes and their sensitivity/vulnerability:
 <dt id="I-D.dbb-netmod-acl">[I-D.dbb-netmod-acl]</dt>
         <dd>
 <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">M. Boucadair</span>, <span class="refTitle">"Extensions to the Access Control Lists (ACLs) YANG Model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-dbb-netmod-acl-03</span>, <time datetime="2022-10-24" class="refDate">24 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-dbb-netmod-acl-03">https://datatracker.ietf.org/doc/html/draft-dbb-netmod-acl-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-madinas-use-cases">[I-D.ietf-madinas-use-cases]</dt>
+        <dd>
+<span class="refAuthor">Henry, J.</span> and <span class="refAuthor">Y. Lee</span>, <span class="refTitle">"Randomized and Changing MAC Address Use Cases"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-madinas-use-cases-03</span>, <time datetime="2022-10-06" class="refDate">6 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-madinas-use-cases-03">https://datatracker.ietf.org/doc/html/draft-ietf-madinas-use-cases-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-nvo3-encap">[I-D.ietf-nvo3-encap]</dt>
         <dd>
