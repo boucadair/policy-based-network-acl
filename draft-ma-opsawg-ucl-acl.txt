@@ -727,7 +727,6 @@ Table of Contents
        reference
          "RFC 5545: Internet Calendaring and Scheduling Core Object
                     Specification (iCalendar)";
-
      }
 
      grouping period {
