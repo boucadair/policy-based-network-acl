@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 10 September 2023                                  M. Boucadair
+Expires: 11 September 2023                                  M. Boucadair
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                            9 March 2023
+                                                           10 March 2023
 
 
                  A Policy-based Network Access Control
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 September 2023.
+   This Internet-Draft will expire on 11 September 2023.
 
 Copyright Notice
 
