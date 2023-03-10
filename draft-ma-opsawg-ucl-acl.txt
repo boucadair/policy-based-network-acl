@@ -1703,89 +1703,88 @@ A.2.  Configuring a PEP Using Group based ACL
    PEP.  This example is consistent with the example presented in
    Appendix A.1.
 
-  <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-  <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
-        xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-    <acl>
-      <name>sample-group-acl</name>
-      <type>uacl:mixed-ipv4-group-type</type>
-      <endpoint-groups
-        xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-        <endpoint-group>
-          <group-id>20</group-id>
-          <user-group>
-            <role>R&amp;D</role>
-          </user-group>
-        </endpoint-group>
-        <endpoint-group>
-          <group-id>22</group-id>
-          <user-group>
-            <role>R&amp;D BYOD</role>
-          </user-group>
-        </endpoint-group>
-      </endpoint-groups>
-      <aces>
-        <ace>
-          <name>rule1</name>
-          <matches>
-            <endpoint-group
-              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-              <source-group-id>22</source-group-id>
-              <destination-group-id>20</destination-group-id>
-            </endpoint-group>
-          </matches>
-          <actions>
-            <forwarding>accept</forwarding>
-          </actions>
-          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-            <recurrence>
-              <freq>daily</freq>
-              <byhour>8</byhour>
-              <byday>
-                <weekday>monday</weekday>
-              </byday>
-              <byday>
-                <weekday>tuesday</weekday>
-              </byday>
-              <byday>
-                <weekday>wednesday</weekday>
-              </byday>
-              <byday>
-                <weekday>thursday</weekday>
-              </byday>
-              <byday>
-                <weekday>friday</weekday>
-              </byday>
-              <duration>PT10:00:00</duration>
-            </recurrence>
-          </time-range>
-        </ace>
-        <ace>
-          <name>rule2</name>
-          <matches>
-            <endpoint-group
-              xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-              <source-group-id>22</source-group-id>
-            </endpoint-group>
-            <ipv4>
-              <destination-ipv4-network>10.1.1.0/24</destination\
-  -ipv4-network>
-            </ipv4>
-          </matches>
-          <actions>
-            <forwarding>reject</forwarding>
-          </actions>
-          <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-            <period-of-time>
-              <explicit-start>2023-01-20T08:30:00-08:00</explicit-start>
-              <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
-            </period-of-time>
-          </time-range>
-        </ace>
-      </aces>
-    </acl>
-  </acls>
+<acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
+      xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+  <acl>
+    <name>sample-group-acl</name>
+    <type>uacl:mixed-ipv4-group-type</type>
+    <endpoint-groups
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+      <endpoint-group>
+        <group-id>20</group-id>
+        <user-group>
+          <role>R&amp;D</role>
+        </user-group>
+      </endpoint-group>
+      <endpoint-group>
+        <group-id>22</group-id>
+        <user-group>
+          <role>R&amp;D BYOD</role>
+        </user-group>
+      </endpoint-group>
+    </endpoint-groups>
+    <aces>
+      <ace>
+        <name>rule1</name>
+        <matches>
+          <endpoint-group
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <source-group-id>22</source-group-id>
+            <destination-group-id>20</destination-group-id>
+          </endpoint-group>
+        </matches>
+        <actions>
+          <forwarding>accept</forwarding>
+        </actions>
+        <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+          <recurrence>
+            <freq>daily</freq>
+            <byhour>8</byhour>
+            <byday>
+              <weekday>monday</weekday>
+            </byday>
+            <byday>
+              <weekday>tuesday</weekday>
+            </byday>
+            <byday>
+              <weekday>wednesday</weekday>
+            </byday>
+            <byday>
+              <weekday>thursday</weekday>
+            </byday>
+            <byday>
+              <weekday>friday</weekday>
+            </byday>
+            <duration>PT10:00:00</duration>
+          </recurrence>
+        </time-range>
+      </ace>
+      <ace>
+        <name>rule2</name>
+        <matches>
+          <endpoint-group
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+            <source-group-id>22</source-group-id>
+          </endpoint-group>
+          <ipv4>
+            <destination-ipv4-network>10.1.1.0/24</destination-ipv4-network>
+          </ipv4>
+        </matches>
+        <actions>
+          <forwarding>reject</forwarding>
+        </actions>
+        <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+          <period-of-time>
+            <explicit-start>2023-01-20T08:30:00-08:00</explicit-start>
+            <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
+          </period-of-time>
+        </time-range>
+      </ace>
+    </aces>
+  </acl>
+</acls>
 
 A.3.  Configuring the PEP Using Address based ACL
 
