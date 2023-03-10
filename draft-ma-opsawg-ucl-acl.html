@@ -2953,6 +2953,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
    using the group-based ACL:<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.1-5">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
@@ -3031,7 +3033,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
         &lt;/actions&gt;
         &lt;time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
           &lt;period-of-time&gt;
-            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-start&gt;
+            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-\
+                                                               start&gt;
             &lt;explicit-end&gt;2023-12-31T18:00:00-08:00&lt;/explicit-end&gt;
           &lt;/period-of-time&gt;
         &lt;/time-range&gt;
@@ -3059,13 +3062,15 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
    source endpoint and the destination endpoint users. Another case for
    a PEP enforcing a group-based ACL is to obtain the group identity of
    the source endpoint directly from the packet field
-   <span>[<a href="#I-D.smith-vxlan-group-policy" class="cite xref">I-D.smith-vxlan-group-policy</a>]</span>. This does not intend to be exhaustive.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
+   <span>[<a href="#I-D.smith-vxlan-group-policy" class="cite xref">I-D.smith-vxlan-group-policy</a>]</span>. This example does not intend to be exhaustive.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-3">Assume the mapping between device group ID and IP addresses is
    predefined or acquired via device authentication. The following example
    shows ACL configurations delivered from the controller to the PEP. This
    example is consistent with the example presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2-4">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
@@ -3132,7 +3137,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
             &lt;source-group-id&gt;22&lt;/source-group-id&gt;
           &lt;/endpoint-group&gt;
           &lt;ipv4&gt;
-            &lt;destination-ipv4-network&gt;10.1.1.0/24&lt;/destination-ipv4-network&gt;
+            &lt;destination-ipv4-network&gt;10.1.1.0/24&lt;/destination-ipv4-\
+                                                             network&gt;
           &lt;/ipv4&gt;
         &lt;/matches&gt;
         &lt;actions&gt;
@@ -3140,7 +3146,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
         &lt;/actions&gt;
         &lt;time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
           &lt;period-of-time&gt;
-            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-start&gt;
+            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-\
+                                                               start&gt;
             &lt;explicit-end&gt;2023-12-31T18:00:00-08:00&lt;/explicit-end&gt;
           &lt;/period-of-time&gt;
         &lt;/time-range&gt;
@@ -3172,6 +3179,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
    presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.3-4">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"&gt;
@@ -3183,7 +3192,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
         &lt;name&gt;rule1&lt;/name&gt;
         &lt;matches&gt;
           &lt;ipv4&gt;
-            &lt;destination-ipv4-network&gt;192.168.2.1/24&lt;/destination-ipv4-network&gt;
+            &lt;destination-ipv4-network&gt;192.168.2.1/24&lt;/destination-\
+                                                        ipv4-network&gt;
             &lt;source-ipv4-network&gt;192.168.1.1/24&lt;/source-ipv4-network&gt;
           &lt;/ipv4&gt;
         &lt;/matches&gt;
@@ -3217,7 +3227,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
         &lt;name&gt;rule2&lt;/name&gt;
         &lt;matches&gt;
           &lt;ipv4&gt;
-            &lt;destination-ipv4-network&gt;10.1.1.0/24&lt;/destination-ipv4-network&gt;
+            &lt;destination-ipv4-network&gt;10.1.1.0/24&lt;/destination-ipv4-\
+                                                             network&gt;
             &lt;source-ipv4-network&gt;192.168.1.1/24&lt;/source-ipv4-network&gt;
           &lt;/ipv4&gt;
         &lt;/matches&gt;
@@ -3226,7 +3237,8 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
         &lt;/actions&gt;
         &lt;time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
           &lt;period-of-time&gt;
-            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-start&gt;
+            &lt;explicit-start&gt;2023-01-20T08:30:00-08:00&lt;/explicit-\
+                                                               start&gt;
             &lt;explicit-end&gt;2023-12-31T18:00:00-08:00&lt;/explicit-end&gt;
           &lt;/period-of-time&gt;
         &lt;/time-range&gt;
