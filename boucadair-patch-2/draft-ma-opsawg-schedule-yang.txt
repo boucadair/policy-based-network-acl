@@ -5,21 +5,23 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 22 April 2024                                      M. Boucadair
+Expires: 1 June 2024                                        M. Boucadair
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         20 October 2023
+                                                        29 November 2023
 
 
-                    A YANG Data Model for Scheduling
+                A Common YANG Data Model for Scheduling
                   draft-ma-opsawg-schedule-yang-latest
 
 Abstract
 
    This document defines a common schedule YANG module which is designed
    to be applicable for scheduling information such as event, policy,
-   services, or resources based on date and time.
+   services, or resources based on date and time.  For the sake of
+   better modularity, the module includes basic, intermediate, and
+   advanced version of scheduling groupings.
 
 Discussion Venues
 
@@ -48,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2024.
+   This Internet-Draft will expire on 1 June 2024.
 
 Copyright Notice
 

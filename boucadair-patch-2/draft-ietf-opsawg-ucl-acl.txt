@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 22 April 2024                                      M. Boucadair
+Expires: 1 June 2024                                        M. Boucadair
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         20 October 2023
+                                                        29 November 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2024.
+   This Internet-Draft will expire on 1 June 2024.
 
 Copyright Notice
 
@@ -979,9 +979,9 @@ Table of Contents
    [I-D.ma-opsawg-schedule-yang]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
               Model for Scheduling", Work in Progress, Internet-Draft,
-              draft-ma-opsawg-schedule-yang-00, 17 October 2023,
+              draft-ma-opsawg-schedule-yang-01, 20 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ma-opsawg-
-              schedule-yang-00>.
+              schedule-yang-01>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1052,9 +1052,9 @@ Table of Contents
    [I-D.dekok-radext-deprecating-radius]
               DeKok, A., "Deprecating Insecure Practices in RADIUS",
               Work in Progress, Internet-Draft, draft-dekok-radext-
-              deprecating-radius-04, 27 September 2023,
+              deprecating-radius-05, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-dekok-radext-
-              deprecating-radius-04>.
+              deprecating-radius-05>.
 
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
@@ -1074,9 +1074,9 @@ Table of Contents
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
               Overlays (NVO3) Encapsulation Considerations", Work in
-              Progress, Internet-Draft, draft-ietf-nvo3-encap-09, 7
-              October 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-nvo3-encap-09>.
+              Progress, Internet-Draft, draft-ietf-nvo3-encap-10, 6
+              November 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-nvo3-encap-10>.
 
    [I-D.smith-vxlan-group-policy]
               Smith, M. and L. Kreeger, "VXLAN Group Policy Option",
