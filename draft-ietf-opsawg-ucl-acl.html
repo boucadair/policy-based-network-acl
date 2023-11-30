@@ -1509,29 +1509,29 @@ A PEP exposes a NETCONF interface <span>[<a href="#RFC6241" class="cite xref">RF
 <figure id="figure-1">
           <div class="alignCenter art-text artwork" id="section-4.1-4.1">
 <pre>
-                                         +------------+
+                                         .------------.
                                          |Orchestrator|
-                                         +------+-----+
+                                         '------+-----'
        Service                                  | (Step 1)
-      ------------------------------------------+-------------
+      --------------------------------------------------------
                                                 |
        Network                                  |
                                  (Step 4)       |
-       +-------+        +--------+     +--------+-----------+
+       .-------.        .--------.     .--------+-----------.
        |User #1+--+     | AAA    |     |    SDN Controller  |
-       +-------+  |     | Server +-----+        (PDP)       |
-                  |     +----+---+     +--------+-----------+
+       '-------'  |     | Server +-----+        (PDP)       |
+                  |     '----+---'     '--------+-----------'
                   |          |                  |
-                  |          |           +---------------+(Step 5)
+                  |          |           +------+--------+(Step 5)
         (Step 2)  |          |(Step 3)   |               |
                   |          |           |               |
-                  |        +-+-----------+---------------+------------+
-                  |        | +----------------------+ +--------------+|
-       +-------+  +--------+ | Network Access Server| |firewall, etc.||
-       |User #2+-----------+ |       (NAS)          | +--------------+|
-       +-------+           | +----------------------+                 |
+                  |        .-+-----------+---------------+------------.
+                  |        | .----------------------. .--------------.|
+       .-------.  +--------+ | Network Access Server| |firewall, etc.||
+       |User #2+-----------+ |       (NAS)          | '--------------'|
+       '-------'           | '----------------------'                 |
                            |                     (PEP)                |
-                           +------------------------------------------+
+                           '------------------------------------------'
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1797,18 +1797,24 @@ module: ietf-ucl-acl
 <p id="section-5.1-4">The first part of the data model augments the "acl" list in the
    IETF ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> with a "endpoint-groups" container
    having a list of "endpoint group" inside, each entry has a "group-id" that uniquely
-   identifies the endpoint group. The choice statement controls the selection
-   of group type between "user-group" or "device-group".<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The second part of the data model augments the "matches" container in the IETF
+   identifies the endpoint group.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5.1-5.1">
+            <p id="section-5.1-5.1.1">"group-id" is defined as a string rather than uint to accommodate deployments which require some identification hierarchy within a domain. Such a hierarchy is meant to ease coordination within an administrative domain. There might be cases where a domain needs to tag packets with the group they belong to. The tagging does not need to mirror exactly the "group id" used to populate the policy. Future augmentation may be considered in the future to cover encapsulation considerations.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-6">The choice statement controls the selection of group type between
+   "user-group" or "device-group".<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+<p id="section-5.1-7">The second part of the data model augments the "matches" container in the IETF
    ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> so that a source and/or destination endpoint group index
-   can be referenced as the match criteria.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
-<p id="section-5.1-6">The third part of the data model augments the "ace" list in the IETF ACL
+   can be referenced as the match criteria.<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.1-8">The third part of the data model augments the "ace" list in the IETF ACL
    model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> with date and time specific parameters to allow ACE to be
    activated based on a date/time condition. Two types of time range are defined,
    which reuse "recurrence" and "period" groupings defined in the "ietf-schedule"
    YANG module in <span>[<a href="#I-D.ma-opsawg-schedule-yang" class="cite xref">I-D.ma-opsawg-schedule-yang</a>]</span>, respectively. Note that the data model augments the definition of
    "recurrence" grouping with a "duration" data node to specify the duration of
-   time for each occurrence the policy activation is triggered.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+   time for each occurrence the policy activation is triggered.<a href="#section-5.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
