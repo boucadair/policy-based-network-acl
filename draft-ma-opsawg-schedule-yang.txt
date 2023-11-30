@@ -12,14 +12,16 @@ Expires: 2 June 2024                                        M. Boucadair
                                                         30 November 2023
 
 
-                    A YANG Data Model for Scheduling
+                A Common YANG Data Model for Scheduling
                   draft-ma-opsawg-schedule-yang-latest
 
 Abstract
 
    This document defines a common schedule YANG module which is designed
    to be applicable for scheduling information such as event, policy,
-   services, or resources based on date and time.
+   services, or resources based on date and time.  For the sake of
+   better modularity, the module includes basic, intermediate, and
+   advanced version of scheduling groupings.
 
 Discussion Venues
 
