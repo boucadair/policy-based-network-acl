@@ -87,18 +87,19 @@ Table of Contents
 1.  Introduction
 
    Several specifications include a provision for scheduling.  Examples
-   of such specifications are [I-D.ietf-opsawg-ucl-acl],
+   of such specifications are (but not limited to)
+   [I-D.ietf-opsawg-ucl-acl],
    [I-D.contreras-opsawg-scheduling-oam-tests], and
    [I-D.united-tvr-schedule-yang].  Both [I-D.ietf-opsawg-ucl-acl] and
    [I-D.contreras-opsawg-scheduling-oam-tests] use the "ietf-schedule"
    module initially specified in [I-D.ietf-opsawg-ucl-acl].
 
    Given that the applicability of the "ietf-schedule" module is more
-   general than scheduled policy and OAMs, this document defines "ietf-
-   schedule" as a common schedule YANG module.  The module includes a
-   set of reusable groupings which are designed to be applicable for
-   scheduling information such as event, policy, services or resources
-   based on date and time.
+   general than scheduled policy and OAM tests, this document defines
+   "ietf-schedule" as a common schedule YANG module.  The module
+   includes a set of reusable groupings which are designed to be
+   applicable for scheduling information such as event, policy, services
+   or resources based on date and time.
 
 1.1.  Editorial Note (To be removed by RFC Editor)
 
@@ -922,6 +923,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-contreras-
               opsawg-scheduling-oam-tests-01>.
 
+   [I-D.ietf-netmod-eca-policy]
+              Wu, Q., Bryskin, I., Birkholz, H., Liu, X., and B. Claise,
+              "A YANG Data model for ECA Policy Management", Work in
+              Progress, Internet-Draft, draft-ietf-netmod-eca-policy-01,
+              19 February 2021, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-netmod-eca-policy-01>.
+
    [I-D.ietf-opsawg-ucl-acl]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
               Model and RADIUS Extension for Policy-based Network Access
@@ -1060,6 +1068,11 @@ Acknowledgments
 
    Thanks to Adrian Farrel, Wei Pan, Tianran Zhou, and Joe Clarke for
    their valuable comments and inputs to this work.
+
+   Many thanks to the authors of [I-D.united-tvr-schedule-yang],
+   [I-D.contreras-opsawg-scheduling-oam-tests], and
+   [I-D.ietf-netmod-eca-policy] for the constructive discussion during
+   IETF#118.
 
 Authors' Addresses
 
