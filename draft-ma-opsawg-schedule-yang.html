@@ -1155,23 +1155,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-modules-overview" class="internal xref">Modules Overview</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-the-schedule-yang-module" class="internal xref">The Schedule YANG Module</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
-                    <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-period-of-time" class="internal xref">Period of Time</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
-                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-recurrence-rule" class="internal xref">Recurrence Rule</a></p>
-</li>
-                </ul>
-</li>
-            </ul>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-module-overview" class="internal xref">Module Overview</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-the-ietf-schedule-yang-modu" class="internal xref">The "ietf-schedule" YANG Module</a></p>
@@ -1202,7 +1186,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-changes-between-revisions" class="internal xref">Changes between Revisions</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-period-of-time" class="internal xref">Period of Time</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-recurrence-rule" class="internal xref">Recurrence Rule</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1267,24 +1259,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-2-3">Also, this document uses the YANG terminology defined in <span><a href="https://rfc-editor.org/rfc/rfc7950#section-3" class="relref">Section 3</a> of [<a href="#RFC7950" class="cite xref">RFC7950</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="modules-overview">
+<div id="module-overview">
 <section id="section-3">
-      <h2 id="name-modules-overview">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-modules-overview" class="section-name selfRef">Modules Overview</a>
+      <h2 id="name-module-overview">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-module-overview" class="section-name selfRef">Module Overview</a>
       </h2>
-<div id="the-schedule-yang-module">
-<section id="section-3.1">
-        <h3 id="name-the-schedule-yang-module">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-the-schedule-yang-module" class="section-name selfRef">The Schedule YANG Module</a>
-        </h3>
-<p id="section-3.1-1">This module defines two groupings "period" and "recurrence", which conform to
+<p id="section-3-1">This module defines two groupings "period" and "recurrence", which conform to
    the definition of the "period of time" and "recurrence rule" formats defined in
-   <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>. Other formats may be considered in future revisions.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2"><a href="#schedule-tree" class="auto internal xref">Figure 1</a> provides an overview of the tree structure of the "ietf-
-   schedule" module in terms of its groupings.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+   <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>. Other formats may be considered in future revisions.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2"><a href="#schedule-tree" class="auto internal xref">Figure 1</a> provides an overview of the tree structure of the "ietf-
+   schedule" module in terms of its groupings.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <span id="name-schedule-tree-structure"></span><div id="schedule-tree">
 <figure id="figure-1">
-          <div class="alignCenter art-text artwork" id="section-3.1-3.1">
+        <div class="alignCenter art-text artwork" id="section-3-3.1">
 <pre>
 module: ietf-schedule
 
@@ -1385,156 +1372,33 @@ module: ietf-schedule
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-schedule-tree-structure" class="selfRef">Schedule Tree Structure</a>
-          </figcaption></figure>
+        </figcaption></figure>
 </div>
-<p id="section-3.1-4">The "period-of-time" allows a time period to be represented using either a start ("period-start")
-   and end date and time ("period-end"), or a start ("period-start") and a positive time duration ("period-duration").<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">The "recurrence" indicates the scheduling recurrence of an event. The
+<p id="section-3-4">The "period-of-time" allows a time period to be represented using either a start ("period-start")
+   and end date and time ("period-end"), or a start ("period-start") and a positive time duration ("period-duration").<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">The "recurrence" indicates the scheduling recurrence of an event. The
    repetition can be scoped by a specified end time or by a count of occurences,
    and the frequency identifies the type of recurrence rule. For example, a "daily"
    frequency value specifies repeating events based on an interval of a day or more.
    The interval represents at which intervals the recurrence rule repeats. For example,
-   within a daily recurrence rule, an interval value of "8" means every eight days.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">An array of the "bysecond" (or "byminut", "byhour") specifies a list of seconds within a minute (or minutes within an hour, hours of the day).<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">The parameter "byday" specifies a list of days of
+   within a daily recurrence rule, an interval value of "8" means every eight days.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">An array of the "bysecond" (or "byminut", "byhour") specifies a list of seconds within a minute (or minutes within an hour, hours of the day).<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">The parameter "byday" specifies a list of days of
    the week, with an optional direction which indicates the nth occurrence of a specific day within
    the "monthly" or "yearly" frequency. For example, within a "monthly" rule,
    the "weekday" with a value of "monday" and the "direction" with a value of "-1"
-   represents the last Monday of the month.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.1-8">An array of the "bymonthday" (or byyearday", "byyearweek", or "byyearmonth") specifies a list of
-   days of the month (or days of the year, weeks of the year, or months of the year).<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<p id="section-3.1-9">The "bysetpos" conveys a list of values that corresponds to the nth occurrence
+   represents the last Monday of the month.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">An array of the "bymonthday" (or byyearday", "byyearweek", or "byyearmonth") specifies a list of
+   days of the month (or days of the year, weeks of the year, or months of the year).<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-9">The "bysetpos" conveys a list of values that corresponds to the nth occurrence
    within the set of recurrence instances to be specified. For example, in a "monthly"
    recurrence rule, the "byday" data node specifies every Monday of the week, the
    "bysetpos" with value of "-1" represents the last Monday of the month.
-   Not setting the "bysetpos" data node represents every Monday of the month.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
-<p id="section-3.1-10">The "wkst" data node specifies the day on which the week starts. This is
+   Not setting the "bysetpos" data node represents every Monday of the month.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<p id="section-3-10">The "wkst" data node specifies the day on which the week starts. This is
    significant when a "weekly" recurrence rule has an interval greater than 1, and
    a "byday" data node is specified. This is also significant when in a "yearly" rule
-   and a "byyearweek" is specified. The default value is "monday".<a href="#section-3.1-10" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="examples">
-<section id="section-3.2">
-        <h3 id="name-examples">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
-        </h3>
-<p id="section-3.2-1">The following subsections provide some examples to illustrate the use of the period and recurrence formats defined as
-   YANG groupings. Only the message body is provided with JSON used for encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<div id="period-of-time">
-<section id="section-3.2.1">
-          <h4 id="name-period-of-time">
-<a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-period-of-time" class="section-name selfRef">Period of Time</a>
-          </h4>
-<p id="section-3.2.1-1">The example of a period that starts at 08:00:00 UTC, on January 1, 2023 and ends at 18:00:00 UTC
-   on December 31, 2025 is encoded as follows:<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-2">
-<pre>
-{
-  "period-of-time": {
-    "period-start": "2023-01-01T08:00:00Z",
-    "period-end": "2025-12-01T18:00:00Z"
-  }
-}
-</pre><a href="#section-3.2.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2.1-3">An example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 15 days and
-   5 hours and 20 minutes is encoded as follows:<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-4">
-<pre>
-{
-  "period-of-time": {
-    "period-start": "2023-01-01T08:00:00Z",
-    "period-duration": "P15DT05:20:00"
-  }
-}
-</pre><a href="#section-3.2.1-4" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2.1-5">Now, consider the example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 20 weeks:<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-6">
-<pre>
-{
-  "period-of-time": {
-    "period-start": "2023-01-01T08:00:00Z",
-    "period-duration": "P20W"
-  }
-}
-</pre><a href="#section-3.2.1-6" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="recurrence-rule">
-<section id="section-3.2.2">
-          <h4 id="name-recurrence-rule">
-<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-recurrence-rule" class="section-name selfRef">Recurrence Rule</a>
-          </h4>
-<p id="section-3.2.2-1">The following snippet can be used to indicate a daily recurrent in December:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.2-2">
-<pre>
-{
-  "recurrence": {
-    "freq": "daily",
-    "byyearmonth": [12]
-  }
-}
-</pre><a href="#section-3.2.2-2" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2.2-3">The following snippet can be used to indicate 10 occurrences that occur every last Saturday of the month:<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.2-4">
-<pre>
-{
-  "recurrence": {
-    "freq": "monthly",
-    "count": 10,
-    "byday": [
-      {
-        "direction": [-1],
-        "weekday": "saturday"
-      }
-    ]
-  }
-}
-</pre><a href="#section-3.2.2-4" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2.2-5">The following indicates the example of a recurrence that occurs on the last workday of the month until December 25, 2023:<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.2-6">
-<pre>
-{
-  "recurrence": {
-    "freq": "monthly",
-    "until": "2023-12-25",
-    "byday": [
-      { "weekday": "monday" },
-      { "weekday": "tuesday" },
-      { "weekday": "wednesday" },
-      { "weekday": "thursday" },
-      { "weekday": "friday" }
-    ],
-    "bysetpos": [-1]
-  }
-}
-</pre><a href="#section-3.2.2-6" class="pilcrow">¶</a>
-</div>
-<p id="section-3.2.2-7">The following depicts the example of a recurrence that occurs every other week on Tuesday and Sunday, the week starts from Monday:<a href="#section-3.2.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.2-8">
-<pre>
-{
-  "recurrence": {
-    "freq": "weekly",
-    "interval": 2,
-    "byday": [
-      { "weekday": "tuesday" },
-      { "weekday": "sunday" }
-    ],
-    "wkst": "monday"
-  }
-}
-</pre><a href="#section-3.2.2-8" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-</section>
-</div>
+   and a "byyearweek" is specified. The default value is "monday".<a href="#section-3-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-schedule">
@@ -2230,11 +2094,125 @@ module ietf-schedule {
 </section>
 </div>
 </section>
-<div id="changes-between-revisions">
+<div id="examples">
 <section id="appendix-A">
-      <h2 id="name-changes-between-revisions">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-changes-between-revisions" class="section-name selfRef">Changes between Revisions</a>
-    </h2>
+      <h2 id="name-examples">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+      </h2>
+<p id="appendix-A-1">The following subsections provide some examples to illustrate the use of the period and recurrence formats defined as
+   YANG groupings. Only the message body is provided with JSON used for encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="period-of-time">
+<section id="appendix-A.1">
+        <h3 id="name-period-of-time">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-period-of-time" class="section-name selfRef">Period of Time</a>
+        </h3>
+<p id="appendix-A.1-1">The example of a period that starts at 08:00:00 UTC, on January 1, 2023 and ends at 18:00:00 UTC
+   on December 31, 2025 is encoded as follows:<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-2">
+<pre>
+{
+  "period-of-time": {
+    "period-start": "2023-01-01T08:00:00Z",
+    "period-end": "2025-12-01T18:00:00Z"
+  }
+}
+</pre><a href="#appendix-A.1-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.1-3">An example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 15 days and
+   5 hours and 20 minutes is encoded as follows:<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-4">
+<pre>
+{
+  "period-of-time": {
+    "period-start": "2023-01-01T08:00:00Z",
+    "period-duration": "P15DT05:20:00"
+  }
+}
+</pre><a href="#appendix-A.1-4" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.1-5">Now, consider the example of a period that starts at 08:00:00 UTC, on January 1, 2023 and lasts 20 weeks:<a href="#appendix-A.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.1-6">
+<pre>
+{
+  "period-of-time": {
+    "period-start": "2023-01-01T08:00:00Z",
+    "period-duration": "P20W"
+  }
+}
+</pre><a href="#appendix-A.1-6" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="recurrence-rule">
+<section id="appendix-A.2">
+        <h3 id="name-recurrence-rule">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-recurrence-rule" class="section-name selfRef">Recurrence Rule</a>
+        </h3>
+<p id="appendix-A.2-1">The following snippet can be used to indicate a daily recurrent in December:<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-2">
+<pre>
+{
+  "recurrence": {
+    "freq": "daily",
+    "byyearmonth": [12]
+  }
+}
+</pre><a href="#appendix-A.2-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.2-3">The following snippet can be used to indicate 10 occurrences that occur every last Saturday of the month:<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-4">
+<pre>
+{
+  "recurrence": {
+    "freq": "monthly",
+    "count": 10,
+    "byday": [
+      {
+        "direction": [-1],
+        "weekday": "saturday"
+      }
+    ]
+  }
+}
+</pre><a href="#appendix-A.2-4" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.2-5">The following indicates the example of a recurrence that occurs on the last workday of the month until December 25, 2023:<a href="#appendix-A.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-6">
+<pre>
+{
+  "recurrence": {
+    "freq": "monthly",
+    "until": "2023-12-25",
+    "byday": [
+      { "weekday": "monday" },
+      { "weekday": "tuesday" },
+      { "weekday": "wednesday" },
+      { "weekday": "thursday" },
+      { "weekday": "friday" }
+    ],
+    "bysetpos": [-1]
+  }
+}
+</pre><a href="#appendix-A.2-6" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.2-7">The following depicts the example of a recurrence that occurs every other week on Tuesday and Sunday, the week starts from Monday:<a href="#appendix-A.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2-8">
+<pre>
+{
+  "recurrence": {
+    "freq": "weekly",
+    "interval": 2,
+    "byday": [
+      { "weekday": "tuesday" },
+      { "weekday": "sunday" }
+    ],
+    "wkst": "monday"
+  }
+}
+</pre><a href="#appendix-A.2-8" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="acknowledgments">

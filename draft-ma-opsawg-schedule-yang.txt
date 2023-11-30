@@ -69,11 +69,7 @@ Table of Contents
    1.  Introduction
      1.1.  Editorial Note (To be removed by RFC Editor)
    2.  Conventions and Definitions
-   3.  Modules Overview
-     3.1.  The Schedule YANG Module
-     3.2.  Examples
-       3.2.1.  Period of Time
-       3.2.2.  Recurrence Rule
+   3.  Module Overview
    4.  The "ietf-schedule" YANG Module
    5.  Security Considerations
    6.  IANA Considerations
@@ -82,7 +78,9 @@ Table of Contents
    7.  References
      7.1.  Normative References
      7.2.  Informative References
-   Appendix A.  Changes between Revisions
+   Appendix A.  Examples
+     A.1.  Period of Time
+     A.2.  Recurrence Rule
    Acknowledgments
    Authors' Addresses
 
@@ -134,9 +132,7 @@ Table of Contents
    Also, this document uses the YANG terminology defined in Section 3 of
    [RFC7950].
 
-3.  Modules Overview
-
-3.1.  The Schedule YANG Module
+3.  Module Overview
 
    This module defines two groupings "period" and "recurrence", which
    conform to the definition of the "period of time" and "recurrence
@@ -285,107 +281,6 @@ Table of Contents
    greater than 1, and a "byday" data node is specified.  This is also
    significant when in a "yearly" rule and a "byyearweek" is specified.
    The default value is "monday".
-
-3.2.  Examples
-
-   The following subsections provide some examples to illustrate the use
-   of the period and recurrence formats defined as YANG groupings.  Only
-   the message body is provided with JSON used for encoding [RFC7951].
-
-3.2.1.  Period of Time
-
-   The example of a period that starts at 08:00:00 UTC, on January 1,
-   2023 and ends at 18:00:00 UTC on December 31, 2025 is encoded as
-   follows:
-
-   {
-     "period-of-time": {
-       "period-start": "2023-01-01T08:00:00Z",
-       "period-end": "2025-12-01T18:00:00Z"
-     }
-   }
-
-   An example of a period that starts at 08:00:00 UTC, on January 1,
-   2023 and lasts 15 days and 5 hours and 20 minutes is encoded as
-   follows:
-
-   {
-     "period-of-time": {
-       "period-start": "2023-01-01T08:00:00Z",
-       "period-duration": "P15DT05:20:00"
-     }
-   }
-
-   Now, consider the example of a period that starts at 08:00:00 UTC, on
-   January 1, 2023 and lasts 20 weeks:
-
-   {
-     "period-of-time": {
-       "period-start": "2023-01-01T08:00:00Z",
-       "period-duration": "P20W"
-     }
-   }
-
-3.2.2.  Recurrence Rule
-
-   The following snippet can be used to indicate a daily recurrent in
-   December:
-
-   {
-     "recurrence": {
-       "freq": "daily",
-       "byyearmonth": [12]
-     }
-   }
-
-   The following snippet can be used to indicate 10 occurrences that
-   occur every last Saturday of the month:
-
-   {
-     "recurrence": {
-       "freq": "monthly",
-       "count": 10,
-       "byday": [
-         {
-           "direction": [-1],
-           "weekday": "saturday"
-         }
-       ]
-     }
-   }
-
-   The following indicates the example of a recurrence that occurs on
-   the last workday of the month until December 25, 2023:
-
-   {
-     "recurrence": {
-       "freq": "monthly",
-       "until": "2023-12-25",
-       "byday": [
-         { "weekday": "monday" },
-         { "weekday": "tuesday" },
-         { "weekday": "wednesday" },
-         { "weekday": "thursday" },
-         { "weekday": "friday" }
-       ],
-       "bysetpos": [-1]
-     }
-   }
-
-   The following depicts the example of a recurrence that occurs every
-   other week on Tuesday and Sunday, the week starts from Monday:
-
-   {
-     "recurrence": {
-       "freq": "weekly",
-       "interval": 2,
-       "byday": [
-         { "weekday": "tuesday" },
-         { "weekday": "sunday" }
-       ],
-       "wkst": "monday"
-     }
-   }
 
 4.  The "ietf-schedule" YANG Module
 
@@ -1056,7 +951,106 @@ Table of Contents
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8340>.
 
-Appendix A.  Changes between Revisions
+Appendix A.  Examples
+
+   The following subsections provide some examples to illustrate the use
+   of the period and recurrence formats defined as YANG groupings.  Only
+   the message body is provided with JSON used for encoding [RFC7951].
+
+A.1.  Period of Time
+
+   The example of a period that starts at 08:00:00 UTC, on January 1,
+   2023 and ends at 18:00:00 UTC on December 31, 2025 is encoded as
+   follows:
+
+   {
+     "period-of-time": {
+       "period-start": "2023-01-01T08:00:00Z",
+       "period-end": "2025-12-01T18:00:00Z"
+     }
+   }
+
+   An example of a period that starts at 08:00:00 UTC, on January 1,
+   2023 and lasts 15 days and 5 hours and 20 minutes is encoded as
+   follows:
+
+   {
+     "period-of-time": {
+       "period-start": "2023-01-01T08:00:00Z",
+       "period-duration": "P15DT05:20:00"
+     }
+   }
+
+   Now, consider the example of a period that starts at 08:00:00 UTC, on
+   January 1, 2023 and lasts 20 weeks:
+
+   {
+     "period-of-time": {
+       "period-start": "2023-01-01T08:00:00Z",
+       "period-duration": "P20W"
+     }
+   }
+
+A.2.  Recurrence Rule
+
+   The following snippet can be used to indicate a daily recurrent in
+   December:
+
+   {
+     "recurrence": {
+       "freq": "daily",
+       "byyearmonth": [12]
+     }
+   }
+
+   The following snippet can be used to indicate 10 occurrences that
+   occur every last Saturday of the month:
+
+   {
+     "recurrence": {
+       "freq": "monthly",
+       "count": 10,
+       "byday": [
+         {
+           "direction": [-1],
+           "weekday": "saturday"
+         }
+       ]
+     }
+   }
+
+   The following indicates the example of a recurrence that occurs on
+   the last workday of the month until December 25, 2023:
+
+   {
+     "recurrence": {
+       "freq": "monthly",
+       "until": "2023-12-25",
+       "byday": [
+         { "weekday": "monday" },
+         { "weekday": "tuesday" },
+         { "weekday": "wednesday" },
+         { "weekday": "thursday" },
+         { "weekday": "friday" }
+       ],
+       "bysetpos": [-1]
+     }
+   }
+
+   The following depicts the example of a recurrence that occurs every
+   other week on Tuesday and Sunday, the week starts from Monday:
+
+   {
+     "recurrence": {
+       "freq": "weekly",
+       "interval": 2,
+       "byday": [
+         { "weekday": "tuesday" },
+         { "weekday": "sunday" }
+       ],
+       "wkst": "monday"
+     }
+   }
 
 Acknowledgments
 
