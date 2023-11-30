@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 1 June 2024</td>
+<td class="center">Expires 2 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ma-opsawg-schedule-yang-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-11-29" class="published">29 November 2023</time>
+<time datetime="2023-11-30" class="published">30 November 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-01">1 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-02">2 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1288,35 +1288,99 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <pre>
 module: ietf-schedule
 
-  grouping period:
-    +-- period-of-time
-       +-- period-start?            yang:date-and-time
-       +-- (period-type)?
-          +--:(period-explicit)
-          |  +-- period-end?        yang:date-and-time
-          +--:(period-duration)
-             +-- period-duration?   duration
+  grouping period-of-time:
+    +-- period-start?           yang:date-and-time
+    +-- time-zone-identifier?   sys:timezone-name
+    +-- (period-type)?
+       +--:(explicit)
+       |  +-- period-end?       yang:date-and-time
+       +--:(duration)
+          +-- duration?         duration
   grouping recurrence:
-    +-- recurrence
-       +-- freq           enumeration
-       +-- (recurrence-bound)?
-       |  +--:(until)
-       |  |  +-- until?   union
-       |  +--:(count)
-       |     +-- count?   uint32
-       +-- interval?      uint32
-       +-- bysecond*      uint32
-       +-- byminute*      uint32
-       +-- byhour*        uint32
-       +-- byday* [weekday]
-       |  +-- direction*   int32
-       |  +-- weekday?     schedule:weekday
-       +-- bymonthday*    int32
-       +-- byyearday*     int32
-       +-- byyearweek*    int32
-       +-- byyearmonth*   uint32
-       +-- bysetpos*      int32
-       +-- wkst?          schedule:weekday
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?          identityref
+    +-- interval?           uint32
+    +-- (recurrence-bound)?
+       +--:(until)
+       |  +-- until?        union
+       +--:(count)
+          +-- count?        uint32
+  grouping recurrence-with-date-times:
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?                identityref
+    +-- interval?                 uint32
+    +-- (recurrence-bound)?
+    |  +--:(until)
+    |  |  +-- until?              union
+    |  +--:(count)
+    |     +-- count?              uint32
+    +-- (date-times-choice)?
+       +--:(date-time)
+       |  +-- date-times*         yang:date-and-time
+       +--:(date)
+       |  +-- dates*              yang:date-no-zone
+       +--:(period-timeticks)
+       |  +-- period-timeticks* [period-start]
+       |     +-- period-start?   yang:timeticks
+       |     +-- period-end?     yang:timeticks
+       +--:(period)
+          +-- period* [period-start]
+             +-- period-start?           yang:date-and-time
+             +-- time-zone-identifier?   sys:timezone-name
+             +-- (period-type)?
+                +--:(explicit)
+                |  +-- period-end?       yang:date-and-time
+                +--:(duration)
+                   +-- duration?         duration
+  grouping icalendar-recurrence:
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?                identityref
+    +-- interval?                 uint32
+    +-- (recurrence-bound)?
+    |  +--:(until)
+    |  |  +-- until?              union
+    |  +--:(count)
+    |     +-- count?              uint32
+    +-- (date-times-choice)?
+    |  +--:(date-time)
+    |  |  +-- date-times*         yang:date-and-time
+    |  +--:(date)
+    |  |  +-- dates*              yang:date-no-zone
+    |  +--:(period-timeticks)
+    |  |  +-- period-timeticks* [period-start]
+    |  |     +-- period-start?   yang:timeticks
+    |  |     +-- period-end?     yang:timeticks
+    |  +--:(period)
+    |     +-- period* [period-start]
+    |        +-- period-start?           yang:date-and-time
+    |        +-- time-zone-identifier?   sys:timezone-name
+    |        +-- (period-type)?
+    |           +--:(explicit)
+    |           |  +-- period-end?       yang:date-and-time
+    |           +--:(duration)
+    |              +-- duration?         duration
+    +-- bysecond*                 uint32
+    +-- byminute*                 uint32
+    +-- byhour*                   uint32
+    +-- byday* [weekday]
+    |  +-- direction*   int32
+    |  +-- weekday?     schedule:weekday
+    +-- bymonthday*               int32
+    +-- byyearday*                int32
+    +-- byyearweek*               int32
+    +-- byyearmonth*              uint32
+    +-- bysetpos*                 int32
+    +-- workweek-start?           schedule:weekday
+    +-- exception-dates*          union
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1494,6 +1558,12 @@ module ietf-schedule {
       "RFC YYYY: Common YANG Data Types";
   }
 
+  import ietf-system {
+    prefix sys;
+    reference
+      "RFC 7317: A YANG Data Model for System Management";
+  }
+
   organization
     "IETF OPSAWG Working Group";
   contact
@@ -1518,13 +1588,19 @@ module ietf-schedule {
 
      This version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
-     itself for full legal notices.";
+     itself for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
   revision 2023-01-19 {
     description
       "Initial revision.";
     reference
-      "RFC XXXX: A Policy-based Network Access Control";
+      "RFC XXXX: A YANG Data Model for Scheduling.";
   }
 
   typedef weekday {
@@ -1569,6 +1645,21 @@ module ietf-schedule {
       "Seven days of the week.";
   }
 
+  feature basic-recurrence-supported {
+    description
+      "Indicates that the server supports configuring a basic
+       scheduled recurrence.";
+  }
+
+  feature icalendar-recurrence-supported {
+    description
+      "Indicates that the server supports configuring a comprehensive
+       scheduled icalendar recurrence";
+    reference
+      "RFC 5545: Internet Calendaring and Scheduling Core Object
+                 Specification (iCalendar), Section 3.3.10 and 3.8.5";
+  }
+
   typedef duration {
     type string {
       pattern '((\+)?|\-)P((([0-9]+)D)?(T(0[0-9]|1[0-9]|2[0-3])'
@@ -1591,49 +1682,105 @@ module ietf-schedule {
                  3.8.6.3";
   }
 
-  grouping period {
+  identity frequency-type {
+    description
+      "Base identity for frequency type.";
+  }
+  identity secondly {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of a second
+       or more.";
+  }
+  identity minutely {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of a minute
+       or more.";
+  }
+  identity hourly {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of an hour
+       or more.";
+  }
+  identity daily {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of a day
+       or more.";
+  }
+  identity weekly {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of a week
+       or more.";
+  }
+  identity monthly {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of an month
+       or more.";
+  }
+  identity yearly {
+    base frequency-type;
+    description
+      "Identity for a repeating event based on an interval of a year
+       or more.";
+  }
+
+  grouping period-of-time {
     description
       "This grouping is defined for period of time property.";
     reference
       "RFC 5545: Internet Calendaring and Scheduling Core Object
                  Specification (iCalendar), Section 3.3.9";
-    container period-of-time {
+    leaf period-start {
+      type yang:date-and-time;
       description
-        "This container is defined to identify period values that
-         contain a precise period of time.";
-      leaf period-start {
-        type yang:date-and-time;
+        "Period start time.";
+    }
+    leaf time-zone-identifier {
+      type sys:timezone-name;
+      description
+        "Indicates the identifier for the time zone in a time zone
+         database. This parameter MUST be specified if 'period-start'
+         value is neither reported in the format of UTC nor time zone
+         offset to UTC.";
+    }
+    choice period-type {
+      description
+        "Indicates the type of the time period. Two types are
+          supported.";
+      case explicit {
         description
-          "Period start time.";
-      }
-      choice period-type {
-        description
-          "Indicates the type of the time period. Two types are
-            supported.";
-        case period-explicit {
+          "A period of time is identified by its start and its end.
+           'period-start' indicates the period start.";
+        leaf period-end {
+          type yang:date-and-time;
           description
-            "A period of time is identified by its start and its
-             end. 'period-start' indicates the period start.";
-          leaf period-end {
-            type yang:date-and-time;
-            description
-              "Period end time.";
-          }
+            "Period end time. The start MUST be before the end. If a
+             local time without time zone offset to UTC time is
+             specified, it MUST use the same time zone reference as
+             'period-start' parameter. If 'period-start' also uses a
+             local time without time zone offset to UTC, it MUST use
+             the time zone as specified by the 'time-zone-identifier'
+             parameter.";
         }
-        case period-duration {
-          description
-            "A period of time is defined by a start and a
-             positive duration of time.";
-          leaf period-duration {
-            type duration {
-              pattern 'P((([0-9]+)D)?(T(0[0-9]|1[0-9]|2[0-3])'
-                    + ':[0-5][0-9]:[0-5][0-9]))|P([0-9]+)W';
-            }
-            description
-              "A positive duration of the time. This value is
-               equivalent to the format of duration type except that
-               the value cannot be negative.";
+      }
+      case duration {
+        description
+          "A period of time is defined by a start and a
+           positive duration of time.";
+        leaf duration {
+          type duration {
+            pattern 'P((([0-9]+)D)?(T(0[0-9]|1[0-9]|2[0-3])'
+                  + ':[0-5][0-9]:[0-5][0-9]))|P([0-9]+)W';
           }
+          description
+            "A positive duration of the time. This value is
+             equivalent to the format of duration type except that
+             the value cannot be negative.";
         }
       }
     }
@@ -1641,203 +1788,288 @@ module ietf-schedule {
 
   grouping recurrence {
     description
+      "A simple definition of recurrence.";
+    container recurrence-first {
+      description
+        "Specifies the first instance of the recurrence.";
+      leaf date-time-start {
+        type union {
+          type yang:date-no-zone;
+          type yang:date-and-time;
+        }
+        description
+          "Defines the first instance in the recurrence set. If it is
+           specified as a date-no-zone value type with no duration
+           specified, the recurrence's duration is taken to be one
+           day.";
+        reference
+          "RFC 5545: Internet Calendaring and Scheduling Core Object
+           Specification (iCalendar), Section 3.3.10";
+      }
+      leaf time-zone-identifier {
+        type sys:timezone-name;
+        description
+          "Indicates the identifier for the time zone in a time zone
+           database. This parameter MUST be specified if 'start' value
+           is neither reported in the format of UTC nor time zone
+           offset to UTC.";
+      }
+      leaf duration {
+        type duration;
+        description
+          "When specified, it refers to the duration of
+           the first occurrence. The exact duration also applies to
+           all the recurrence instance.";
+      }
+    }
+    leaf frequency {
+      type identityref {
+        base frequency-type;
+      }
+      description
+        "This parameter is defined to identify the frequency type of
+         the recurrence rule.";
+    }
+    leaf interval {
+      type uint32;
+      description
+        "A positive integer representing at which intervals the
+         recurrence rule repeats. For example, within a 'daily'
+         recurrence rule, a value of '8' means every eight days.";
+    }
+    choice recurrence-bound {
+      description
+        "Modes to bound the recurrence rule. If no choice is
+         indicated, the recurrence rule is considered to repeat
+         forever.";
+      case until {
+        description
+          "This case defines a way that bounds the recurrence
+           rule in an inclusive manner.";
+        leaf until {
+          type union {
+            type yang:date-no-zone;
+            type yang:date-and-time;
+          }
+          description
+            "This parameter specifies a date-no-zone or
+             date-time value to bounds the recurrence. If the value
+             specified by this parameter is synchronized with the
+             specified recurrence, it becomes the last instance of
+             the recurrence. The value MUST have the same value type
+             as the value type of 'start' parameter.";
+        }
+      }
+      case count {
+        description
+          "This case defines the number of occurrences at which
+           to range-bound the recurrence.";
+        leaf count {
+          type uint32;
+          description
+            "The positive number of occurrences at which to
+             range-bound the recurrence.";
+        }
+      }
+    }
+  }
+
+  grouping recurrence-with-date-times {
+    description
+      "This grouping defines an aggregate set of repeating occurrences.
+       The recurrence instances are defined by the union of occurrences
+       defined by both the 'recurrence' and 'date-times'. Duplicate
+       instances are ignored.";
+    uses recurrence;
+    choice date-times-choice {
+      description
+        "Specify a list of occurrences which complement the recurrence
+         set defined by 'recurrence' grouping. If it is specified as
+         a period value, the duration of the recurrence instance will
+         be the one specified by it, and not the duration defined
+         inside the recurrence-first parameter.";
+      case date-time {
+        description
+          "Specify a list of occurrences with date-and-time values.";
+          leaf-list date-times {
+            type yang:date-and-time;
+            description
+              "Specify a set of date-and-time values of occurrences.";
+          }
+      }
+      case date {
+        description
+          "Specify a list of occurrences with date-no-zone values.";
+          leaf-list dates {
+            type yang:date-no-zone;
+            description
+              "Specify a set of date-no-zone values of occurrences.";
+          }
+      }
+      case period-timeticks {
+        description
+          "Specify a list of occurrences with period span of timeticks
+           format.";
+          list period-timeticks {
+            key "period-start";
+            description
+              "A list of period with timeticks formats.";
+            leaf period-start {
+              type yang:timeticks;
+              must
+              "(not(derived-from(../../frequency,'schedule:secondly'))"
+             +" or (current() &lt; 100)) and "
+             +"(not(derived-from(../../frequency,'schedule:minutely'))"
+             +" or (current() &lt; 6000)) and "
+             +"(not(derived-from(../../frequency,'schedule:hourly'))"
+             +" or (current() &lt; 360000)) and "
+             +"(not(derived-from(../../frequency,'schedule:daily'))"
+             +" or (current() &lt; 8640000)) and "
+             +"(not(derived-from(../../frequency,'schedule:weekly'))"
+             +" or (current() &lt; 60480000)) and "
+             +"(not(derived-from(../../frequency,'schedule:monthly'))"
+             +" or (current() &lt; 267840000)) and "
+             +"(not(derived-from(../../frequency,'schedule:yearly'))"
+             +" or (current() &lt; 3162240000))" {
+                error-message
+                  "The period-start must not exceed the frequency
+                   interval.";
+              }
+              description
+                "Start time of the scheduled value within one
+                 recurrence.";
+            }
+            leaf period-end {
+              type yang:timeticks;
+              description
+                "End time of the scheduled value within one recurrence.";
+            }
+          }
+      }
+      case period {
+        description
+          "Specify a list of occurrences with period span of date-and
+           -time format.";
+        list period {
+          key "period-start";
+          description
+            "A list of period with date-and-time formats.";
+          uses period-of-time;
+        }
+      }
+    }
+  }
+
+  grouping icalendar-recurrence {
+    description
       "This grouping is defined to identify properties that contain a
        recurrence rule.";
     reference
       "RFC 5545: Internet Calendaring and Scheduling Core Object
-       Specification (iCalendar), Section 3.3.10";
-    container recurrence {
-      description
-        "Recurrence rule definition.";
-      leaf freq {
-        type enumeration {
-          enum secondly {
-            value 1;
-            description
-              "Repeating events based on an interval of a second
-               or more.";
-          }
-          enum minutely {
-            value 2;
-            description
-              "Repeating events based on an interval of a minute
-               or more.";
-          }
-          enum hourly {
-            value 3;
-            description
-              "Repeating events based on an interval of an hour
-               or more.";
-          }
-          enum daily {
-            value 4;
-            description
-              "Repeating events based on an interval of a day or
-               more.";
-          }
-          enum weekly {
-            value 5;
-            description
-              "Repeating events based on an interval of a week or
-               more.";
-          }
-          enum monthly {
-            value 6;
-            description
-              "Repeating events based on an interval of a month or
-               more.";
-          }
-          enum yearly {
-            value 7;
-            description
-              "Repeating events based on an interval of a year or
-               more.";
-          }
-        }
-        mandatory true;
-        description
-          "This parameter is defined to identify the type of
-           recurrence rule.";
-      }
-      choice recurrence-bound {
-        description
-          "Modes to bound the recurrence rule. If no choice is
-           indicated, the recurrence rule is considered to repeat
-           forever.";
-        case until {
-          description
-            "This case defines a way that bounds the recurrence
-             rule in an inclusive manner.";
-          leaf until {
-            type union {
-              type yang:date-no-zone;
-              type yang:date-and-time;
-            }
-            description
-              "This parameter specifies a date-no-zone or
-               date-time value to bounds the recurrence. The
-               specified value becomes the last instance of the
-               recurrence.";
-          }
-        }
-        case count {
-          description
-            "This case defines the number of occurrences at which
-             to range-bound the recurrence.";
-          leaf count {
-            type uint32;
-            description
-              "The positive number of occurrences at which to
-               range-bound the recurrence.";
-          }
-        }
-      }
-      leaf interval {
-        type uint32;
-        default "1";
-        description
-          "A positive integer representing at which intervals the
-           recurrence rule repeats. The default value is '1',
-           meaning every second for a secondly rule, every minute
-           for a minutely rule, every hour for an hourly rule, every
-           day for a daily rule, every week for a weekly rule, every
-           month for a monthly rule, and every year for a yearly
-           rule.";
-      }
-      leaf-list bysecond {
-        type uint32 {
-          range "0..60";
-        }
-        description
-          "A list of seconds within a minute.";
-      }
-      leaf-list byminute {
-        type uint32 {
-          range "0..59";
-        }
-        description
-          "A list of minutes within an hour.";
-      }
-      leaf-list byhour {
-        type uint32 {
-          range "0..23";
-        }
-        description
-          "Specify a list of hours of the day.";
-      }
-      list byday {
-        key "weekday";
-        description
-          "Specify a list of days of the week.";
-        leaf-list direction {
-          when '(enum-value(../../freq) = 6) or ' +
-            '(enum-value(../../freq) = 7) and not(../../byyearweek)';
-          type int32 {
-            range "-53..-1|1..53";
-          }
-          description
-            "When specified, it indicates the nth occurrence of a
-             specific day within the MONTHLY or YEARLY 'RRULE'. For
-             example, within a MONTHLY rule, +1 monday represents the
-             first monday within the month, whereas -1 monday
-             represents the last monday of the month.";
-        }
-        leaf weekday {
-          type schedule:weekday;
-          description
-            "Corresponding to seven days of the week.";
-        }
-      }
+       Specification (iCalendar), Section 3.8.5";
 
-      leaf-list bymonthday {
-        type int32 {
-          range "-31..-1|1..31";
-        }
-        description
-          "Specifies a list of days of the month.";
+    uses recurrence-with-date-times;
+    leaf-list bysecond {
+      type uint32 {
+        range "0..60";
       }
-      leaf-list byyearday {
-        type int32 {
-          range "-366..-1|1..366";
-        }
-        description
-          "Specifies a list of days of the year.";
+      description
+        "A list of seconds within a minute.";
+    }
+    leaf-list byminute {
+      type uint32 {
+        range "0..59";
       }
-      leaf-list byyearweek {
-        when 'enum-value(../freq)=7';
+      description
+        "A list of minutes within an hour.";
+    }
+    leaf-list byhour {
+      type uint32 {
+        range "0..23";
+      }
+      description
+        "Specify a list of hours of the day.";
+    }
+    list byday {
+      key "weekday";
+      description
+        "Specify a list of days of the week.";
+      leaf-list direction {
+        when "derived-from(../../frequency, 'schedule:monthly') or "
+          +  "(derived-from(../../frequency, 'schedule:yearly') "
+          +  " and not(../../byyearweek))";
         type int32 {
           range "-53..-1|1..53";
         }
         description
-          "Specifies a list of weeks of the year.";
+          "When specified, it indicates the nth occurrence of a
+           specific day within the monthly or yearly recurrence rule.
+           For example, within a monthly rule, +1 monday represents
+           the first monday within the month, whereas -1 monday
+           represents the last monday of the month.";
       }
-      leaf-list byyearmonth {
-        type uint32 {
-          range "1..12";
-        }
-        description
-          "Specifies a list of months of the year.";
-      }
-      leaf-list bysetpos {
-        type int32 {
-          range "-366..-1|1..366";
-        }
-        description
-          "Specifies a list of values that corresponds to the nth
-           occurrence within the set of recurrence instances
-           specified by the rule. It must only be used in conjunction
-           with another by the rule part.";
-      }
-      leaf wkst {
+      leaf weekday {
         type schedule:weekday;
-        default "monday";
         description
-          "Specifies the day on which the workweek starts.";
+          "Corresponding to seven days of the week.";
       }
+    }
+
+    leaf-list bymonthday {
+      type int32 {
+        range "-31..-1|1..31";
+      }
+      description
+        "Specifies a list of days of the month.";
+    }
+    leaf-list byyearday {
+      type int32 {
+        range "-366..-1|1..366";
+      }
+      description
+        "Specifies a list of days of the year.";
+    }
+    leaf-list byyearweek {
+      when "derived-from(../frequency, 'schedule:yearly')";
+      type int32 {
+        range "-53..-1|1..53";
+      }
+      description
+        "Specifies a list of weeks of the year.";
+    }
+    leaf-list byyearmonth {
+      type uint32 {
+        range "1..12";
+      }
+      description
+        "Specifies a list of months of the year.";
+    }
+    leaf-list bysetpos {
+      type int32 {
+        range "-366..-1|1..366";
+      }
+      description
+        "Specifies a list of values that corresponds to the nth
+         occurrence within the set of recurrence instances
+         specified by the rule. It must only be used in conjunction
+         with another by the rule part.";
+    }
+    leaf workweek-start {
+      type schedule:weekday;
+      default "monday";
+      description
+        "Specifies the day on which the workweek starts.";
+    }
+    leaf-list exception-dates {
+      type union {
+        type yang:date-no-zone;
+        type yang:date-and-time;
+      }
+      description
+        "Defines a list of exceptions for recurrence.";
     }
   }
 }
-
 
 &lt;CODE ENDS&gt;</pre><a href="#section-4-2" class="pilcrow">¶</a>
 </div>
