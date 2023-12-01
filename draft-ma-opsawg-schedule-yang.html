@@ -1354,7 +1354,22 @@ module: ietf-schedule
 <figure id="figure-2">
           <div class="alignCenter art-text artwork" id="section-3.1-2.1">
 <pre>
-{::include ./yang/schedule/period-grp.txt
+module: ietf-schedule
+
+  grouping period-of-time:
+    +-- period-start?           yang:date-and-time
+    +-- time-zone-identifier?   sys:timezone-name
+    +-- (period-type)?
+       +--:(explicit)
+       |  +-- period-end?       yang:date-and-time
+       +--:(duration)
+          +-- duration?         duration
+  grouping recurrence:
+    ...
+  grouping recurrence-with-date-times:
+    ...
+  grouping icalendar-recurrence:
+    ...
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1374,7 +1389,26 @@ module: ietf-schedule
 <figure id="figure-3">
           <div class="alignCenter art-text artwork" id="section-3.2-2.1">
 <pre>
-{::include ./yang/schedule/rec-grp.txt
+module: ietf-schedule
+
+  grouping period-of-time:
+    ...
+  grouping recurrence:
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?          identityref
+    +-- interval?           uint32
+    +-- (recurrence-bound)?
+       +--:(until)
+       |  +-- until?        union
+       +--:(count)
+          +-- count?        uint32
+  grouping recurrence-with-date-times:
+    ...
+  grouping icalendar-recurrence:
+    ...
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
@@ -1405,7 +1439,44 @@ module: ietf-schedule
 <figure id="figure-4">
           <div class="alignCenter art-text artwork" id="section-3.3-2.1">
 <pre>
-{::include ./yang/schedule/rec-dt-grp.txt
+module: ietf-schedule
+
+  grouping period-of-time:
+    ...
+  grouping recurrence:
+    ...
+  grouping recurrence-with-date-times:
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?                identityref
+    +-- interval?                 uint32
+    +-- (recurrence-bound)?
+    |  +--:(until)
+    |  |  +-- until?              union
+    |  +--:(count)
+    |     +-- count?              uint32
+    +-- (date-times-choice)?
+       +--:(date-time)
+       |  +-- date-times*         yang:date-and-time
+       +--:(date)
+       |  +-- dates*              yang:date-no-zone
+       +--:(period-timeticks)
+       |  +-- period-timeticks* [period-start]
+       |     +-- period-start?   yang:timeticks
+       |     +-- period-end?     yang:timeticks
+       +--:(period)
+          +-- period* [period-start]
+             +-- period-start?           yang:date-and-time
+             +-- time-zone-identifier?   sys:timezone-name
+             +-- (period-type)?
+                +--:(explicit)
+                |  +-- period-end?       yang:date-and-time
+                +--:(duration)
+                   +-- duration?         duration
+  grouping icalendar-recurrence:
+    ...
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
@@ -1432,7 +1503,57 @@ module: ietf-schedule
 <figure id="figure-5">
           <div class="alignCenter art-text artwork" id="section-3.4-2.1">
 <pre>
-{::include ./yang/schedule/ical-grp.txt
+module: ietf-schedule
+
+  grouping period-of-time:
+    ...
+  grouping recurrence:
+    ...
+  grouping recurrence-with-date-times:
+    ...
+  grouping icalendar-recurrence:
+    +-- recurrence-first
+    |  +-- date-time-start?        union
+    |  +-- time-zone-identifier?   sys:timezone-name
+    |  +-- duration?               duration
+    +-- frequency?                identityref
+    +-- interval?                 uint32
+    +-- (recurrence-bound)?
+    |  +--:(until)
+    |  |  +-- until?              union
+    |  +--:(count)
+    |     +-- count?              uint32
+    +-- (date-times-choice)?
+    |  +--:(date-time)
+    |  |  +-- date-times*         yang:date-and-time
+    |  +--:(date)
+    |  |  +-- dates*              yang:date-no-zone
+    |  +--:(period-timeticks)
+    |  |  +-- period-timeticks* [period-start]
+    |  |     +-- period-start?   yang:timeticks
+    |  |     +-- period-end?     yang:timeticks
+    |  +--:(period)
+    |     +-- period* [period-start]
+    |        +-- period-start?           yang:date-and-time
+    |        +-- time-zone-identifier?   sys:timezone-name
+    |        +-- (period-type)?
+    |           +--:(explicit)
+    |           |  +-- period-end?       yang:date-and-time
+    |           +--:(duration)
+    |              +-- duration?         duration
+    +-- bysecond*                 uint32
+    +-- byminute*                 uint32
+    +-- byhour*                   uint32
+    +-- byday* [weekday]
+    |  +-- direction*   int32
+    |  +-- weekday?     schedule:weekday
+    +-- bymonthday*               int32
+    +-- byyearday*                int32
+    +-- byyearweek*               int32
+    +-- byyearmonth*              uint32
+    +-- bysetpos*                 int32
+    +-- workweek-start?           schedule:weekday
+    +-- exception-dates*          union
 </pre>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
