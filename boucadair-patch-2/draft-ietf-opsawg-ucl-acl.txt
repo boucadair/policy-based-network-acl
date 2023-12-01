@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 June 2024                                        M. Boucadair
+Expires: 3 June 2024                                        M. Boucadair
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                        29 November 2023
+                                                         1 December 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2024.
+   This Internet-Draft will expire on 3 June 2024.
 
 Copyright Notice
 
@@ -316,29 +316,29 @@ Table of Contents
    Figure 1 provides the overall architecture and procedure for policy-
    based access control management.
 
-                                          +------------+
+                                          .------------.
                                           |Orchestrator|
-                                          +------+-----+
+                                          '------+-----'
         Service                                  | (Step 1)
-       ------------------------------------------+-------------
+       --------------------------------------------------------
                                                  |
         Network                                  |
                                   (Step 4)       |
-        +-------+        +--------+     +--------+-----------+
+        .-------.        .--------.     .--------+-----------.
         |User #1+--+     | AAA    |     |    SDN Controller  |
-        +-------+  |     | Server +-----+        (PDP)       |
-                   |     +----+---+     +--------+-----------+
+        '-------'  |     | Server +-----+        (PDP)       |
+                   |     '----+---'     '--------+-----------'
                    |          |                  |
-                   |          |           +---------------+(Step 5)
+                   |          |           +------+--------+(Step 5)
          (Step 2)  |          |(Step 3)   |               |
                    |          |           |               |
-                   |        +-+-----------+---------------+------------+
-                   |        | +----------------------+ +--------------+|
-        +-------+  +--------+ | Network Access Server| |firewall, etc.||
-        |User #2+-----------+ |       (NAS)          | +--------------+|
-        +-------+           | +----------------------+                 |
+                   |        .-+-----------+---------------+------------.
+                   |        | .----------------------. .--------------.|
+        .-------.  +--------+ | Network Access Server| |firewall, etc.||
+        |User #2+-----------+ |       (NAS)          | '--------------'|
+        '-------'           | '----------------------'                 |
                             |                     (PEP)                |
-                            +------------------------------------------+
+                            '------------------------------------------'
 
       Figure 1: An Architecture for Group-based Policy Management
 
@@ -464,65 +464,96 @@ Table of Contents
 
    Figure 2 provides the tree structure of the "ietf-ucl-acl" module.
 
-     module: ietf-ucl-acl
+  module: ietf-ucl-acl
 
-       augment /acl:acls/acl:acl:
-         +--rw endpoint-groups
-            +--rw endpoint-group* [group-id]
-               +--rw group-id              string
-               +--rw (group-type)?
-                  +--:(user-group)
-                  |  +--rw user-group
-                  |     +--rw role?   string
-                  +--:(device-group)
-                     +--rw device-group
-                        +--rw device-type?   string
-       augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
-         +--rw endpoint-group {match-on-group}?
-            +--rw source-group-id?        group-id-reference
-            +--rw destination-group-id?   group-id-reference
-       augment /acl:acls/acl:acl/acl:aces/acl:ace:
-         +--rw time-range {time-condition}?
-            +--rw (time-range-type)?
-               +--:(periodic-range)
-               |  +--rw recurrence
-               |     +--rw freq           enumeration
-               |     +--rw (recurrence-bound)?
-               |     |  +--:(until)
-               |     |  |  +--rw until?   union
-               |     |  +--:(count)
-               |     |     +--rw count?   uint32
-               |     +--rw interval?      uint32
-               |     +--rw bysecond*      uint32
-               |     +--rw byminute*      uint32
-               |     +--rw byhour*        uint32
-               |     +--rw byday* [weekday]
-               |     |  +--rw direction*   int32
-               |     |  +--rw weekday      schedule:weekday
-               |     +--rw bymonthday*    int32
-               |     +--rw byyearday*     int32
-               |     +--rw byyearweek*    int32
-               |     +--rw byyearmonth*   uint32
-               |     +--rw bysetpos*      int32
-               |     +--rw wkst*          schedule:weekday
-               |     +--rw duration?      schedule:duration
-               +--:(absolute-range)
-                  +--rw period-of-time
-                     +--rw (forms)?
-                        +--:(period-explicit)
-                        |  +--rw explicit-start?   yang:date-and-time
-                        |  +--rw explicit-end?     yang:date-and-time
-                        +--:(period-start)
-                           +--rw start?            yang:date-and-time
-                           +--rw duration?         duration
+    augment /acl:acls/acl:acl:
+      +--rw endpoint-groups
+         +--rw endpoint-group* [group-id]
+            +--rw group-id              string
+            +--rw (group-type)?
+               +--:(user-group)
+               |  +--rw user-group
+               |     +--rw role?   string
+               +--:(device-group)
+                  +--rw device-group
+                     +--rw device-type?   string
+    augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+      +--rw endpoint-group {match-on-group}?
+         +--rw source-group-id?        group-id-reference
+         +--rw destination-group-id?   group-id-reference
+    augment /acl:acls/acl:acl/acl:aces/acl:ace:
+      +--rw time-range {time-condition}?
+         +--rw (time-range-type)?
+            +--:(periodic-range)
+            |  +--rw recurrence-first
+            |  |  +--rw date-time-start?        union
+            |  |  +--rw time-zone-identifier?   sys:timezone-name
+            |  |  +--rw duration?               duration
+            |  +--rw frequency?                identityref
+            |  +--rw interval?                 uint32
+            |  +--rw (recurrence-bound)?
+            |  |  +--:(until)
+            |  |  |  +--rw until?              union
+            |  |  +--:(count)
+            |  |     +--rw count?              uint32
+            |  +--rw (date-times-choice)?
+            |  |  +--:(date-time)
+            |  |  |  +--rw date-times*         yang:date-and-time
+            |  |  +--:(date)
+            |  |  |  +--rw dates*              yang:date-no-zone
+            |  |  +--:(period-timeticks)
+            |  |  |  +--rw period-timeticks* [period-start]
+            |  |  |     +--rw period-start    yang:timeticks
+            |  |  |     +--rw period-end?     yang:timeticks
+            |  |  +--:(period)
+            |  |     +--rw period* [period-start]
+            |  |        +--rw period-start            yang:date-and-time
+            |  |        +--rw time-zone-identifier?   sys:timezone-name
+            |  |        +--rw (period-type)?
+            |  |           +--:(explicit)
+            |  |           |  +--rw period-end?       yang:date-and-time
+            |  |           +--:(duration)
+            |  |              +--rw duration?         duration
+            |  +--rw bysecond*                 uint32
+            |  +--rw byminute*                 uint32
+            |  +--rw byhour*                   uint32
+            |  +--rw byday* [weekday]
+            |  |  +--rw direction*   int32
+            |  |  +--rw weekday      schedule:weekday
+            |  +--rw bymonthday*               int32
+            |  +--rw byyearday*                int32
+            |  +--rw byyearweek*               int32
+            |  +--rw byyearmonth*              uint32
+            |  +--rw bysetpos*                 int32
+            |  +--rw workweek-start?           schedule:weekday
+            |  +--rw exception-dates*          union
+            +--:(absolute-range)
+               +--rw period-start?             yang:date-and-time
+               +--rw time-zone-identifier?     sys:timezone-name
+               +--rw (period-type)?
+                  +--:(explicit)
+                  |  +--rw period-end?         yang:date-and-time
+                  +--:(duration)
+                     +--rw duration?           duration
 
-                          Figure 2: UCL Extension
+                         Figure 2: UCL Extension
 
    The first part of the data model augments the "acl" list in the IETF
    ACL model [RFC8519] with a "endpoint-groups" container having a list
    of "endpoint group" inside, each entry has a "group-id" that uniquely
-   identifies the endpoint group.  The choice statement controls the
-   selection of group type between "user-group" or "device-group".
+   identifies the endpoint group.
+
+      "group-id" is defined as a string rather than uint to accommodate
+      deployments which require some identification hierarchy within a
+      domain.  Such a hierarchy is meant to ease coordination within an
+      administrative domain.  There might be cases where a domain needs
+      to tag packets with the group they belong to.  The tagging does
+      not need to mirror exactly the "group id" used to populate the
+      policy.  Future augmentation may be considered in the future to
+      cover encapsulation considerations.
+
+   The choice statement controls the selection of group type between
+   "user-group" or "device-group".
 
    The second part of the data model augments the "matches" container in
    the IETF ACL model [RFC8519] so that a source and/or destination
@@ -775,27 +806,12 @@ Table of Contents
            case periodic-range {
              description
                "A periodic range of time to take effect.";
-             uses schedule:recurrence {
-               augment recurrence {
-                 description
-                   "Add a parameter to specify the duration of each
-                    recurrence trigger.";
-                 leaf duration {
-                   type schedule:duration {
-                     pattern '((\+)?|\-)PT(0[0-9]|1[0-9]|2[0-3]):'
-                           + '[0-5][0-9]:[0-5][0-9]';
-                   }
-                   description
-                     "A duration of time in terms of days when policies
-                      are activated in each occurrence.";
-                 }
-               }
-             }
+             uses schedule:icalendar-recurrence;
            }
            case absolute-range {
              description
                "A single precise period of time to take effect.";
-             uses schedule:period;
+             uses schedule:period-of-time;
            }
          }
        }
@@ -1074,9 +1090,9 @@ Table of Contents
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
               Overlays (NVO3) Encapsulation Considerations", Work in
-              Progress, Internet-Draft, draft-ietf-nvo3-encap-10, 6
+              Progress, Internet-Draft, draft-ietf-nvo3-encap-11, 29
               November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-nvo3-encap-10>.
+              draft-ietf-nvo3-encap-11>.
 
    [I-D.smith-vxlan-group-policy]
               Smith, M. and L. Kreeger, "VXLAN Group Policy Option",
