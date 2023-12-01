@@ -116,7 +116,7 @@ Table of Contents
    or resources based on date and time.
 
    Examples to illustrate the use of the common groupings are provided
-   in Appendix A.  Also, sample modules to exemplify how future module
+   in Appendix A.  Also, sample modules to exemplify how future modules
    can use the extensibility provisions in "ietf-schedule" are provided
    in Appendix B.
 
