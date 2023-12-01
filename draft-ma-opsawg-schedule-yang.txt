@@ -168,7 +168,16 @@ Table of Contents
    Figure 1 provides an overview of the tree structure [RFC8340] of the
    "ietf-schedule" module in terms of its groupings.
 
-                  {::include ./yang/schedule/overall.txt
+                  module: ietf-schedule
+
+                    grouping period-of-time:
+                      ...
+                    grouping recurrence:
+                      ...
+                    grouping recurrence-with-date-times:
+                      ...
+                    grouping icalendar-recurrence:
+                      ...
 
                  Figure 1: Overall Schedule Tree Structure
 

@@ -1322,7 +1322,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <figure id="figure-1">
         <div class="alignCenter art-text artwork" id="section-3-4.1">
 <pre>
-{::include ./yang/schedule/overall.txt
+module: ietf-schedule
+
+  grouping period-of-time:
+    ...
+  grouping recurrence:
+    ...
+  grouping recurrence-with-date-times:
+    ...
+  grouping icalendar-recurrence:
+    ...
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
