@@ -21,7 +21,7 @@ Abstract
    to be applicable for scheduling information such as event, policy,
    services, or resources based on date and time.  For the sake of
    better modularity, the module includes basic, intermediate, and
-   advanced version of scheduling groupings.
+   advanced versions of schedule groupings.
 
 Discussion Venues
 
@@ -95,7 +95,6 @@ Table of Contents
            Rule
      B.2.  Example: Schedule Network Properties to Change Based on
            Date and Time
-   Appendix C.  Changes between Revisions
    Acknowledgments
    Authors' Addresses
 
@@ -115,6 +114,11 @@ Table of Contents
    includes a set of reusable groupings which are designed to be
    applicable for scheduling information such as event, policy, services
    or resources based on date and time.
+
+   Examples to illustrate the use of the common groupings are provided
+   in Appendix A.  Also, sample modules to exemplify how future modules
+   can use the extensibility provisions in "ietf-schedule" are provided
+   in Appendix B.
 
 1.1.  Editorial Note (To be removed by RFC Editor)
 
@@ -150,15 +154,16 @@ Table of Contents
 
 3.  Module Overview
 
-   The "ietf-schedule" module defines the following groupings:
+   The "ietf-schedule" module (Section 5) defines the following
+   groupings:
 
-   *  period-of-time
+   *  period-of-time (Section 3.1)
 
-   *  recurrence
+   *  recurrence (Section 3.2)
 
-   *  recurrence-with-date-times
+   *  recurrence-with-date-times (Section 3.3)
 
-   *  icalendar-recurrence
+   *  icalendar-recurrence (Section 3.4)
 
    Figure 1 provides an overview of the tree structure [RFC8340] of the
    "ietf-schedule" module in terms of its groupings.
@@ -358,9 +363,9 @@ Table of Contents
    the previous one and adding more parameters.  To allow for different
    options, two features are defined in the data model:
 
-   *  basic-recurrence-supported
+   *  'basic-recurrence-supported'
 
-   *  icalendar-recurrence-supported
+   *  'icalendar-recurrence-supported'
 
    Appendix B.1 provides an example about how that could be used.
    Implementations may support a basic recurrence rule or an advanced
@@ -375,6 +380,8 @@ Table of Contents
    This module imports types defined in [I-D.ietf-netmod-rfc6991-bis].
 
    <CODE BEGINS> file "ietf-schedule@2023-01-19.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
    module ietf-schedule {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-schedule";
@@ -486,7 +493,8 @@ Table of Contents
           scheduled icalendar recurrence";
        reference
          "RFC 5545: Internet Calendaring and Scheduling Core Object
-                    Specification (iCalendar), Section 3.3.10 and 3.8.5";
+                    Specification (iCalendar), Section 3.3.10 and 3.8.5\
+                                                                      ";
      }
 
      typedef duration {
@@ -518,13 +526,15 @@ Table of Contents
      identity secondly {
        base frequency-type;
        description
-         "Identity for a repeating event based on an interval of a second
+         "Identity for a repeating event based on an interval of a \
+                                                                  second
           or more.";
      }
      identity minutely {
        base frequency-type;
        description
-         "Identity for a repeating event based on an interval of a minute
+         "Identity for a repeating event based on an interval of a \
+                                                                  minute
           or more.";
      }
      identity hourly {
@@ -548,7 +558,8 @@ Table of Contents
      identity monthly {
        base frequency-type;
        description
-         "Identity for a repeating event based on an interval of an month
+         "Identity for a repeating event based on an interval of an \
+                                                                   month
           or more.";
      }
      identity yearly {
@@ -593,7 +604,8 @@ Table of Contents
                 specified, it MUST use the same time zone reference as
                 'period-start' parameter. If 'period-start' also uses a
                 local time without time zone offset to UTC, it MUST use
-                the time zone as specified by the 'time-zone-identifier'
+                the time zone as specified by the 'time-zone-identifier\
+                                                                      '
                 parameter.";
            }
          }
@@ -639,7 +651,8 @@ Table of Contents
            type sys:timezone-name;
            description
              "Indicates the identifier for the time zone in a time zone
-              database. This parameter MUST be specified if 'start' value
+              database. This parameter MUST be specified if 'start' \
+                                                                   value
               is neither reported in the format of UTC nor time zone
               offset to UTC.";
          }
@@ -705,14 +718,17 @@ Table of Contents
 
      grouping recurrence-with-date-times {
        description
-         "This grouping defines an aggregate set of repeating occurrences.
-          The recurrence instances are defined by the union of occurrences
+         "This grouping defines an aggregate set of repeating \
+                                                            occurrences.
+          The recurrence instances are defined by the union of \
+                                                             occurrences
           defined by both the 'recurrence' and 'date-times'. Duplicate
           instances are ignored.";
        uses recurrence;
        choice date-times-choice {
          description
-           "Specify a list of occurrences which complement the recurrence
+           "Specify a list of occurrences which complement the \
+                                                              recurrence
             set defined by 'recurrence' grouping. If it is specified as
             a period value, the duration of the recurrence instance will
             be the one specified by it, and not the duration defined
@@ -723,7 +739,8 @@ Table of Contents
              leaf-list date-times {
                type yang:date-and-time;
                description
-                 "Specify a set of date-and-time values of occurrences.";
+                 "Specify a set of date-and-time values of occurrences.\
+                                                                      ";
              }
          }
          case date {
@@ -737,7 +754,8 @@ Table of Contents
          }
          case period-timeticks {
            description
-             "Specify a list of occurrences with period span of timeticks
+             "Specify a list of occurrences with period span of \
+                                                               timeticks
               format.";
              list period-timeticks {
                key "period-start";
@@ -746,9 +764,11 @@ Table of Contents
                leaf period-start {
                  type yang:timeticks;
                  must
-                 "(not(derived-from(../../frequency,'schedule:secondly'))"
+                 "(not(derived-from(../../frequency,'schedule:secondly'\
+                                                                     ))"
                 +" or (current() < 100)) and "
-                +"(not(derived-from(../../frequency,'schedule:minutely'))"
+                +"(not(derived-from(../../frequency,'schedule:minutely'\
+                                                                     ))"
                 +" or (current() < 6000)) and "
                 +"(not(derived-from(../../frequency,'schedule:hourly'))"
                 +" or (current() < 360000)) and "
@@ -756,7 +776,8 @@ Table of Contents
                 +" or (current() < 8640000)) and "
                 +"(not(derived-from(../../frequency,'schedule:weekly'))"
                 +" or (current() < 60480000)) and "
-                +"(not(derived-from(../../frequency,'schedule:monthly'))"
+                +"(not(derived-from(../../frequency,'schedule:monthly')\
+                                                                      )"
                 +" or (current() < 267840000)) and "
                 +"(not(derived-from(../../frequency,'schedule:yearly'))"
                 +" or (current() < 3162240000))" {
@@ -771,7 +792,8 @@ Table of Contents
                leaf period-end {
                  type yang:timeticks;
                  description
-                   "End time of the scheduled value within one recurrence.";
+                   "End time of the scheduled value within one \
+                                                           recurrence.";
                }
              }
          }
@@ -832,7 +854,8 @@ Table of Contents
            }
            description
              "When specified, it indicates the nth occurrence of a
-              specific day within the monthly or yearly recurrence rule.
+              specific day within the monthly or yearly recurrence rule\
+                                                                      .
               For example, within a monthly rule, +1 monday represents
               the first monday within the month, whereas -1 monday
               represents the last monday of the month.";
@@ -1244,82 +1267,90 @@ B.1.  Example: Schedule Tasks to Execute Based on a Recurrence Rule
    grouping from "ietf-schedule" module shows how a scheduled task could
    be defined with different features used for options.
 
-module example-scheduled-backup {
-  yang-version 1.1;
-  namespace "http://example.com/example-scheduled-backup";
-  prefix "ex-scback";
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
-  import ietf-inet-types {
-    prefix "inet";
-  }
+   module example-scheduled-backup {
+     yang-version 1.1;
+     namespace "http://example.com/example-scheduled-backup";
+     prefix "ex-scback";
 
-  import ietf-schedule {
-    prefix "schedule";
-  }
+     import ietf-inet-types {
+       prefix "inet";
+     }
 
-  organization
-    "Example, Inc.";
+     import ietf-schedule {
+       prefix "schedule";
+     }
 
-  contact
-    "Support at example.com";
+     organization
+       "Example, Inc.";
 
-  description
-    "Example of a module defining an scheduled based backup operation.";
+     contact
+       "Support at example.com";
 
-  revision "2023-01-19" {
-    description
-      "Initial Version.";
-    reference
-      "RFC XXXX: A YANG Data Model for Scheduling.";
-    }
+     description
+       "Example of a module defining an scheduled based backup \
+                                                            operation.";
 
-  container scheduled-backup-tasks {
-    description
-      "A container for backing up all current running configuration
-       on the device.";
+     revision "2023-01-19" {
+       description
+         "Initial Version.";
+       reference
+         "RFC XXXX: A YANG Data Model for Scheduling.";
+       }
 
-    choice local-or-remote {
-      description
-        "Specifies whether the configuration to be backed up is local or
-         remote.";
-      case local {
-        description
-          "Configuration parameters for backing up of local devices.";
-        leaf local {
-          type empty;
-          description
-            "The parameter specifies the configuration to be backed up
-             is on the local device.";
-        }
-      }
-      case remote {
-        description
-          "Configuration parameters for backing up of remote devices.";
-        leaf remote {
-          type inet:domain-name;
-          description
-            "The parameter specifies the remote device domain name.";
-        }
-      }
-    }
+     container scheduled-backup-tasks {
+       description
+         "A container for backing up all current running configuration
+          on the device.";
 
-    container basic-recurrence-schedules {
-      if-feature schedule:basic-recurrence-supported;
-      description
-        "Basic recurrence schedule specification, only applies when
-         schedule:basic-recurrence-supported feaure is supported.";
-      uses schedule:recurrence;
-    }
+       choice local-or-remote {
+         description
+           "Specifies whether the configuration to be backed up is \
+                                                                local or
+            remote.";
+         case local {
+           description
+             "Configuration parameters for backing up of local devices.\
+                                                                      ";
+           leaf local {
+             type empty;
+             description
+               "The parameter specifies the configuration to be backed \
+                                                                      up
+                is on the local device.";
+           }
+         }
+         case remote {
+           description
+             "Configuration parameters for backing up of remote devices\
+                                                                     .";
+           leaf remote {
+             type inet:domain-name;
+             description
+               "The parameter specifies the remote device domain name.";
+           }
+         }
+       }
 
-    container icalendar-recurrence-schedules {
-      if-feature schedule:icalendar-recurrence-supported;
-      description
-        "Basic recurrence schedule specification, only applies when
-         schedule:icalendar-recurrence-supported feaure is supported.";
-      uses schedule:icalendar-recurrence;
-    }
-  }
-}
+       container basic-recurrence-schedules {
+         if-feature schedule:basic-recurrence-supported;
+         description
+           "Basic recurrence schedule specification, only applies when
+            schedule:basic-recurrence-supported feaure is supported.";
+         uses schedule:recurrence;
+       }
+
+       container icalendar-recurrence-schedules {
+         if-feature schedule:icalendar-recurrence-supported;
+         description
+           "Basic recurrence schedule specification, only applies when
+            schedule:icalendar-recurrence-supported feaure is supported\
+                                                                     .";
+         uses schedule:icalendar-recurrence;
+       }
+     }
+   }
 
 B.2.  Example: Schedule Network Properties to Change Based on Date and
       Time
@@ -1330,100 +1361,104 @@ B.2.  Example: Schedule Network Properties to Change Based on Date and
    grouping from "ietf-schedule" module shows how a scheduled based
    attribute could be defined.
 
-module example-scheduled-link-bandwidth {
-  yang-version 1.1;
-  namespace "http://example.com/example-scheduled-link-bandwidth";
-  prefix "ex-scattr";
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
-  import ietf-network {
-    prefix "nw";
-    reference
-      "RFC 8345: A YANG Data Model for Network Topologies";
-  }
+   module example-scheduled-link-bandwidth {
+     yang-version 1.1;
+     namespace "http://example.com/example-scheduled-link-bandwidth";
+     prefix "ex-scattr";
 
-  import ietf-schedule {
-    prefix "schedule";
-    reference
-      "RFC XXXX: A YANG Data Model for Scheduling";
-  }
+     import ietf-network {
+       prefix "nw";
+       reference
+         "RFC 8345: A YANG Data Model for Network Topologies";
+     }
 
-  organization
-    "Example, Inc.";
+     import ietf-schedule {
+       prefix "schedule";
+       reference
+         "RFC XXXX: A YANG Data Model for Scheduling";
+     }
 
-  contact
-    "Support at example.com";
+     organization
+       "Example, Inc.";
 
-  description
-    "Example of a module defining a scheduled link bandwidth.";
+     contact
+       "Support at example.com";
 
-  revision "2023-01-19" {
-    description
-      "Initial Version.";
-    reference
-      "RFC XXXX: A YANG Data Model for Scheduling.";
-    }
+     description
+       "Example of a module defining a scheduled link bandwidth.";
 
-  grouping link-bandwidth-grouping {
-    description
-      "Grouping of the link bandwidth definition.";
-    leaf scheduled-bandwidth {
-      type uint64;
-      units "Kbps";
-      description
-        "Bandwidth values, expressed in kilobits per second.";
-    }
-  }
+     revision "2023-01-19" {
+       description
+         "Initial Version.";
+       reference
+         "RFC XXXX: A YANG Data Model for Scheduling.";
+       }
 
-  container link-attributes {
-    description
-      "Definition of link attributes.";
-    list link {
-      key "source-node destination-node";
-      description
-        "Definition of link attributes.";
-      leaf source-node {
-        type nw:node-id;
-        description
-          "Indicates the source node identifier.";
-      }
-      leaf destination-node {
-        type nw:node-id;
-        description
-          "Indicates the source node identifier.";
-      }
+     grouping link-bandwidth-grouping {
+       description
+         "Grouping of the link bandwidth definition.";
+       leaf scheduled-bandwidth {
+         type uint64;
+         units "Kbps";
+         description
+           "Bandwidth values, expressed in kilobits per second.";
+       }
+     }
 
-      leaf default-bandwidth {
-        type uint64;
-        units "Kbps";
-        description
-          "Default bandwidth values when unspecified.";
-      }
+     container link-attributes {
+       description
+         "Definition of link attributes.";
+       list link {
+         key "source-node destination-node";
+         description
+           "Definition of link attributes.";
+         leaf source-node {
+           type nw:node-id;
+           description
+             "Indicates the source node identifier.";
+         }
+         leaf destination-node {
+           type nw:node-id;
+           description
+             "Indicates the source node identifier.";
+         }
 
-      choice time-variant-type {
-        description
-          "Controls the schedule type.";
-        case period {
-          uses schedule:period-of-time;
-        }
-        case recurrence {
-          uses schedule:recurrence-with-date-times {
-            augment "date-times-choice/period-timeticks/period-timeticks" {
-              description
-                "Specifies the attributes inside each period-timeticks
-                 entry.";
-              uses link-bandwidth-grouping;
-            }
-            augment "date-times-choice/period/period" {
-              description
-                "Specifies the attributes within each period entry.";
-              uses link-bandwidth-grouping;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+         leaf default-bandwidth {
+           type uint64;
+           units "Kbps";
+           description
+             "Default bandwidth values when unspecified.";
+         }
+
+         choice time-variant-type {
+           description
+             "Controls the schedule type.";
+           case period {
+             uses schedule:period-of-time;
+           }
+           case recurrence {
+             uses schedule:recurrence-with-date-times {
+               augment "date-times-choice/period-timeticks/period-\
+                                                            timeticks" {
+                 description
+                   "Specifies the attributes inside each period-\
+                                                               timeticks
+                    entry.";
+                 uses link-bandwidth-grouping;
+               }
+               augment "date-times-choice/period/period" {
+                 description
+                   "Specifies the attributes within each period entry.";
+                 uses link-bandwidth-grouping;
+               }
+             }
+           }
+         }
+       }
+     }
+   }
 
    Figure 12 shows a configuration example of a link's bandwidth that is
    scheduled between 2023/12/01 0:00 UTC to the end of 2023/12/31 with a
@@ -1459,8 +1494,6 @@ module example-scheduled-link-bandwidth {
        </link-attributes>
 
               Figure 12: Example of Scheduled Link's Bandwidth
-
-Appendix C.  Changes between Revisions
 
 Acknowledgments
 
