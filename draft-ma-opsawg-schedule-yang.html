@@ -1489,8 +1489,6 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <div class="breakable sourcecode" id="section-5-2">
 <pre>&lt;CODE BEGINS&gt; file "ietf-schedule@2023-01-19.yang"
 
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 module ietf-schedule {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-schedule";
@@ -1602,8 +1600,8 @@ module ietf-schedule {
        scheduled icalendar recurrence";
     reference
       "RFC 5545: Internet Calendaring and Scheduling Core Object
-                 Specification (iCalendar), Section 3.3.10 and 3.8.5\
-                                                                   ";
+                 Specification (iCalendar),
+                 Section 3.3.10 and 3.8.5";
   }
 
   typedef duration {
@@ -1635,47 +1633,44 @@ module ietf-schedule {
   identity secondly {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of a \
-                                                               second
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a second or more.";
   }
   identity minutely {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of a \
-                                                               minute
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a minute or more.";
   }
   identity hourly {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of an hour
-       or more.";
+      "Identity for a repeating event based on an interval of
+       an hour or more.";
   }
   identity daily {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of a day
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a day or more.";
   }
   identity weekly {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of a week
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a week or more.";
   }
   identity monthly {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of an \
-                                                                month
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a month or more.";
   }
   identity yearly {
     base frequency-type;
     description
-      "Identity for a repeating event based on an interval of a year
-       or more.";
+      "Identity for a repeating event based on an interval of
+       a year or more.";
   }
 
   grouping period-of-time {
@@ -1713,9 +1708,8 @@ module ietf-schedule {
              specified, it MUST use the same time zone reference as
              'period-start' parameter. If 'period-start' also uses a
              local time without time zone offset to UTC, it MUST use
-             the time zone as specified by the 'time-zone-identifier\
-                                                                   '
-             parameter.";
+             the time zone as specified by the
+             'time-zone-identifier' parameter.";
         }
       }
       case duration {
@@ -1760,10 +1754,9 @@ module ietf-schedule {
         type sys:timezone-name;
         description
           "Indicates the identifier for the time zone in a time zone
-           database. This parameter MUST be specified if 'start' \
-                                                                value
-           is neither reported in the format of UTC nor time zone
-           offset to UTC.";
+           database. This parameter MUST be specified if 'start'
+           value is neither reported in the format of UTC nor time
+           zone offset to UTC.";
       }
       leaf duration {
         type duration;
@@ -1827,45 +1820,46 @@ module ietf-schedule {
 
   grouping recurrence-with-date-times {
     description
-      "This grouping defines an aggregate set of repeating \
-                                                         occurrences.
-       The recurrence instances are defined by the union of \
-                                                          occurrences
-       defined by both the 'recurrence' and 'date-times'. Duplicate
-       instances are ignored.";
+      "This grouping defines an aggregate set of repeating
+       occurrences. The recurrence instances are defined by
+       the union of occurrences defined by both the
+       'recurrence' and 'date-times'. Duplicate instances
+       are ignored.";
     uses recurrence;
     choice date-times-choice {
       description
-        "Specify a list of occurrences which complement the \
-                                                           recurrence
-         set defined by 'recurrence' grouping. If it is specified as
-         a period value, the duration of the recurrence instance will
-         be the one specified by it, and not the duration defined
-         inside the recurrence-first parameter.";
+        "Specify a list of occurrences which complement the
+         recurrence set defined by 'recurrence' grouping. If
+         it is specified as a period value, the duration of
+         the recurrence instance will be the one specified
+         by it, and not the duration defined inside the
+         recurrence-first parameter.";
       case date-time {
         description
-          "Specify a list of occurrences with date-and-time values.";
+          "Specify a list of occurrences with date-and-time
+           values.";
           leaf-list date-times {
             type yang:date-and-time;
             description
-              "Specify a set of date-and-time values of occurrences.\
-                                                                   ";
+              "Specifies a set of date-and-time values of
+               occurrences.";
           }
       }
       case date {
         description
-          "Specify a list of occurrences with date-no-zone values.";
+          "Specifies a list of occurrences with date-no-zone
+           values.";
           leaf-list dates {
             type yang:date-no-zone;
             description
-              "Specify a set of date-no-zone values of occurrences.";
+              "Specifies a set of date-no-zone values of
+               occurrences.";
           }
       }
       case period-timeticks {
         description
-          "Specify a list of occurrences with period span of \
-                                                            timeticks
-           format.";
+          "Specifies a list of occurrences with period span of
+           timeticks format.";
           list period-timeticks {
             key "period-start";
             description
@@ -1873,21 +1867,18 @@ module ietf-schedule {
             leaf period-start {
               type yang:timeticks;
               must
-              "(not(derived-from(../../frequency,'schedule:secondly'\
-                                                                  ))"
-             +" or (current() &lt; 100)) and "
-             +"(not(derived-from(../../frequency,'schedule:minutely'\
-                                                                  ))"
-             +" or (current() &lt; 6000)) and "
+              "(not(derived-from(../../frequency,"
+             +"'schedule:secondly')) or (current() &lt; 100)) and "
+             +"(not(derived-from(../../frequency,"
+             +"'schedule:minutely')) or (current() &lt; 6000)) and "
              +"(not(derived-from(../../frequency,'schedule:hourly'))"
              +" or (current() &lt; 360000)) and "
              +"(not(derived-from(../../frequency,'schedule:daily'))"
              +" or (current() &lt; 8640000)) and "
              +"(not(derived-from(../../frequency,'schedule:weekly'))"
              +" or (current() &lt; 60480000)) and "
-             +"(not(derived-from(../../frequency,'schedule:monthly')\
-                                                                   )"
-             +" or (current() &lt; 267840000)) and "
+             +"(not(derived-from(../../frequency,"
+             +"'schedule:monthly')) or (current() &lt; 267840000)) and "
              +"(not(derived-from(../../frequency,'schedule:yearly'))"
              +" or (current() &lt; 3162240000))" {
                 error-message
@@ -1901,15 +1892,15 @@ module ietf-schedule {
             leaf period-end {
               type yang:timeticks;
               description
-                "End time of the scheduled value within one \
-                                                        recurrence.";
+                "End time of the scheduled value within one
+                 recurrence.";
             }
           }
       }
       case period {
         description
-          "Specify a list of occurrences with period span of date-and
-           -time format.";
+          "Specifies a list of occurrences with period span
+           of date-and -time format.";
         list period {
           key "period-start";
           description
@@ -1922,11 +1913,12 @@ module ietf-schedule {
 
   grouping icalendar-recurrence {
     description
-      "This grouping is defined to identify properties that contain a
-       recurrence rule.";
+      "This grouping is defined to identify properties
+       that contain a recurrence rule.";
     reference
-      "RFC 5545: Internet Calendaring and Scheduling Core Object
-       Specification (iCalendar), Section 3.8.5";
+      "RFC 5545: Internet Calendaring and Scheduling
+                 Core Object Specification (iCalendar),
+                 Section 3.8.5";
 
     uses recurrence-with-date-times;
     leaf-list bysecond {
@@ -1948,12 +1940,12 @@ module ietf-schedule {
         range "0..23";
       }
       description
-        "Specify a list of hours of the day.";
+        "Specifies a list of hours of the day.";
     }
     list byday {
       key "weekday";
       description
-        "Specify a list of days of the week.";
+        "Specifies a list of days of the week.";
       leaf-list direction {
         when "derived-from(../../frequency, 'schedule:monthly') or "
           +  "(derived-from(../../frequency, 'schedule:yearly') "
@@ -1963,8 +1955,8 @@ module ietf-schedule {
         }
         description
           "When specified, it indicates the nth occurrence of a
-           specific day within the monthly or yearly recurrence rule\
-                                                                   .
+           specific day within the monthly or yearly recurrence
+           rule.
            For example, within a monthly rule, +1 monday represents
            the first monday within the month, whereas -1 monday
            represents the last monday of the month.";
@@ -1972,7 +1964,7 @@ module ietf-schedule {
       leaf weekday {
         type schedule:weekday;
         description
-          "Corresponding to seven days of the week.";
+          "Corredponds to seven days of the week.";
       }
     }
 
@@ -2474,8 +2466,6 @@ module ietf-schedule {
    with different features used for options.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1-2">
 <pre>
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 module example-scheduled-backup {
   yang-version 1.1;
   namespace "http://example.com/example-scheduled-backup";
@@ -2496,8 +2486,8 @@ module example-scheduled-backup {
     "Support at example.com";
 
   description
-    "Example of a module defining an scheduled based backup \
-                                                         operation.";
+    "Example of a module defining an scheduled based backup
+     operation.";
 
   revision "2023-01-19" {
     description
@@ -2513,29 +2503,28 @@ module example-scheduled-backup {
 
     choice local-or-remote {
       description
-        "Specifies whether the configuration to be backed up is \
-                                                             local or
-         remote.";
+        "Specifies whether the configuration to be backed up is
+         local or remote.";
       case local {
         description
-          "Configuration parameters for backing up of local devices.\
-                                                                   ";
+          "Configuration parameters for backing up of local
+           devices.";
         leaf local {
           type empty;
           description
-            "The parameter specifies the configuration to be backed \
-                                                                   up
-             is on the local device.";
+            "The parameter specifies the configuration to be
+             backed up is on the local device.";
         }
       }
       case remote {
         description
-          "Configuration parameters for backing up of remote devices\
-                                                                  .";
+          "Configuration parameters for backing up of remote
+           devices.";
         leaf remote {
           type inet:domain-name;
           description
-            "The parameter specifies the remote device domain name.";
+            "The parameter specifies the remote device domain
+             name.";
         }
       }
     }
@@ -2552,8 +2541,8 @@ module example-scheduled-backup {
       if-feature schedule:icalendar-recurrence-supported;
       description
         "Basic recurrence schedule specification, only applies when
-         schedule:icalendar-recurrence-supported feaure is supported\
-                                                                  .";
+         schedule:icalendar-recurrence-supported feaure is
+         supported.";
       uses schedule:icalendar-recurrence;
     }
   }
@@ -2575,8 +2564,6 @@ module example-scheduled-backup {
    could be defined.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.2-2">
 <pre>
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 module example-scheduled-link-bandwidth {
   yang-version 1.1;
   namespace "http://example.com/example-scheduled-link-bandwidth";
@@ -2654,12 +2641,11 @@ module example-scheduled-link-bandwidth {
         }
         case recurrence {
           uses schedule:recurrence-with-date-times {
-            augment "date-times-choice/period-timeticks/period-\
-                                                         timeticks" {
+            augment "date-times-choice/period-timeticks"
+                  + "/period-timeticks" {
               description
-                "Specifies the attributes inside each period-\
-                                                            timeticks
-                 entry.";
+                "Specifies the attributes inside each
+                 period-timeticks entry.";
               uses link-bandwidth-grouping;
             }
             augment "date-times-choice/period/period" {
