@@ -5,11 +5,11 @@
 OPSAWG                                                             Q. Ma
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 3 June 2024                                        M. Boucadair
+Expires: 6 June 2024                                        M. Boucadair
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         1 December 2023
+                                                         4 December 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 June 2024.
+   This Internet-Draft will expire on 6 June 2024.
 
 Copyright Notice
 
