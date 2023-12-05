@@ -39,7 +39,7 @@
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.10
+    wcwidth 0.2.12
 -->
 <link href="draft-ietf-opsawg-ucl-acl.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1038,11 +1038,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">A Policy-based NACL</td>
-<td class="right">November 2023</td>
+<td class="right">December 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 1 June 2024</td>
+<td class="center">Expires 7 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,16 +1055,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-11-29" class="published">29 November 2023</time>
+<time datetime="2023-12-05" class="published">5 December 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-01">1 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-07">7 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">Q. Ma</div>
+      <div class="author-name">Q. Ma, <span class="editor">Ed.</span>
+</div>
 <div class="org">Huawei</div>
 </div>
 <div class="author">
@@ -1072,7 +1073,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="org">Huawei</div>
 </div>
 <div class="author">
-      <div class="author-name">M. Boucadair</div>
+      <div class="author-name">M. Boucadair, <span class="editor">Ed.</span>
+</div>
 <div class="org">Orange</div>
 </div>
 <div class="author">
@@ -1124,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1493,7 +1495,7 @@ policies.  In some cases, a PEP may map incoming packets to their
 associated source or destination endpoint-group IDs, and acts on
 the endpoint-group ID based ACL policies, e.g., a NAS as the PEP
 or a group identifier could be carried in packet header (see
-<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-10#section-6.2.3" class="relref">Section 6.2.3</a> of [<a href="#I-D.ietf-nvo3-encap" class="cite xref">I-D.ietf-nvo3-encap</a>]</span>).  While in other cases,
+<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-11#section-6.2.3" class="relref">Section 6.2.3</a> of [<a href="#I-D.ietf-nvo3-encap" class="cite xref">I-D.ietf-nvo3-encap</a>]</span>).  While in other cases,
 the SDN controller maps the group ID to the related common packet
 header and delivers IP/MAC address based ACL policies to the
 required PEPs.<a href="#section-4.1-2.5.1" class="pilcrow">¶</a></p>
@@ -1509,29 +1511,29 @@ A PEP exposes a NETCONF interface <span>[<a href="#RFC6241" class="cite xref">RF
 <figure id="figure-1">
           <div class="alignCenter art-text artwork" id="section-4.1-4.1">
 <pre>
-                                         +------------+
+                                         .------------.
                                          |Orchestrator|
-                                         +------+-----+
+                                         '------+-----'
        Service                                  | (Step 1)
-      ------------------------------------------+-------------
+      --------------------------------------------------------
                                                 |
        Network                                  |
                                  (Step 4)       |
-       +-------+        +--------+     +--------+-----------+
+       .-------.        .--------.     .--------+-----------.
        |User #1+--+     | AAA    |     |    SDN Controller  |
-       +-------+  |     | Server +-----+        (PDP)       |
-                  |     +----+---+     +--------+-----------+
+       '-------'  |     | Server +-----+        (PDP)       |
+                  |     '----+---'     '--------+-----------'
                   |          |                  |
-                  |          |           +---------------+(Step 5)
+                  |          |           +------+--------+(Step 5)
         (Step 2)  |          |(Step 3)   |               |
                   |          |           |               |
-                  |        +-+-----------+---------------+------------+
-                  |        | +----------------------+ +--------------+|
-       +-------+  +--------+ | Network Access Server| |firewall, etc.||
-       |User #2+-----------+ |       (NAS)          | +--------------+|
-       +-------+           | +----------------------+                 |
+                  |        .-+-----------+---------------+------------.
+                  |        | .----------------------. .--------------.|
+       .-------.  +--------+ | Network Access Server| |firewall, etc.||
+       |User #2+-----------+ |       (NAS)          | '--------------'|
+       '-------'           | '----------------------'                 |
                            |                     (PEP)                |
-                           +------------------------------------------+
+                           '------------------------------------------'
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
@@ -1738,36 +1740,56 @@ module: ietf-ucl-acl
     +--rw time-range {time-condition}?
        +--rw (time-range-type)?
           +--:(periodic-range)
-          |  +--rw recurrence
-          |     +--rw freq           enumeration
-          |     +--rw (recurrence-bound)?
-          |     |  +--:(until)
-          |     |  |  +--rw until?   union
-          |     |  +--:(count)
-          |     |     +--rw count?   uint32
-          |     +--rw interval?      uint32
-          |     +--rw bysecond*      uint32
-          |     +--rw byminute*      uint32
-          |     +--rw byhour*        uint32
-          |     +--rw byday* [weekday]
-          |     |  +--rw direction*   int32
-          |     |  +--rw weekday      schedule:weekday
-          |     +--rw bymonthday*    int32
-          |     +--rw byyearday*     int32
-          |     +--rw byyearweek*    int32
-          |     +--rw byyearmonth*   uint32
-          |     +--rw bysetpos*      int32
-          |     +--rw wkst*          schedule:weekday
-          |     +--rw duration?      schedule:duration
+          |  +--rw recurrence-first
+          |  |  +--rw date-time-start?        union
+          |  |  +--rw time-zone-identifier?   sys:timezone-name
+          |  |  +--rw duration?               duration
+          |  +--rw frequency?                identityref
+          |  +--rw interval?                 uint32
+          |  +--rw (recurrence-bound)?
+          |  |  +--:(until)
+          |  |  |  +--rw until?              union
+          |  |  +--:(count)
+          |  |     +--rw count?              uint32
+          |  +--rw (date-times-choice)?
+          |  |  +--:(date-time)
+          |  |  |  +--rw date-times*         yang:date-and-time
+          |  |  +--:(date)
+          |  |  |  +--rw dates*              yang:date-no-zone
+          |  |  +--:(period-timeticks)
+          |  |  |  +--rw period-timeticks* [period-start]
+          |  |  |     +--rw period-start    yang:timeticks
+          |  |  |     +--rw period-end?     yang:timeticks
+          |  |  +--:(period)
+          |  |     +--rw period* [period-start]
+          |  |        +--rw period-start            yang:date-and-time
+          |  |        +--rw time-zone-identifier?   sys:timezone-name
+          |  |        +--rw (period-type)?
+          |  |           +--:(explicit)
+          |  |           |  +--rw period-end?       yang:date-and-time
+          |  |           +--:(duration)
+          |  |              +--rw duration?         duration
+          |  +--rw bysecond*                 uint32
+          |  +--rw byminute*                 uint32
+          |  +--rw byhour*                   uint32
+          |  +--rw byday* [weekday]
+          |  |  +--rw direction*   int32
+          |  |  +--rw weekday      schedule:weekday
+          |  +--rw bymonthday*               int32
+          |  +--rw byyearday*                int32
+          |  +--rw byyearweek*               int32
+          |  +--rw byyearmonth*              uint32
+          |  +--rw bysetpos*                 int32
+          |  +--rw workweek-start?           schedule:weekday
+          |  +--rw exception-dates*          union
           +--:(absolute-range)
-             +--rw period-of-time
-                +--rw (forms)?
-                   +--:(period-explicit)
-                   |  +--rw explicit-start?   yang:date-and-time
-                   |  +--rw explicit-end?     yang:date-and-time
-                   +--:(period-start)
-                      +--rw start?            yang:date-and-time
-                      +--rw duration?         duration
+             +--rw period-start?             yang:date-and-time
+             +--rw time-zone-identifier?     sys:timezone-name
+             +--rw (period-type)?
+                +--:(explicit)
+                |  +--rw period-end?         yang:date-and-time
+                +--:(duration)
+                   +--rw duration?           duration
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1777,18 +1799,24 @@ module: ietf-ucl-acl
 <p id="section-5.1-4">The first part of the data model augments the "acl" list in the
    IETF ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> with a "endpoint-groups" container
    having a list of "endpoint group" inside, each entry has a "group-id" that uniquely
-   identifies the endpoint group. The choice statement controls the selection
-   of group type between "user-group" or "device-group".<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The second part of the data model augments the "matches" container in the IETF
+   identifies the endpoint group.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5.1-5.1">
+            <p id="section-5.1-5.1.1">"group-id" is defined as a string rather than uint to accommodate deployments which require some identification hierarchy within a domain. Such a hierarchy is meant to ease coordination within an administrative domain. There might be cases where a domain needs to tag packets with the group they belong to. The tagging does not need to mirror exactly the "group id" used to populate the policy. Future augmentation may be considered in the future to cover encapsulation considerations.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-6">The choice statement controls the selection of group type between
+   "user-group" or "device-group".<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+<p id="section-5.1-7">The second part of the data model augments the "matches" container in the IETF
    ACL model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> so that a source and/or destination endpoint group index
-   can be referenced as the match criteria.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
-<p id="section-5.1-6">The third part of the data model augments the "ace" list in the IETF ACL
+   can be referenced as the match criteria.<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.1-8">The third part of the data model augments the "ace" list in the IETF ACL
    model <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> with date and time specific parameters to allow ACE to be
    activated based on a date/time condition. Two types of time range are defined,
    which reuse "recurrence" and "period" groupings defined in the "ietf-schedule"
    YANG module in <span>[<a href="#I-D.ma-opsawg-schedule-yang" class="cite xref">I-D.ma-opsawg-schedule-yang</a>]</span>, respectively. Note that the data model augments the definition of
    "recurrence" grouping with a "duration" data node to specify the duration of
-   time for each occurrence the policy activation is triggered.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+   time for each occurrence the policy activation is triggered.<a href="#section-5.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2036,32 +2064,18 @@ module ietf-ucl-acl {
         case periodic-range {
           description
             "A periodic range of time to take effect.";
-          uses schedule:recurrence {
-            augment recurrence {
-              description
-                "Add a parameter to specify the duration of each
-                 recurrence trigger.";
-              leaf duration {
-                type schedule:duration {
-                  pattern '((\+)?|\-)PT(0[0-9]|1[0-9]|2[0-3]):'
-                        + '[0-5][0-9]:[0-5][0-9]';
-                }
-                description
-                  "A duration of time in terms of days when policies
-                   are activated in each occurrence.";
-              }
-            }
-          }
+          uses schedule:icalendar-recurrence;
         }
         case absolute-range {
           description
             "A single precise period of time to take effect.";
-          uses schedule:period;
+          uses schedule:period-of-time;
         }
       }
     }
   }
 }
+
 
 
 &lt;CODE ENDS&gt;</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
@@ -2345,7 +2359,7 @@ which rules are in effect, to better craft an attack.<a href="#section-9.1-6.1.1
 <dl class="references">
 <dt id="I-D.ma-opsawg-schedule-yang">[I-D.ma-opsawg-schedule-yang]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ma-opsawg-schedule-yang-01</span>, <time datetime="2023-10-20" class="refDate">20 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-01">https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ma-opsawg-schedule-yang-02</span>, <time datetime="2023-12-03" class="refDate">3 December 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-02">https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2426,7 +2440,7 @@ which rules are in effect, to better craft an attack.<a href="#section-9.1-6.1.1
 <dd class="break"></dd>
 <dt id="I-D.ietf-nvo3-encap">[I-D.ietf-nvo3-encap]</dt>
         <dd>
-<span class="refAuthor">Boutros, S.</span> and <span class="refAuthor">D. E. Eastlake</span>, <span class="refTitle">"Network Virtualization Overlays (NVO3) Encapsulation Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-nvo3-encap-10</span>, <time datetime="2023-11-06" class="refDate">6 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-10">https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-10</a>&gt;</span>. </dd>
+<span class="refAuthor">Boutros, S.</span> and <span class="refAuthor">D. E. Eastlake</span>, <span class="refTitle">"Network Virtualization Overlays (NVO3) Encapsulation Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-nvo3-encap-11</span>, <time datetime="2023-11-29" class="refDate">29 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-11">https://datatracker.ietf.org/doc/html/draft-ietf-nvo3-encap-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.smith-vxlan-group-policy">[I-D.smith-vxlan-group-policy]</dt>
         <dd>
@@ -2938,7 +2952,7 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Qiufang Ma</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Qiufang Ma (<span class="role">editor</span>)</span></div>
 <div dir="auto" class="left"><span class="org">Huawei</span></div>
 <div dir="auto" class="left"><span class="street-address">101 Software Avenue, Yuhua District</span></div>
 <div dir="auto" class="left"><span class="locality">Jiangsu</span></div>
@@ -2962,7 +2976,7 @@ at 18:00:00 in Pacific Standard Time on December 31, 2023.<a href="#appendix-A.1
 </div>
 </address>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Mohamed Boucadair</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Mohamed Boucadair (<span class="role">editor</span>)</span></div>
 <div dir="auto" class="left"><span class="org">Orange</span></div>
 <div dir="auto" class="left">
 <span class="postal-code">35000</span> <span class="locality">Rennes</span>
