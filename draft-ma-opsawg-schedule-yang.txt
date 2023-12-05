@@ -2,14 +2,14 @@
 
 
 
-OPSAWG                                                             Q. Ma
+OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 6 June 2024                                        M. Boucadair
+Expires: 7 June 2024                                   M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         4 December 2023
+                                                         5 December 2023
 
 
                 A Common YANG Data Model for Scheduling
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 June 2024.
+   This Internet-Draft will expire on 7 June 2024.
 
 Copyright Notice
 
@@ -1552,7 +1552,7 @@ Acknowledgments
 
 Authors' Addresses
 
-   Qiufang Ma
+   Qiufang Ma (editor)
    Huawei
    101 Software Avenue, Yuhua District
    Jiangsu
@@ -1570,7 +1570,7 @@ Authors' Addresses
    Email: bill.wu@huawei.com
 
 
-   Mohamed Boucadair
+   Mohamed Boucadair (editor)
    Orange
    35000 Rennes
    France
