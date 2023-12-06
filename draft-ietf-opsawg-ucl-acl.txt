@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 7 June 2024                                   M. Boucadair, Ed.
+Expires: 8 June 2024                                   M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         5 December 2023
+                                                         6 December 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 June 2024.
+   This Internet-Draft will expire on 8 June 2024.
 
 Copyright Notice
 
@@ -352,50 +352,24 @@ Table of Contents
       to be authenticated (e.g., using user name and password) at the
       NAS.
 
-   Step 3:  The authentication request is then relayed to the AAA
-      server
-
-            using a protocol such as RADIUS [RFC2865].  It is assumed
-      that the
-
-            AAA server has been appropriately configured to store
-      user credentials,
-
-            e.g., user name, password, group information, and other
-      user attributes.
-
-            This document does not restrict what authentication
-      method is used.  Administrators
-
-            may refer to, e.g., Section 7.3 of
-      [I-D.dekok-radext-deprecating-radius]
-
-            for authentication method recommendations.
-
-            : If the authentication request succeeds, the user is
-      placed in a
-
-            user group the identity of which is returned to the
-      network access server
-
-            as the authentication result (see Section 7).
-
-            : If the authentication fails, the user is not assigned
-      any user
-
-            group, which also means that the user has no access; or
-      the user
-
-            is assigned a special group with very limited access
-      permissions
-
-            for the network (as a function of the local policy).
-      ACLs are
-
-            enforced so that flows from that IP address are discarded
-
-            (or rate-limited) by the network.  In some implementations,
-         AAA server can be integrated with an SDN controller.
+   Step 3:  The authentication request is then relayed to the AAA server
+      using a protocol such as RADIUS [RFC2865].  It is assumed that the
+      AAA server has been appropriately configured to store user
+      credentials, e.g., user name, password, group information, and
+      other user attributes.  This document does not restrict what
+      authentication method is used.  Administrators may refer to, e.g.,
+      Section 7.3 of [I-D.dekok-radext-deprecating-radius] for
+      authentication method recommendations.  If the authentication
+      request succeeds, the user is placed in a user group the identity
+      of which is returned to the network access server as the
+      authentication result (see Section 7).  If the authentication
+      fails, the user is not assigned any user group, which also means
+      that the user has no access; or the user is assigned a special
+      group with very limited access permissions for the network (as a
+      function of the local policy).  ACLs are enforced so that flows
+      from that IP address are discarded (or rate-limited) by the
+      network.  In some implementations, AAA server can be integrated
+      with an SDN controller.
 
    Step 4:  Either the AAA server or the NAS notifies an SDN controller
       of the mapping between the user group ID and related common packet
