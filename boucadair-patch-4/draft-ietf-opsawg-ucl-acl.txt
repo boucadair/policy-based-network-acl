@@ -2,14 +2,14 @@
 
 
 
-OPSAWG                                                             Q. Ma
+OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 7 June 2024                                        M. Boucadair
+Expires: 8 June 2024                                   M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         5 December 2023
+                                                         6 December 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 June 2024.
+   This Internet-Draft will expire on 8 June 2024.
 
 Copyright Notice
 
@@ -83,6 +83,7 @@ Table of Contents
      4.2.  Endpoint Group
        4.2.1.  User Group
        4.2.2.  Device Group
+       4.2.3.  Application Group
    5.  Modules Overview
      5.1.  The UCL Extension to the ACL Model
    6.  YANG Modules
@@ -167,6 +168,10 @@ Table of Contents
    implications related to the change of MAC addresses are discussed in
    [I-D.ietf-madinas-use-cases].
 
+   The document does not specify how to map the policy group identifiers
+   to dedicated field (e.g., Group Based Policy (GBP) discussed in
+   Section 6.2.3 of [I-D.ietf-nvo3-encap]).
+
    The YANG data models in this document conform to the Network
    Management Datastore Architecture (NMDA) defined in [RFC8342].
 
@@ -218,12 +223,13 @@ Table of Contents
          used both at the network device level and at the network/
          administrative domain level.
 
-   *  Endpoint:  refers to an end-user or host device that actually
-         connects to a network.  An end-user is defined as a person.  A
-         host device provides compute, memory, storage and networking
-         capabilities and connects to the network without any user
-         intervention.  Host devices refer to servers, IoTs and other
-         devices owned by the enterprise.
+   *  Endpoint:  refers to an end-user, host device, or application that
+         actually connects to a network.  An end-user is defined as a
+         person.  A host device provides compute, memory, storage and
+         networking capabilities and connects to the network without any
+         user intervention.  Host devices refer to servers, IoTs and
+         other devices owned by the enterprise.  An application is a
+         software program used for a specific service.
 
 3.  Sample Usage
 
@@ -350,50 +356,24 @@ Table of Contents
       to be authenticated (e.g., using user name and password) at the
       NAS.
 
-   Step 3:  The authentication request is then relayed to the AAA
-      server
-
-            using a protocol such as RADIUS [RFC2865].  It is assumed
-      that the
-
-            AAA server has been appropriately configured to store
-      user credentials,
-
-            e.g., user name, password, group information, and other
-      user attributes.
-
-            This document does not restrict what authentication
-      method is used.  Administrators
-
-            may refer to, e.g., Section 7.3 of
-      [I-D.dekok-radext-deprecating-radius]
-
-            for authentication method recommendations.
-
-            : If the authentication request succeeds, the user is
-      placed in a
-
-            user group the identity of which is returned to the
-      network access server
-
-            as the authentication result (see Section 7).
-
-            : If the authentication fails, the user is not assigned
-      any user
-
-            group, which also means that the user has no access; or
-      the user
-
-            is assigned a special group with very limited access
-      permissions
-
-            for the network (as a function of the local policy).
-      ACLs are
-
-            enforced so that flows from that IP address are discarded
-
-            (or rate-limited) by the network.  In some implementations,
-         AAA server can be integrated with an SDN controller.
+   Step 3:  The authentication request is then relayed to the AAA server
+      using a protocol such as RADIUS [RFC2865].  It is assumed that the
+      AAA server has been appropriately configured to store user
+      credentials, e.g., user name, password, group information, and
+      other user attributes.  This document does not restrict what
+      authentication method is used.  Administrators may refer to, e.g.,
+      Section 7.3 of [I-D.dekok-radext-deprecating-radius] for
+      authentication method recommendations.  If the authentication
+      request succeeds, the user is placed in a user group the identity
+      of which is returned to the network access server as the
+      authentication result (see Section 7).  If the authentication
+      fails, the user is not assigned any user group, which also means
+      that the user has no access; or the user is assigned a special
+      group with very limited access permissions for the network (as a
+      function of the local policy).  ACLs are enforced so that flows
+      from that IP address are discarded (or rate-limited) by the
+      network.  In some implementations, AAA server can be integrated
+      with an SDN controller.
 
    Step 4:  Either the AAA server or the NAS notifies an SDN controller
       of the mapping between the user group ID and related common packet
@@ -439,7 +419,7 @@ Table of Contents
    weekdays versus weekends), etc.
 
        +============+==========+===================================+
-       | Group Name | Group ID | Group Role                        |
+       | Group Name | Group ID | Group Description                 |
        +============+==========+===================================+
        | R&D        | foo-10   | R&D employees                     |
        +------------+----------+-----------------------------------+
@@ -462,15 +442,15 @@ Table of Contents
    users to scan, print and send emails.  Table 2 shows an example of
    how device-group definitions may be characterized.
 
-         +================+==========+===========================+
-         | Group Name     | Group ID | Group Type                |
-         +================+==========+===========================+
-         | Workflow       | foo-40   | Workflow resource servers |
-         +----------------+----------+---------------------------+
-         | R&D Resource   | foo-50   | R&D resource servers      |
-         +----------------+----------+---------------------------+
-         | Sales Resource | foo-54   | Sales resource servers    |
-         +----------------+----------+---------------------------+
+        +==================+==========+===========================+
+        | Group Name       | Group ID | Group Description         |
+        +==================+==========+===========================+
+        | Workflow         | bar-40   | Workflow resource servers |
+        +------------------+----------+---------------------------+
+        | R&D Resource     | bar-50   | R&D resource servers      |
+        +------------------+----------+---------------------------+
+        | Printer Resource | bar-60   | Printer resources         |
+        +------------------+----------+---------------------------+
 
                        Table 2: Device-Group Example
 
@@ -478,6 +458,32 @@ Table of Contents
    Matching abstract device group ID instead of specified addresses in
    ACL polices helps shield the consequences of address change (e.g.,
    back-end VM-based server migration).
+
+4.2.3.  Application Group
+
+   An application group is a collection of applications that share a
+   common access control policies.  A device may run multiple
+   applications, and different policies might need to be applied to the
+   applications and device.  A single application may need to run on
+   multiple devices/VMs/containers, the abstraction of application group
+   eases the process of application migration.  For example, the policy
+   does not depend on the transport coordinates (i.e., 5-tuple).
+   Table 3 shows an example of how application-group definitions may be
+   characterized.
+
+      +=======================+==========+=========================+
+      | Group Name            | Group ID | Group Description       |
+      +=======================+==========+=========================+
+      | Audio/Video Streaming | baz-70   | Audio/Video conferecing |
+      |                       |          | application             |
+      +-----------------------+----------+-------------------------+
+      | Instant messaging     | baz-80   | Messaging application   |
+      +-----------------------+----------+-------------------------+
+      | document              | baz-90   | Real-time document      |
+      | collaboration         |          | editing application     |
+      +-----------------------+----------+-------------------------+
+
+                    Table 3: Application-Group Example
 
 5.  Modules Overview
 
@@ -495,79 +501,74 @@ Table of Contents
     augment /acl:acls/acl:acl:
       +--rw endpoint-groups
          +--rw endpoint-group* [group-id]
-            +--rw group-id              string
-            +--rw (group-type)?
-               +--:(user-group)
-               |  +--rw user-group
-               |     +--rw role?   string
-               +--:(device-group)
-                  +--rw device-group
-                     +--rw device-type?   string
+            +--rw group-id      string
+            +--rw group-type?   identityref
     augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
       +--rw endpoint-group {match-on-group}?
          +--rw source-group-id?        group-id-reference
          +--rw destination-group-id?   group-id-reference
     augment /acl:acls/acl:acl/acl:aces/acl:ace:
-      +--rw time-range {time-condition}?
-         +--rw (time-range-type)?
-            +--:(periodic-range)
-            |  +--rw recurrence-first
-            |  |  +--rw date-time-start?        union
-            |  |  +--rw time-zone-identifier?   sys:timezone-name
-            |  |  +--rw duration?               duration
-            |  +--rw frequency?                identityref
-            |  +--rw interval?                 uint32
-            |  +--rw (recurrence-bound)?
-            |  |  +--:(until)
-            |  |  |  +--rw until?              union
-            |  |  +--:(count)
-            |  |     +--rw count?              uint32
-            |  +--rw (date-times-choice)?
-            |  |  +--:(date-time)
-            |  |  |  +--rw date-times*         yang:date-and-time
-            |  |  +--:(date)
-            |  |  |  +--rw dates*              yang:date-no-zone
-            |  |  +--:(period-timeticks)
-            |  |  |  +--rw period-timeticks* [period-start]
-            |  |  |     +--rw period-start    yang:timeticks
-            |  |  |     +--rw period-end?     yang:timeticks
-            |  |  +--:(period)
-            |  |     +--rw period* [period-start]
-            |  |        +--rw period-start            yang:date-and-time
-            |  |        +--rw time-zone-identifier?   sys:timezone-name
-            |  |        +--rw (period-type)?
-            |  |           +--:(explicit)
-            |  |           |  +--rw period-end?       yang:date-and-time
-            |  |           +--:(duration)
-            |  |              +--rw duration?         duration
-            |  +--rw bysecond*                 uint32
-            |  +--rw byminute*                 uint32
-            |  +--rw byhour*                   uint32
-            |  +--rw byday* [weekday]
-            |  |  +--rw direction*   int32
-            |  |  +--rw weekday      schedule:weekday
-            |  +--rw bymonthday*               int32
-            |  +--rw byyearday*                int32
-            |  +--rw byyearweek*               int32
-            |  +--rw byyearmonth*              uint32
-            |  +--rw bysetpos*                 int32
-            |  +--rw workweek-start?           schedule:weekday
-            |  +--rw exception-dates*          union
-            +--:(absolute-range)
-               +--rw period-start?             yang:date-and-time
-               +--rw time-zone-identifier?     sys:timezone-name
-               +--rw (period-type)?
-                  +--:(explicit)
-                  |  +--rw period-end?         yang:date-and-time
-                  +--:(duration)
-                     +--rw duration?           duration
+      +--rw effective-schedule
+         +--rw (schedule-type)?
+            +--:(period)
+            |  +--rw period-start?             yang:date-and-time
+            |  +--rw time-zone-identifier?     sys:timezone-name
+            |  +--rw (period-type)?
+            |     +--:(explicit)
+            |     |  +--rw period-end?         yang:date-and-time
+            |     +--:(duration)
+            |        +--rw duration?           duration
+            +--:(recurrence) {schedule:icalendar-recurrence-supported}?
+               +--rw recurrence-first
+               |  +--rw date-time-start?        union
+               |  +--rw time-zone-identifier?   sys:timezone-name
+               |  +--rw duration?               duration
+               +--rw frequency?                identityref
+               +--rw interval?                 uint32
+               +--rw (recurrence-bound)?
+               |  +--:(until)
+               |  |  +--rw until?              union
+               |  +--:(count)
+               |     +--rw count?              uint32
+               +--rw (date-times-choice)?
+               |  +--:(date-time)
+               |  |  +--rw date-times*         yang:date-and-time
+               |  +--:(date)
+               |  |  +--rw dates*              yang:date-no-zone
+               |  +--:(period-timeticks)
+               |  |  +--rw period-timeticks* [period-start]
+               |  |     +--rw period-start    yang:timeticks
+               |  |     +--rw period-end?     yang:timeticks
+               |  +--:(period)
+               |     +--rw period* [period-start]
+               |        +--rw period-start            yang:date-and-time
+               |        +--rw time-zone-identifier?   sys:timezone-name
+               |        +--rw (period-type)?
+               |           +--:(explicit)
+               |           |  +--rw period-end?       yang:date-and-time
+               |           +--:(duration)
+               |              +--rw duration?         duration
+               +--rw bysecond*                 uint32
+               +--rw byminute*                 uint32
+               +--rw byhour*                   uint32
+               +--rw byday* [weekday]
+               |  +--rw direction*   int32
+               |  +--rw weekday      schedule:weekday
+               +--rw bymonthday*               int32
+               +--rw byyearday*                int32
+               +--rw byyearweek*               int32
+               +--rw byyearmonth*              uint32
+               +--rw bysetpos*                 int32
+               +--rw workweek-start?           schedule:weekday
+               +--rw exception-dates*          union
 
                          Figure 2: UCL Extension
 
    The first part of the data model augments the "acl" list in the
    "ietf-access-control-list" model [RFC8519] with a "endpoint-groups"
    container having a list of "endpoint group" inside, each entry has a
-   "group-id" that uniquely identifies the endpoint group.
+   "group-id" that uniquely identifies the endpoint group and a "group-
+   type" parameter to specify the endpoint group type.
 
       "group-id" is defined as a string rather than uint to accommodate
       deployments which require some identification hierarchy within a
@@ -575,11 +576,10 @@ Table of Contents
       administrative domain.  There might be cases where a domain needs
       to tag packets with the group they belong to.  The tagging does
       not need to mirror exactly the "group id" used to populate the
-      policy.  Future augmentation may be considered in the future to
-      cover encapsulation considerations.
-
-   The choice statement controls the selection of group type between
-   "user-group" or "device-group".
+      policy.  How the "group-id" string is mapped to the tagging or
+      field in the packet header in encapsulation scenario is outside
+      the scope of this document.  Augmentation may be considered in the
+      future to cover encapsulation considerations.
 
    The second part of the data model augments the "matches" container in
    the IETF ACL model [RFC8519] so that a source and/or destination
@@ -658,11 +658,13 @@ Table of Contents
        description
          "An ACL that matches based on an endpoint group identity,
           which can represent the collective identity of a group of
-          authenticated users or enterprise end devices. An endpoint
+          authenticated users, end devices, or applications. An endpoint
           group identity may be carried in the outer/inner packet
-          header (e.g., via NVO3 encapsulation), but may not correspond
-          to any field in the packet header.";
+          header (e.g., via NVO3 encapsulation), may also not correspond
+          to any field in the packet header. Matching on Layer 4 header
+          fields may also exist in the ACEs.";
      }
+
      identity mixed-ipv4-group-type {
        if-feature "mixed-ipv4-group";
        base acl:ipv4-acl-type;
@@ -671,9 +673,10 @@ Table of Contents
          "An ACL that contains a mix of entries that match on fields
           in IPv4 headers and endpoint group identities, which can
           represent the collective identity of a group of authenticated
-          users or enterprise end devices. Matching on Layer 4 header
-          fields may also exist in the ACEs.";
+          users, end devices, or applications. Matching on Layer 4
+          header fields may also exist in the ACEs.";
      }
+
      identity mixed-ipv6-group-type {
        if-feature "mixed-ipv6-group";
        base acl:ipv6-acl-type;
@@ -682,9 +685,10 @@ Table of Contents
          "An ACL that contains a mix of entries that match on fields
           in IPv6 headers and endpoint group identities, which can
           represent the collective identity of a group of authenticated
-          users or enterprise end devices. Matching on Layer 4 header
-          fields may also exist in the ACEs.";
+          users, end devices, or applications. Matching on Layer 4
+          header fields may also exist in the ACEs.";
      }
+
      identity mixed-ipv4-ipv6-group-type {
        if-feature "mixed-ipv4-ipv6-group";
        base acl:ipv4-acl-type;
@@ -692,41 +696,144 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv4 headers, IPv6 headers and endpoint group identities,
+          in IPv4 headers, IPv6 headers, and endpoint group identities,
           which can represent the collective identity of a group of
-          authenticated users or enterprise end devices. Matching on
-          Layer 4 header fields may also exist in the ACEs.";
+          authenticated users, end devices, or applications. Matching
+          on Layer 4 header fields may also exist in the ACEs.";
      }
+
+     identity mixed-eth-group-type {
+       if-feature "mixed-eth-group";
+       base acl:eth-acl-type;
+       base uacl:group-acl-type;
+       description
+         "An ACL that contains a mix of entries that match on fields
+          in Ethernet headers and endpoint group identities,
+          which can represent the collective identity of a group of
+          authenticated users, end devices, or applications. Matching
+          on Layer 4 header fields may also exist in the ACEs.";
+     }
+
+     identity mixed-eth-ipv4-group-type {
+       if-feature "mixed-eth-ipv4-group";
+       base acl:eth-acl-type;
+       base acl:ipv4-acl-type;
+       base uacl:group-acl-type;
+       description
+         "An ACL that contains a mix of entries that match on fields
+          in Ethernet headers, IPv4 headers, and endpoint group
+          identities, which can represent the collective identity of a
+          group of authenticated users, end devices or applications.
+          Matching on Layer 4 header fields may also exist in the
+          ACEs.";
+     }
+
+     identity mixed-eth-ipv6-group-type {
+       if-feature "mixed-eth-ipv6-group";
+       base acl:eth-acl-type;
+       base acl:ipv6-acl-type;
+       base uacl:group-acl-type;
+       description
+         "An ACL that contains a mix of entries that match on fields
+          in Ethernet headers, IPv6 headers, and endpoint group
+          identities, which can represent the collective identity of
+          a group of authenticated users, end devices or applications.
+          Matching on Layer 4 header fields may also exist in the
+          ACEs.";
+     }
+
+     identity mixed-eth-ipv4-ipv6-group-type {
+       if-feature "mixed-eth-ipv4-ipv6-group";
+       base acl:eth-acl-type;
+       base acl:ipv4-acl-type;
+       base acl:ipv6-acl-type;
+       base uacl:group-acl-type;
+       description
+         "An ACL that contains a mix of entries that match on fields
+          in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
+          group identities, which can represent the collective identity
+          of a group of authenticated users, end devices or applications.
+          Matching on Layer 4 header fields may also exist in the ACEs.";
+     }
+
+     identity endpoint-group-type {
+       description
+         "Identity for the type of endpoint group.";
+     }
+
+     identity user-group {
+       base uacl:endpoint-group-type;
+       description
+         "Identity for the user endpoint group.";
+     }
+
+     identity device-group {
+       base uacl:endpoint-group-type;
+       description
+         "Identity for the device endpoint group.";
+     }
+
+     identity application-group {
+       base uacl:endpoint-group-type;
+       description
+         "Identity for the application endpoint group.";
+     }
+
      feature match-on-group {
        description
-         "The device can support matching on endpoint groups.";
+         "The implementation supports matching on endpoint groups.";
      }
+
      feature group {
        if-feature "uacl:match-on-group";
        description
-         "Plain group ACL supported.";
+         "Indicates support of group-based ACLs.";
      }
+
      feature mixed-ipv4-group {
        if-feature "acl:match-on-ipv4 and uacl:match-on-group";
        description
          "IPv4 and group ACL combinations supported.";
      }
+
      feature mixed-ipv6-group {
        if-feature "acl:match-on-ipv6 and uacl:match-on-group";
        description
          "IPv6 and group ACL combinations supported.";
      }
+
      feature mixed-ipv4-ipv6-group {
-       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and " + "
-                   uacl:match-on-group";
+       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
        description
          "IPv4, IPv6, and group ACL combinations supported.";
      }
 
-     feature time-condition {
+     feature mixed-eth-group {
+       if-feature "acl:match-on-eth and uacl:match-on-group";
        description
-         "The device can support a time condition based ACL policy
-          enforcement.";
+         "Eth and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv4, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv6, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "acl:match-on-ipv6 and uacl:match-on-group";
+       description
+         "Eth, IPv4, IPv6, and group ACL combinations supported.";
      }
 
      typedef group-id-reference {
@@ -741,10 +848,10 @@ Table of Contents
 
      augment "/acl:acls/acl:acl" {
        description
-         "Adds a new container to store endpoint group information.";
+         "Adds a container for endpoint group definition.";
        container endpoint-groups {
          description
-           "Container definition for the endpoint group.";
+           "Defines a container for the endpoint group list.";
          list endpoint-group {
            key "group-id";
            description
@@ -757,36 +864,12 @@ Table of Contents
                "The endpoint group identifier that uniquely identifies
                 an endpoint group.";
            }
-           choice group-type {
+           leaf group-type {
+             type identityref {
+               base endpoint-group-type;
+             }
              description
-               "Choice of each different type of endpoint.";
-             case user-group {
-               description
-                 "The employee that connects to the network.";
-               container user-group {
-                 description
-                   "Defines the user-group container.";
-                 leaf role {
-                   type string;
-                   description
-                     "Specifies the common role of this user group.";
-                 }
-               }
-             }
-             case device-group {
-               description
-                 "The static resources in a network, such as a specific
-                  application.";
-               container device-group {
-                 description
-                   "Defines the device-group container.";
-                 leaf device-type {
-                   type string;
-                   description
-                     "The type of the static resource.";
-                 }
-               }
-             }
+               "Specifies the endpoint group type.";
            }
          }
        }
@@ -794,8 +877,8 @@ Table of Contents
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
        description
-         "Specifies how a source and/or destination endpoint group index
-          can be referenced as the match criteria in the ACEs.";
+         "Specifies how a source and/or destination endpoint group
+          index can be referenced as the match criteria in the ACEs.";
        container endpoint-group {
          when "derived-from-or-self(/acl:acls/acl:acl/acl:type, "
             + "'uacl:group-acl-type')";
@@ -816,28 +899,29 @@ Table of Contents
      }
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
-       if-feature "time-condition";
        description
-         "Add a new parameter to the Access Control Entry (ACE).";
-       container time-range {
+         "Adds schedule parameters to allow the ACE to take effect
+          based on date and time.";
+       container effective-schedule {
          description
-           "This container defines when the access control
-            entry rules are in effect.
+           "Defines when the access control entry rules
+           are in effect based on date and time condition.
 
             If it is not configured, the access control entry
             is immediately and always in effect.";
-         choice time-range-type {
+         choice schedule-type {
            description
              "Choice based on the type of the time range.";
-           case periodic-range {
+           case period {
              description
-               "A periodic range of time to take effect.";
-             uses schedule:icalendar-recurrence;
+               "The ACE takes effect based on a precise period of time.";
+               uses schedule:period-of-time;
            }
-           case absolute-range {
+           case recurrence {
+             if-feature "schedule:icalendar-recurrence-supported";
              description
-               "A single precise period of time to take effect.";
-             uses schedule:period-of-time;
+               "The ACE takes effect based on a recurrence rule.";
+             uses schedule:icalendar-recurrence;
            }
          }
        }
@@ -895,7 +979,7 @@ Table of Contents
 
 8.  RADIUS Attributes
 
-   Table 3 provides a guide as what type of RADIUS packets that may
+   Table 4 provides a guide as what type of RADIUS packets that may
    contain User-Access-Group-ID Attribute, and in what quantity.
 
      +================+=========+=========+===========+==============+
@@ -912,9 +996,9 @@ Table of Contents
      |                |         |         |           | Group-ID     |
      +----------------+---------+---------+-----------+--------------+
 
-                        Table 3: Table of Attributes
+                        Table 4: Table of Attributes
 
-   Notation for Table 3:
+   Notation for Table 4:
 
    0  This attribute MUST NOT be present in packet.
 
@@ -1012,7 +1096,7 @@ Table of Contents
        | TBA1  | User-Access-Group-ID | string    | This-Document |
        +-------+----------------------+-----------+---------------+
 
-                        Table 4: RADIUS Attribute
+                        Table 5: RADIUS Attribute
 
 11.  References
 
@@ -1203,13 +1287,14 @@ A.1.  Configuring the Controller Using Group based ACL
    The access requirements are as follows:
 
    *  Permit traffic from R&D BYOD of employees, destined to R&D
-      employees' devices every work day from 8:00 to 18:00.
+      employees' devices every work day from 8:00:00 to 18:00:00 UTC,
+      starting in January 1st, 2025.
 
    *  Deny traffic from R&D BYOD of employees, destined to finance
       servers located in the enterprise DC network starting at 8:30:00
-      of January 20, 2023 with an offset of -08:00 from UTC (Pacific
+      of January 20, 2025 with an offset of -08:00 from UTC (Pacific
       Standard Time) and ending at 18:00:00 in Pacific Standard Time on
-      December 31, 2023.
+      December 31, 2025.
 
    The following example illustrates the configuration of an SDN
    controller using the group-based ACL:
@@ -1226,22 +1311,16 @@ A.1.  Configuring the Controller Using Group based ACL
        <endpoint-groups
          xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
          <endpoint-group>
-           <group-id>20</group-id>
-           <user-group>
-             <role>R&amp;D</role>
-           </user-group>
+           <group-id>R&amp;D</group-id>
+           <group-type>user-group</group-type>
          </endpoint-group>
          <endpoint-group>
-           <group-id>22</group-id>
-           <user-group>
-             <role>R&amp;D BYOD</role>
-           </user-group>
+           <group-id>R&amp;D BYOD</group-id>
+           <group-type>user-group</group-type>
          </endpoint-group>
          <endpoint-group>
-           <group-id>50</group-id>
-           <device-group>
-             <device-type>finance server</device-type>
-           </device-group>
+           <group-id>finance server</group-id>
+           <group-type>device-group</group-type>
          </endpoint-group>
        </endpoint-groups>
        <aces>
@@ -1250,55 +1329,56 @@ A.1.  Configuring the Controller Using Group based ACL
            <matches>
              <endpoint-group
                xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>20</destination-group-id>
+               <source-group-id>R&amp;D BYOD</source-group-id>
+               <destination-group-id>R&amp;D</destination-group-id>
              </endpoint-group>
            </matches>
            <actions>
              <forwarding>accept</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <recurrence>
-               <freq>daily</freq>
-               <byhour>8</byhour>
-               <byday>
-                 <weekday>monday</weekday>
-               </byday>
-               <byday>
-                 <weekday>tuesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>wednesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>thursday</weekday>
-               </byday>
-               <byday>
-                 <weekday>friday</weekday>
-               </byday>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                                ucl-acl"
+             xmlns:schedule="urn:ietf:params:xml:ns:yang:ietf-schedule">
+             <recurrence-first>
+               <date-time-start>2025-01-01T08:00:00Z</date-time-start>
                <duration>PT10:00:00</duration>
-             </recurrence>
-           </time-range>
+             </recurrence-first>
+             <frequency>schedule:daily</frequency>
+             <byday>
+               <weekday>monday</weekday>
+             </byday>
+             <byday>
+               <weekday>tuesday</weekday>
+             </byday>
+             <byday>
+               <weekday>wednesday</weekday>
+             </byday>
+             <byday>
+               <weekday>thursday</weekday>
+             </byday>
+             <byday>
+               <weekday>friday</weekday>
+             </byday>
+           </effective-schedule>
          </ace>
          <ace>
            <name>rule2</name>
            <matches>
              <endpoint-group
                xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>50</destination-group-id>
+               <source-group-id>R&amp;D BYOD</source-group-id>
+               <destination-group-id>finance server</destination-group-\
+                                                                     id>
              </endpoint-group>
            </matches>
            <actions>
              <forwarding>reject</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <period-of-time>
-               <explicit-start>2023-01-20T08:30:00-08:00</explicit-\
-                                                                  start>
-               <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
-             </period-of-time>
-           </time-range>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                               ucl-acl">
+             <period-start>2025-01-20T08:30:00-08:00</period-start>
+             <period-end>2025-12-31T18:00:00-08:00</period-end>
+           </effective-schedule>
          </ace>
        </aces>
      </acl>
@@ -1335,16 +1415,12 @@ A.2.  Configuring a PEP Using Group-based ACL
        <endpoint-groups
          xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
          <endpoint-group>
-           <group-id>20</group-id>
-           <user-group>
-             <role>R&amp;D</role>
-           </user-group>
+           <group-id>R&amp;D</group-id>
+           <group-type>user-group</group-type>
          </endpoint-group>
          <endpoint-group>
-           <group-id>22</group-id>
-           <user-group>
-             <role>R&amp;D BYOD</role>
-           </user-group>
+           <group-id>R&amp;D BYOD</group-id>
+           <group-type>user-group</group-type>
          </endpoint-group>
        </endpoint-groups>
        <aces>
@@ -1353,42 +1429,44 @@ A.2.  Configuring a PEP Using Group-based ACL
            <matches>
              <endpoint-group
                xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
-               <destination-group-id>20</destination-group-id>
+               <source-group-id>R&amp;D BYOD</source-group-id>
+               <destination-group-id>R&amp;D</destination-group-id>
              </endpoint-group>
            </matches>
            <actions>
              <forwarding>accept</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <recurrence>
-               <freq>daily</freq>
-               <byhour>8</byhour>
-               <byday>
-                 <weekday>monday</weekday>
-               </byday>
-               <byday>
-                 <weekday>tuesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>wednesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>thursday</weekday>
-               </byday>
-               <byday>
-                 <weekday>friday</weekday>
-               </byday>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                                ucl-acl"
+             xmlns:schedule="urn:ietf:params:xml:ns:yang:ietf-schedule">
+             <recurrence-first>
+               <date-time-start>2025-01-01T08:00:00Z</date-time-start>
                <duration>PT10:00:00</duration>
-             </recurrence>
-           </time-range>
+             </recurrence-first>
+             <frequency>schedule:daily</frequency>
+             <byday>
+               <weekday>monday</weekday>
+             </byday>
+             <byday>
+               <weekday>tuesday</weekday>
+             </byday>
+             <byday>
+               <weekday>wednesday</weekday>
+             </byday>
+             <byday>
+               <weekday>thursday</weekday>
+             </byday>
+             <byday>
+               <weekday>friday</weekday>
+             </byday>
+           </effective-schedule>
          </ace>
          <ace>
            <name>rule2</name>
            <matches>
              <endpoint-group
                xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-               <source-group-id>22</source-group-id>
+               <source-group-id>R&amp;D BYOD</source-group-id>
              </endpoint-group>
              <ipv4>
                <destination-ipv4-network>203.0.113.1/24</destination-\
@@ -1398,13 +1476,11 @@ A.2.  Configuring a PEP Using Group-based ACL
            <actions>
              <forwarding>reject</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <period-of-time>
-               <explicit-start>2023-01-20T08:30:00-08:00</explicit-\
-                                                                  start>
-               <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
-             </period-of-time>
-           </time-range>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                               ucl-acl">
+             <period-start>2025-01-20T08:30:00-08:00</period-start>
+             <period-end>2025-12-31T18:00:00-08:00</period-end>
+           </effective-schedule>
          </ace>
        </aces>
      </acl>
@@ -1442,37 +1518,38 @@ A.3.  Configuring the PEP Using Address-based ACL
            <name>rule1</name>
            <matches>
              <ipv4>
-               <destination-ipv4-network>192.0.2.1/24</destination-ipv4\
-                                                               -network>
-               <source-ipv4-network>198.51.100.1/24</source-ipv4-\
-                                                                network>
+               <destination-ipv4-network>192.168.2.1/24</destination-\
+                                                           ipv4-network>
+               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
              </ipv4>
            </matches>
            <actions>
              <forwarding>accept</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <recurrence>
-               <freq>daily</freq>
-               <byhour>8</byhour>
-               <byday>
-                 <weekday>monday</weekday>
-               </byday>
-               <byday>
-                 <weekday>tuesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>wednesday</weekday>
-               </byday>
-               <byday>
-                 <weekday>thursday</weekday>
-               </byday>
-               <byday>
-                 <weekday>friday</weekday>
-               </byday>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                                ucl-acl"
+             xmlns:schedule="urn:ietf:params:xml:ns:yang:ietf-schedule">
+             <recurrence-first>
+               <date-time-start>2025-01-01T08:00:00Z</date-time-start>
                <duration>PT10:00:00</duration>
-             </recurrence>
-           </time-range>
+             </recurrence-first>
+             <frequency>schedule:daily</frequency>
+             <byday>
+               <weekday>monday</weekday>
+             </byday>
+             <byday>
+               <weekday>tuesday</weekday>
+             </byday>
+             <byday>
+               <weekday>wednesday</weekday>
+             </byday>
+             <byday>
+               <weekday>thursday</weekday>
+             </byday>
+             <byday>
+               <weekday>friday</weekday>
+             </byday>
+           </effective-schedule>
          </ace>
          <ace>
            <name>rule2</name>
@@ -1480,20 +1557,17 @@ A.3.  Configuring the PEP Using Address-based ACL
              <ipv4>
                <destination-ipv4-network>203.0.113.1/24</destination-\
                                                            ipv4-network>
-               <source-ipv4-network>198.51.100.1/24</source-ipv4-\
-                                                                network>
+               <source-ipv4-network>192.168.1.1/24</source-ipv4-network>
              </ipv4>
            </matches>
            <actions>
              <forwarding>reject</forwarding>
            </actions>
-           <time-range xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-             <period-of-time>
-               <explicit-start>2023-01-20T08:30:00-08:00</explicit-\
-                                                                  start>
-               <explicit-end>2023-12-31T18:00:00-08:00</explicit-end>
-             </period-of-time>
-           </time-range>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                               ucl-acl">
+             <period-start>2025-01-20T08:30:00-08:00</period-start>
+             <period-end>2025-12-31T18:00:00-08:00</period-end>
+           </effective-schedule>
          </ace>
        </aces>
      </acl>
@@ -1505,10 +1579,7 @@ A.3.  Configuring the PEP Using Address-based ACL
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
    <?xml version="1.0" encoding="utf-8"?>
-   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
-         xmlns:ns2="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"
-         xmlns:ns="urn:ietf:params:xml:ns:yang:ietf-access-control-list\
-                                                                      ">
+   <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list">
      <acl>
        <name>another-sample-but-with-ipv6</name>
 
@@ -1528,36 +1599,30 @@ A.3.  Configuring the PEP Using Address-based ACL
            <actions>
              <forwarding>accept</forwarding>
            </actions>
-
-           <ns2:time-range>
-             <ns2:recurrence>
-               <ns2:freq>daily</ns2:freq>
-
-               <ns2:byhour>8</ns2:byhour>
-
-               <ns2:byday>
-                 <ns2:weekday>monday</ns2:weekday>
-               </ns2:byday>
-
-               <ns2:byday>
-                 <ns2:weekday>tuesday</ns2:weekday>
-               </ns2:byday>
-
-               <ns2:byday>
-                 <ns2:weekday>wednesday</ns2:weekday>
-               </ns2:byday>
-
-               <ns2:byday>
-                 <ns2:weekday>thursday</ns2:weekday>
-               </ns2:byday>
-
-               <ns2:byday>
-                 <ns2:weekday>friday</ns2:weekday>
-               </ns2:byday>
-
-               <ns2:duration>PT10:00:00</ns2:duration>
-             </ns2:recurrence>
-           </ns2:time-range>
+           <effective-schedule xmlns="urn:ietf:params:xml:ns:yang:ietf-\
+                                                                ucl-acl"
+             xmlns:schedule="urn:ietf:params:xml:ns:yang:ietf-schedule">
+             <recurrence-first>
+               <date-time-start>2025-01-01T08:00:00Z</date-time-start>
+               <duration>PT10:00:00</duration>
+             </recurrence-first>
+             <frequency>schedule:daily</frequency>
+             <byday>
+               <weekday>monday</weekday>
+             </byday>
+             <byday>
+               <weekday>tuesday</weekday>
+             </byday>
+             <byday>
+               <weekday>wednesday</weekday>
+             </byday>
+             <byday>
+               <weekday>thursday</weekday>
+             </byday>
+             <byday>
+               <weekday>friday</weekday>
+             </byday>
+           </effective-schedule>
          </ace>
        </aces>
      </acl>
@@ -1608,7 +1673,7 @@ Acknowledgments
 
 Authors' Addresses
 
-   Qiufang Ma
+   Qiufang Ma (editor)
    Huawei
    101 Software Avenue, Yuhua District
    Jiangsu
@@ -1626,7 +1691,7 @@ Authors' Addresses
    Email: bill.wu@huawei.com
 
 
-   Mohamed Boucadair
+   Mohamed Boucadair (editor)
    Orange
    35000 Rennes
    France
