@@ -2047,8 +2047,9 @@ module ietf-ucl-acl {
       "An ACL that contains a mix of entries that match on fields
        in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
        group identities, which can represent the collective identity
-       of a group of authenticated users, end devices or applications.
-       Matching on Layer 4 header fields may also exist in the ACEs.";
+       of a group of authenticated users, end devices or
+       applications. Matching on Layer 4 header fields may also exist
+       in the ACEs.";
   }
 
   identity endpoint-group-type {
@@ -2209,7 +2210,8 @@ module ietf-ucl-acl {
           "Choice based on the type of the time range.";
         case period {
           description
-            "The ACE takes effect based on a precise period of time.";
+            "The ACE takes effect based on a precise period of
+             time.";
             uses schedule:period-of-time;
         }
         case recurrence {
@@ -3047,31 +3049,52 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
       <h2 id="name-changes-between-revisions">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-changes-between-revisions" class="section-name selfRef">Changes between Revisions</a>
       </h2>
-<p id="appendix-B-1">v00 - v01<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">v01 - v02<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">Change the document title and add a reference to "policy"<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.1.1">Tree overview and examples update to reflect the latest schedule module<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">Split the definition of schedule YANG module into a seperate document<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.2.1">Clairfy why we define endpoint group ID as string<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">Add reference to draft-dekok-radext-deprecating-radius for authentication method recommendations<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.3.1">Exclude the mapping of string to tagging mechanism from the document scope<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.4">
-          <p id="appendix-B-2.4.1">Change endpoint group-id as a string, and fix related examples accordingly<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.4.1">Add implementation considerations section to discuss the deployment scenarios and possible tradeoff<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.5">
-          <p id="appendix-B-2.5.1">Use typedef to ease leafref of the node<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.5.1">Add application group, define endpoint group type as "identityref" in YANG data model<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.6">
-          <p id="appendix-B-2.6.1">Tweaks to the RADIUS section and add a restriction to the length based on comments from RADEXT<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.6.1">Editorial changes, e.g., remove the NACL definition, fix long lines.<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.7">
-          <p id="appendix-B-2.7.1">Add IPv6 examples<a href="#appendix-B-2.7.1" class="pilcrow">¶</a></p>
+      </ul>
+<p id="appendix-B-3">v00 - v01<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-4.1">
+          <p id="appendix-B-4.1.1">Change the document title and add a reference to "policy"<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.8">
-          <p id="appendix-B-2.8.1">Editorial changes<a href="#appendix-B-2.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.2">
+          <p id="appendix-B-4.2.1">Split the definition of schedule YANG module into a seperate document<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.3">
+          <p id="appendix-B-4.3.1">Add reference to draft-dekok-radext-deprecating-radius for authentication method recommendations<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.4">
+          <p id="appendix-B-4.4.1">Change endpoint group-id as a string, and fix related examples accordingly<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.5">
+          <p id="appendix-B-4.5.1">Use typedef to ease leafref of the node<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.6">
+          <p id="appendix-B-4.6.1">Tweaks to the RADIUS section and add a restriction to the length based on comments from RADEXT<a href="#appendix-B-4.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.7">
+          <p id="appendix-B-4.7.1">Add IPv6 examples<a href="#appendix-B-4.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-4.8">
+          <p id="appendix-B-4.8.1">Editorial changes<a href="#appendix-B-4.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>

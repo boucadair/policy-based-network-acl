@@ -754,8 +754,9 @@ Table of Contents
          "An ACL that contains a mix of entries that match on fields
           in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
           group identities, which can represent the collective identity
-          of a group of authenticated users, end devices or applications.
-          Matching on Layer 4 header fields may also exist in the ACEs.";
+          of a group of authenticated users, end devices or
+          applications. Matching on Layer 4 header fields may also exist
+          in the ACEs.";
      }
 
      identity endpoint-group-type {
@@ -916,7 +917,8 @@ Table of Contents
              "Choice based on the type of the time range.";
            case period {
              description
-               "The ACE takes effect based on a precise period of time.";
+               "The ACE takes effect based on a precise period of
+                time.";
                uses schedule:period-of-time;
            }
            case recurrence {
@@ -1657,6 +1659,25 @@ A.3.  Configuring the PEP Using Address-based ACL
    </acls>
 
 Appendix B.  Changes between Revisions
+
+   v01 - v02
+
+   *  Tree overview and examples update to reflect the latest schedule
+      module
+
+   *  Clairfy why we define endpoint group ID as string
+
+   *  Exclude the mapping of string to tagging mechanism from the
+      document scope
+
+   *  Add implementation considerations section to discuss the
+      deployment scenarios and possible tradeoff
+
+   *  Add application group, define endpoint group type as "identityref"
+      in YANG data model
+
+   *  Editorial changes, e.g., remove the NACL definition, fix long
+      lines.
 
    v00 - v01
 
