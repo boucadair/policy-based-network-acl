@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 9 June 2024                                   M. Boucadair, Ed.
+Expires: 10 June 2024                                  M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         7 December 2023
+                                                         8 December 2023
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 June 2024.
+   This Internet-Draft will expire on 10 June 2024.
 
 Copyright Notice
 
@@ -304,15 +304,16 @@ Table of Contents
       user attributes).
 
    *  The Policy Enforcement Point (PEP) is the central entity which is
-      responsible for enforcing appropriate access control policies.  In
-      some cases, a PEP may map incoming packets to their associated
-      source or destination endpoint-group IDs, and acts on the
-      endpoint-group ID based ACL policies, e.g., a NAS as the PEP or a
-      group identifier could be carried in packet header (see
-      Section 6.2.3 of [I-D.ietf-nvo3-encap]).  While in other cases,
-      the SDN controller maps the group ID to the related common packet
-      header and delivers IP/MAC address based ACL policies to the
-      required PEPs.
+      responsible for enforcing appropriate access control policies.  A
+      first deployment scenario assumes that the SDN controller maps the
+      group ID to the related common packet header and delivers IP/MAC
+      address based ACL policies to the required PEPs.  Another
+      deployment scenario may require that PEPs map incoming packets to
+      their associated source and/or destination endpoint-group IDs, and
+      acts upon the endpoint-group ID based ACL policies (e.g., a group
+      identifier may be carried in packet headers such as discussed in
+      Section 6.2.3 of [I-D.ietf-nvo3-encap]).  More details are
+      provided in Section 9.
 
       Multiple PEPs may be involved in a network.
 
