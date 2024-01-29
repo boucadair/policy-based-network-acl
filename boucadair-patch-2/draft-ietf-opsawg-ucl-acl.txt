@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 10 June 2024                                  M. Boucadair, Ed.
+Expires: 1 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         8 December 2023
+                                                         29 January 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,11 +56,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 June 2024.
+   This Internet-Draft will expire on 1 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -90,15 +90,16 @@ Table of Contents
      6.1.  The "ietf-ucl-acl" YANG Module
    7.  User Access Control Group ID RADIUS Attribute
    8.  RADIUS Attributes
-   9.  Security Considerations
-     9.1.  YANG
-     9.2.  RADIUS
-   10. IANA Considerations
+   9.  Implementation Considerations
+   10. Security Considerations
      10.1.  YANG
      10.2.  RADIUS
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   11. IANA Considerations
+     11.1.  YANG
+     11.2.  RADIUS
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Appendix A.  Examples Usage
      A.1.  Configuring the Controller Using Group based ACL
      A.2.  Configuring a PEP Using Group-based ACL
@@ -167,6 +168,10 @@ Table of Contents
    based ACLs can be bypassed by flushing out the MAC address.  Other
    implications related to the change of MAC addresses are discussed in
    [I-D.ietf-madinas-use-cases].
+
+   The document does not specify how to map the policy group identifiers
+   to dedicated fields (e.g., Group Based Policy (GBP) discussed in
+   Section 6.2.3 of [I-D.ietf-nvo3-encap]).
 
    The YANG data models in this document conform to the Network
    Management Datastore Architecture (NMDA) defined in [RFC8342].
@@ -308,7 +313,7 @@ Table of Contents
       acts upon the endpoint-group ID based ACL policies (e.g., a group
       identifier may be carried in packet headers such as discussed in
       Section 6.2.3 of [I-D.ietf-nvo3-encap]).  More details are
-      provided in the "Implementation Considerations" Section.
+      provided in Section 9.
 
       Multiple PEPs may be involved in a network.
 
@@ -749,8 +754,9 @@ Table of Contents
          "An ACL that contains a mix of entries that match on fields
           in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
           group identities, which can represent the collective identity
-          of a group of authenticated users, end devices or applications.
-          Matching on Layer 4 header fields may also exist in the ACEs.";
+          of a group of authenticated users, end devices or
+          applications. Matching on Layer 4 header fields may also exist
+          in the ACEs.";
      }
 
      identity endpoint-group-type {
@@ -911,7 +917,8 @@ Table of Contents
              "Choice based on the type of the time range.";
            case period {
              description
-               "The ACE takes effect based on a precise period of time.";
+               "The ACE takes effect based on a precise period of
+                time.";
                uses schedule:period-of-time;
            }
            case recurrence {
@@ -1002,9 +1009,35 @@ Table of Contents
    0+  Zero or more instances of this attribute MAY be present in
       packet.
 
-9.  Security Considerations
+9.  Implementation Considerations
 
-9.1.  YANG
+   The UCL model can be implemented in different ways.
+
+   In some cases, the UCL model is implemented at the network/
+   administrative domain level with an SDN controller maintaining the
+   dynamical mapping from endpoint group ID to IP/transport fields
+   (e.g., the 5-tuple) and programing the PEPs with IP address/5-tuple
+   based ACLs.  In such cases, PEPs do not require to implement specific
+   logic (including hardware) compared to the enforcement of
+   conventional ACLs.
+
+   It is possible for the UCL model to be implemented at the network
+   device level.  While it eliminates the need for an SDN controller to
+   interact frequently with the PEPs for reasons like the user's context
+   of network connection change or VM/application migration, dedicated
+   hardware/software support might be needed for PEPs to understand the
+   endpoint group identifier.  In scenrios where the NAS behaves as the
+   PEP which acquires the source and/or destination endpoint group ID
+   from the AAA server, ACL policy enforcement based on the group
+   identity without being encapsulated into packet headers might affect
+   the forwarding performance.  Implementations need to evaluate the
+   operational tradeoff (flexibility brought to the network vs. the
+   complexity of implementation) carefully.  Such assessment is out of
+   scope of this document.
+
+10.  Security Considerations
+
+10.1.  YANG
 
    The YANG modules specified in this document defines schema for data
    that is designed to be accessed via network management protocols such
@@ -1053,7 +1086,7 @@ Table of Contents
          to determine which rules are in effect, to better craft an
          attack.
 
-9.2.  RADIUS
+10.2.  RADIUS
 
    RADIUS-related security considerations are discussed in [RFC2865].
 
@@ -1062,9 +1095,9 @@ Table of Contents
    optionally secured by IPsec or Transport Layer Security (TLS)
    [RFC6614].
 
-10.  IANA Considerations
+11.  IANA Considerations
 
-10.1.  YANG
+11.1.  YANG
 
    This document registers the following URIs in the "IETF XML Registry"
    [RFC3688].
@@ -1082,7 +1115,7 @@ Table of Contents
            maintained by IANA: N
            reference:          RFC XXXX
 
-10.2.  RADIUS
+11.2.  RADIUS
 
    This document requests IANA to assign a new RADIUS attribute type
    from the IANA registry "Radius Attribute Types" [RADIUS-Types]:
@@ -1095,9 +1128,9 @@ Table of Contents
 
                         Table 5: RADIUS Attribute
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [I-D.ma-opsawg-schedule-yang]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A Common YANG
@@ -1170,7 +1203,7 @@ Table of Contents
               RFC 8519, DOI 10.17487/RFC8519, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8519>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [I-D.dekok-radext-deprecating-radius]
               DeKok, A., "Deprecating Insecure Practices in RADIUS",
@@ -1182,17 +1215,17 @@ Table of Contents
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
               Use Cases and Requirements", Work in Progress, Internet-
-              Draft, draft-ietf-madinas-use-cases-06, 10 July 2023,
+              Draft, draft-ietf-madinas-use-cases-07, 11 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-madinas-
-              use-cases-06>.
+              use-cases-07>.
 
    [I-D.ietf-netmod-acl-extensions]
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
               "Extensions to the Access Control Lists (ACLs) YANG
               Model", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-acl-extensions-03, 17 October 2023,
+              netmod-acl-extensions-04, 19 December 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              acl-extensions-03>.
+              acl-extensions-04>.
 
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
@@ -1626,6 +1659,25 @@ A.3.  Configuring the PEP Using Address-based ACL
    </acls>
 
 Appendix B.  Changes between Revisions
+
+   v01 - v02
+
+   *  Tree overview and examples update to reflect the latest schedule
+      module
+
+   *  Clairfy why we define endpoint group ID as string
+
+   *  Exclude the mapping of string to tagging mechanism from the
+      document scope
+
+   *  Add implementation considerations section to discuss the
+      deployment scenarios and possible tradeoff
+
+   *  Add application group, define endpoint group type as "identityref"
+      in YANG data model
+
+   *  Editorial changes, e.g., remove the NACL definition, fix long
+      lines.
 
    v00 - v01
 
