@@ -633,7 +633,7 @@ Table of Contents
         module and is meant to ensure consistent enforcement of ACL
         policies based on the group identity.
 
-        Copyright (c) 2023 IETF Trust and the persons identified
+        Copyright (c) 2024 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -658,13 +658,14 @@ Table of Contents
        if-feature "group";
        base acl:acl-base;
        description
-         "An ACL that matches based on an endpoint group identity,
-          which can represent the collective identity of a group of
-          authenticated users, end devices, or applications. An endpoint
-          group identity may be carried in the outer/inner packet
-          header (e.g., via NVO3 encapsulation), may also not correspond
-          to any field in the packet header. Matching on Layer 4 header
-          fields may also exist in the ACEs.";
+         "An Access Control List (ACL) that matches based on an endpoint
+          group identity, which can represent the collective identity of
+          a group of authenticated users, end devices, or applications.
+          An endpoint group identity may be carried in the outer/inner
+          packet header (e.g., via NVO3 encapsulation), may also not
+          correspond to any field in the packet header. Matching on
+          Layer 4 header fields may also exist in the Access Control
+          Entries (ACEs).";
      }
 
      identity mixed-ipv4-group-type {
@@ -673,7 +674,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv4 headers and endpoint group identities, which can
+          in the IPv4 header and endpoint group identities, which can
           represent the collective identity of a group of authenticated
           users, end devices, or applications. Matching on Layer 4
           header fields may also exist in the ACEs.";
@@ -685,7 +686,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv6 headers and endpoint group identities, which can
+          in the IPv6 header and endpoint group identities, which can
           represent the collective identity of a group of authenticated
           users, end devices, or applications. Matching on Layer 4
           header fields may also exist in the ACEs.";
@@ -698,7 +699,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv4 headers, IPv6 headers, and endpoint group identities,
+          in the IPv4 header, IPv6 header, and endpoint group identities,
           which can represent the collective identity of a group of
           authenticated users, end devices, or applications. Matching
           on Layer 4 header fields may also exist in the ACEs.";
@@ -710,7 +711,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers and endpoint group identities,
+          in the Ethernet header and endpoint group identities,
           which can represent the collective identity of a group of
           authenticated users, end devices, or applications. Matching
           on Layer 4 header fields may also exist in the ACEs.";
@@ -723,7 +724,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv4 headers, and endpoint group
+          in the Ethernet header, IPv4 header, and endpoint group
           identities, which can represent the collective identity of a
           group of authenticated users, end devices or applications.
           Matching on Layer 4 header fields may also exist in the
@@ -737,7 +738,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv6 headers, and endpoint group
+          in the Ethernet header, IPv6 header, and endpoint group
           identities, which can represent the collective identity of
           a group of authenticated users, end devices or applications.
           Matching on Layer 4 header fields may also exist in the
@@ -752,7 +753,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
+          in the Ethernet header, IPv4 header, IPv6 header, and endpoint
           group identities, which can represent the collective identity
           of a group of authenticated users, end devices or
           applications. Matching on Layer 4 header fields may also exist
@@ -845,8 +846,7 @@ Table of Contents
             + "/uacl:endpoint-group/uacl:group-id";
        }
        description
-         "Defines a type to group identifier for referencing
-          purposes.";
+         "Defines a reference to a group identifier.";
      }
 
      augment "/acl:acls/acl:acl" {
@@ -887,7 +887,7 @@ Table of Contents
             + "'uacl:group-acl-type')";
          if-feature "match-on-group";
          description
-           "Add new match types.";
+           "Adds new match types.";
          leaf source-group-id {
            type group-id-reference;
            description
@@ -908,7 +908,7 @@ Table of Contents
        container effective-schedule {
          description
            "Defines when the access control entry rules
-           are in effect based on date and time condition.
+            are in effect based on date and time condition.
 
             If it is not configured, the access control entry
             is immediately and always in effect.";
