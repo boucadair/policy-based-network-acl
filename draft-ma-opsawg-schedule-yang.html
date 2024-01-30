@@ -1607,7 +1607,8 @@ module: ietf-schedule
       </ul>
 <p id="section-4-3"><a href="#features" class="auto internal xref">Appendix B.1</a> provides an example about how that could be used. Implementations
    may support a basic recurrence rule or an advanced one as needed, by declaring
-   different features.<a href="#section-4-3" class="pilcrow">¶</a></p>
+   different features. Whether only one or both features are supported is implementation
+   specific and depend on specific scheduling context.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <p id="section-4-4">These groupings can also be augmented to support specific needs. As an example,
    <a href="#augments" class="auto internal xref">Appendix B.2</a> demonstrates how additional parameters can be added to comply with specifc schedule needs.<a href="#section-4-4" class="pilcrow">¶</a></p>
 </section>
@@ -1651,7 +1652,7 @@ module ietf-schedule {
      exchanging calendaring and scheduling information. The YANG
      module complies with Sections 3.3.9 and 3.3.10 of RFC 5545.
 
-     Copyright (c) 2023 IETF Trust and the persons identified
+     Copyright (c) 2024 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -1675,7 +1676,7 @@ module ietf-schedule {
     description
       "Initial revision.";
     reference
-      "RFC XXXX: A YANG Data Model for Scheduling.";
+      "RFC XXXX: A YANG Data Model for Scheduling";
   }
 
   feature basic-recurrence-supported {
@@ -1691,7 +1692,7 @@ module ietf-schedule {
     reference
       "RFC 5545: Internet Calendaring and Scheduling Core Object
                  Specification (iCalendar),
-                 Section 3.3.10 and 3.8.5";
+                 Sections 3.3.10 and 3.8.5";
   }
 
   typedef weekday {
@@ -1880,7 +1881,7 @@ module ietf-schedule {
            day.";
         reference
           "RFC 5545: Internet Calendaring and Scheduling Core Object
-           Specification (iCalendar), Section 3.3.10";
+                     Specification (iCalendar), Section 3.3.10";
       }
       leaf time-zone-identifier {
         type sys:timezone-name;
