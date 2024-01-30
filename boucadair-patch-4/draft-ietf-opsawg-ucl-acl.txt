@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 August 2024                                 M. Boucadair, Ed.
+Expires: 2 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         29 January 2024
+                                                         30 January 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
@@ -103,7 +103,7 @@ Table of Contents
    Appendix A.  Examples Usage
      A.1.  Configuring the Controller Using Group based ACL
      A.2.  Configuring a PEP Using Group-based ACL
-     A.3.  Configuring the PEP Using Address-based ACL
+     A.3.  Configuring PEPs Using Address-based ACLs
    Appendix B.  Changes between Revisions
    Acknowledgments
    Authors' Addresses
@@ -500,7 +500,7 @@ Table of Contents
 
   module: ietf-ucl-acl
 
-    augment /acl:acls/acl:acl:
+    augment /acl:acls:
       +--rw endpoint-groups
          +--rw endpoint-group* [group-id]
             +--rw group-id      string
@@ -633,7 +633,7 @@ Table of Contents
         module and is meant to ensure consistent enforcement of ACL
         policies based on the group identity.
 
-        Copyright (c) 2023 IETF Trust and the persons identified
+        Copyright (c) 2024 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -658,13 +658,14 @@ Table of Contents
        if-feature "group";
        base acl:acl-base;
        description
-         "An ACL that matches based on an endpoint group identity,
-          which can represent the collective identity of a group of
-          authenticated users, end devices, or applications. An endpoint
-          group identity may be carried in the outer/inner packet
-          header (e.g., via NVO3 encapsulation), may also not correspond
-          to any field in the packet header. Matching on Layer 4 header
-          fields may also exist in the ACEs.";
+         "An Access Control List (ACL) that matches based on an endpoint
+          group identity, which can represent the collective identity of
+          a group of authenticated users, end devices, or applications.
+          An endpoint group identity may be carried in the outer/inner
+          packet header (e.g., via NVO3 encapsulation), may also not
+          correspond to any field in the packet header. Matching on
+          Layer 4 header fields may also exist in the Access Control
+          Entries (ACEs).";
      }
 
      identity mixed-ipv4-group-type {
@@ -673,7 +674,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv4 headers and endpoint group identities, which can
+          in the IPv4 header and endpoint group identities, which can
           represent the collective identity of a group of authenticated
           users, end devices, or applications. Matching on Layer 4
           header fields may also exist in the ACEs.";
@@ -685,7 +686,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv6 headers and endpoint group identities, which can
+          in the IPv6 header and endpoint group identities, which can
           represent the collective identity of a group of authenticated
           users, end devices, or applications. Matching on Layer 4
           header fields may also exist in the ACEs.";
@@ -698,7 +699,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in IPv4 headers, IPv6 headers, and endpoint group identities,
+          in the IPv4 header, IPv6 header, and endpoint group identities,
           which can represent the collective identity of a group of
           authenticated users, end devices, or applications. Matching
           on Layer 4 header fields may also exist in the ACEs.";
@@ -710,7 +711,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers and endpoint group identities,
+          in the Ethernet header and endpoint group identities,
           which can represent the collective identity of a group of
           authenticated users, end devices, or applications. Matching
           on Layer 4 header fields may also exist in the ACEs.";
@@ -723,7 +724,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv4 headers, and endpoint group
+          in the Ethernet header, IPv4 header, and endpoint group
           identities, which can represent the collective identity of a
           group of authenticated users, end devices or applications.
           Matching on Layer 4 header fields may also exist in the
@@ -737,7 +738,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv6 headers, and endpoint group
+          in the Ethernet header, IPv6 header, and endpoint group
           identities, which can represent the collective identity of
           a group of authenticated users, end devices or applications.
           Matching on Layer 4 header fields may also exist in the
@@ -752,7 +753,7 @@ Table of Contents
        base uacl:group-acl-type;
        description
          "An ACL that contains a mix of entries that match on fields
-          in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
+          in the Ethernet header, IPv4 header, IPv6 header, and endpoint
           group identities, which can represent the collective identity
           of a group of authenticated users, end devices or
           applications. Matching on Layer 4 header fields may also exist
@@ -841,15 +842,14 @@ Table of Contents
 
      typedef group-id-reference {
        type leafref {
-         path "/acl:acls/acl:acl/uacl:endpoint-groups"
+         path "/acl:acls/uacl:endpoint-groups"
             + "/uacl:endpoint-group/uacl:group-id";
        }
        description
-         "Defines a type to group identifier for referencing
-          purposes.";
+         "Defines a reference to a group identifier.";
      }
 
-     augment "/acl:acls/acl:acl" {
+     augment "/acl:acls" {
        description
          "Adds a container for endpoint group definition.";
        container endpoint-groups {
@@ -887,7 +887,7 @@ Table of Contents
             + "'uacl:group-acl-type')";
          if-feature "match-on-group";
          description
-           "Add new match types.";
+           "Adds new match types.";
          leaf source-group-id {
            type group-id-reference;
            description
@@ -908,7 +908,7 @@ Table of Contents
        container effective-schedule {
          description
            "Defines when the access control entry rules
-           are in effect based on date and time condition.
+            are in effect based on date and time condition.
 
             If it is not configured, the access control entry
             is immediately and always in effect.";
@@ -1060,10 +1060,10 @@ Table of Contents
    network and security operations.  These are the subtrees and data
    nodes and their sensitivity/vulnerability:
 
-   *  /acl:acls/acl:acl/uacl:endpoint-groups/uacl:endpoint-group:  This
-         list specifies all the endpoint group entries.  Unauthorized
-         write access to this list can allow intruders to modify the
-         entries so as to forge an endpoint group that does not exist or
+   *  /acl:acls/uacl:endpoint-groups/uacl:endpoint-group:  This list
+         specifies all the endpoint group entries.  Unauthorized write
+         access to this list can allow intruders to modify the entries
+         so as to forge an endpoint group that does not exist or
          maliciously delete an existing endpoint group, which could be
          used to craft an attack.
 
@@ -1223,9 +1223,9 @@ Table of Contents
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
               "Extensions to the Access Control Lists (ACLs) YANG
               Model", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-acl-extensions-04, 19 December 2023,
+              netmod-acl-extensions-06, 30 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              acl-extensions-04>.
+              acl-extensions-06>.
 
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
@@ -1326,7 +1326,7 @@ A.1.  Configuring the Controller Using Group based ACL
       Standard Time) and ending at 18:00:00 in Pacific Standard Time on
       December 31, 2025.
 
-   The following example illustrates the configuration of an SDN
+   The example shown in Figure 3 illustrates the configuration of an SDN
    controller using the group-based ACL:
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1414,6 +1414,8 @@ A.1.  Configuring the Controller Using Group based ACL
      </acl>
    </acls>
 
+                   Figure 3: Example of UCL Configuration
+
 A.2.  Configuring a PEP Using Group-based ACL
 
    This section illustrates an example to configure a PEP using the
@@ -1428,10 +1430,9 @@ A.2.  Configuring a PEP Using Group-based ACL
    exhaustive.
 
    Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication.  The following
-   example shows ACL configurations delivered from the controller to the
-   PEP.  This example is consistent with the example presented in
-   Appendix A.1.
+   predefined or acquired via device authentication.  Figure 4 shows the
+   ACL configuration delivered from the controller to the PEP.  This
+   example is consistent with the example presented in Appendix A.1.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1516,7 +1517,9 @@ A.2.  Configuring a PEP Using Group-based ACL
      </acl>
    </acls>
 
-A.3.  Configuring the PEP Using Address-based ACL
+                   Figure 4: Example of PEP Configuration
+
+A.3.  Configuring PEPs Using Address-based ACLs
 
    The section illustrates an example of configuring a PEP using IP
    address based ACL.  IP address based access control policies could be
@@ -1530,10 +1533,10 @@ A.3.  Configuring the PEP Using Address-based ACL
    Section 4.1.
 
    Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication.  The following
-   example shows IPv4 address based ACL configurations delivered from
-   the controller to the PEP.  This example is consistent with the
-   example presented in Appendix A.1.
+   predefined or acquired via device authentication.  Figure 5 shows an
+   IPv4 address based ACL configuration delivered from the controller to
+   the PEP.  This example is consistent with the example presented in
+   Appendix A.1.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1603,8 +1606,10 @@ A.3.  Configuring the PEP Using Address-based ACL
      </acl>
    </acls>
 
-   The following shows an example of the same policy but with a
-   destination IPv6 prefix.
+                   Figure 5: Example of PEP Configuration
+
+   Figure 6 shows an example of the same policy but with a destination
+   IPv6 prefix.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1658,6 +1663,8 @@ A.3.  Configuring the PEP Using Address-based ACL
      </acl>
    </acls>
 
+               Figure 6: Example of PEP Configuration (IPv6)
+
 Appendix B.  Changes between Revisions
 
    v01 - v02
@@ -1665,7 +1672,7 @@ Appendix B.  Changes between Revisions
    *  Tree overview and examples update to reflect the latest schedule
       module
 
-   *  Clairfy why we define endpoint group ID as string
+   *  Clarify why we define endpoint group ID as string
 
    *  Exclude the mapping of string to tagging mechanism from the
       document scope

@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 August 2024                                 M. Boucadair, Ed.
+Expires: 2 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         29 January 2024
+                                                         30 January 2024
 
 
                 A Common YANG Data Model for Scheduling
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
@@ -466,7 +466,7 @@ Table of Contents
         exchanging calendaring and scheduling information. The YANG
         module complies with Sections 3.3.9 and 3.3.10 of RFC 5545.
 
-        Copyright (c) 2023 IETF Trust and the persons identified
+        Copyright (c) 2024 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -490,7 +490,7 @@ Table of Contents
        description
          "Initial revision.";
        reference
-         "RFC XXXX: A YANG Data Model for Scheduling.";
+         "RFC XXXX: A YANG Data Model for Scheduling";
      }
 
      feature basic-recurrence-supported {
@@ -506,7 +506,7 @@ Table of Contents
        reference
          "RFC 5545: Internet Calendaring and Scheduling Core Object
                     Specification (iCalendar),
-                    Section 3.3.10 and 3.8.5";
+                    Sections 3.3.10 and 3.8.5";
      }
 
      typedef weekday {
@@ -695,7 +695,7 @@ Table of Contents
               day.";
            reference
              "RFC 5545: Internet Calendaring and Scheduling Core Object
-              Specification (iCalendar), Section 3.3.10";
+                        Specification (iCalendar), Section 3.3.10";
          }
          leaf time-zone-identifier {
            type sys:timezone-name;
@@ -1223,7 +1223,7 @@ A.3.  The "recurrence-with-date-times" Grouping
    {
      "recurrence-first": {
        "date-time-start": "2025-12-01T09:00:00Z",
-       "duration": "PT00:00:15"
+       "duration": "PT00:15:00"
      },
      "frequency": "ietf-schedule:minutely",
      "interval": 30,
@@ -1231,11 +1231,11 @@ A.3.  The "recurrence-with-date-times" Grouping
      "period": [
        {
          "period-start": "2025-12-01T18:00:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        },
        {
          "period-start": "2025-12-01T18:30:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        }
       ]
    }

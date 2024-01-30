@@ -1042,7 +1042,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 1 August 2024</td>
+<td class="center">Expires 2 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,12 +1055,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-29" class="published">29 January 2024</time>
+<time datetime="2024-01-30" class="published">30 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-01">1 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-02">2 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1259,7 +1259,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-a-pep-using-gro" class="internal xref">Configuring a PEP Using Group-based ACL</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.3">
-                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-the-pep-using-a" class="internal xref">Configuring the PEP Using Address-based ACL</a></p>
+                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-peps-using-addr" class="internal xref">Configuring PEPs Using Address-based ACLs</a></p>
 </li>
             </ul>
 </li>
@@ -1792,7 +1792,7 @@ the PEP. <a href="#PEP-ucl" class="auto internal xref">Appendix A.2</a> and <a h
 <pre>
 module: ietf-ucl-acl
 
-  augment /acl:acls/acl:acl:
+  augment /acl:acls:
     +--rw endpoint-groups
        +--rw endpoint-group* [group-id]
           +--rw group-id      string
@@ -1926,7 +1926,7 @@ module ietf-ucl-acl {
      module and is meant to ensure consistent enforcement of ACL
      policies based on the group identity.
 
-     Copyright (c) 2023 IETF Trust and the persons identified
+     Copyright (c) 2024 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -1951,13 +1951,14 @@ module ietf-ucl-acl {
     if-feature "group";
     base acl:acl-base;
     description
-      "An ACL that matches based on an endpoint group identity,
-       which can represent the collective identity of a group of
-       authenticated users, end devices, or applications. An endpoint
-       group identity may be carried in the outer/inner packet
-       header (e.g., via NVO3 encapsulation), may also not correspond
-       to any field in the packet header. Matching on Layer 4 header
-       fields may also exist in the ACEs.";
+      "An Access Control List (ACL) that matches based on an endpoint
+       group identity, which can represent the collective identity of
+       a group of authenticated users, end devices, or applications.
+       An endpoint group identity may be carried in the outer/inner
+       packet header (e.g., via NVO3 encapsulation), may also not
+       correspond to any field in the packet header. Matching on
+       Layer 4 header fields may also exist in the Access Control
+       Entries (ACEs).";
   }
 
   identity mixed-ipv4-group-type {
@@ -1966,7 +1967,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in IPv4 headers and endpoint group identities, which can
+       in the IPv4 header and endpoint group identities, which can
        represent the collective identity of a group of authenticated
        users, end devices, or applications. Matching on Layer 4
        header fields may also exist in the ACEs.";
@@ -1978,7 +1979,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in IPv6 headers and endpoint group identities, which can
+       in the IPv6 header and endpoint group identities, which can
        represent the collective identity of a group of authenticated
        users, end devices, or applications. Matching on Layer 4
        header fields may also exist in the ACEs.";
@@ -1991,7 +1992,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in IPv4 headers, IPv6 headers, and endpoint group identities,
+       in the IPv4 header, IPv6 header, and endpoint group identities,
        which can represent the collective identity of a group of
        authenticated users, end devices, or applications. Matching
        on Layer 4 header fields may also exist in the ACEs.";
@@ -2003,7 +2004,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in Ethernet headers and endpoint group identities,
+       in the Ethernet header and endpoint group identities,
        which can represent the collective identity of a group of
        authenticated users, end devices, or applications. Matching
        on Layer 4 header fields may also exist in the ACEs.";
@@ -2016,7 +2017,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in Ethernet headers, IPv4 headers, and endpoint group
+       in the Ethernet header, IPv4 header, and endpoint group
        identities, which can represent the collective identity of a
        group of authenticated users, end devices or applications.
        Matching on Layer 4 header fields may also exist in the
@@ -2030,7 +2031,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in Ethernet headers, IPv6 headers, and endpoint group
+       in the Ethernet header, IPv6 header, and endpoint group
        identities, which can represent the collective identity of
        a group of authenticated users, end devices or applications.
        Matching on Layer 4 header fields may also exist in the
@@ -2045,7 +2046,7 @@ module ietf-ucl-acl {
     base uacl:group-acl-type;
     description
       "An ACL that contains a mix of entries that match on fields
-       in Ethernet headers, IPv4 headers, IPv6 headers, and endpoint
+       in the Ethernet header, IPv4 header, IPv6 header, and endpoint
        group identities, which can represent the collective identity
        of a group of authenticated users, end devices or
        applications. Matching on Layer 4 header fields may also exist
@@ -2134,15 +2135,14 @@ module ietf-ucl-acl {
 
   typedef group-id-reference {
     type leafref {
-      path "/acl:acls/acl:acl/uacl:endpoint-groups"
+      path "/acl:acls/uacl:endpoint-groups"
          + "/uacl:endpoint-group/uacl:group-id";
     }
     description
-      "Defines a type to group identifier for referencing
-       purposes.";
+      "Defines a reference to a group identifier.";
   }
 
-  augment "/acl:acls/acl:acl" {
+  augment "/acl:acls" {
     description
       "Adds a container for endpoint group definition.";
     container endpoint-groups {
@@ -2180,7 +2180,7 @@ module ietf-ucl-acl {
          + "'uacl:group-acl-type')";
       if-feature "match-on-group";
       description
-        "Add new match types.";
+        "Adds new match types.";
       leaf source-group-id {
         type group-id-reference;
         description
@@ -2201,7 +2201,7 @@ module ietf-ucl-acl {
     container effective-schedule {
       description
         "Defines when the access control entry rules
-        are in effect based on date and time condition.
+         are in effect based on date and time condition.
 
          If it is not configured, the access control entry
          is immediately and always in effect.";
@@ -2396,7 +2396,7 @@ module ietf-ucl-acl {
 <ul class="normal">
 <li class="normal" id="section-10.1-4.1">
             <span class="break"></span><dl class="dlParallel" id="section-10.1-4.1.1">
-              <dt id="section-10.1-4.1.1.1">/acl:acls/acl:acl/uacl:endpoint-groups/uacl:endpoint-group:</dt>
+              <dt id="section-10.1-4.1.1.1">/acl:acls/uacl:endpoint-groups/uacl:endpoint-group:</dt>
               <dd style="margin-left: 1.5em" id="section-10.1-4.1.1.2">
                 <p id="section-10.1-4.1.1.2.1">This list specifies all the endpoint group entries. Unauthorized write access to this
 list can allow intruders to modify the entries so as to forge an endpoint
@@ -2608,7 +2608,7 @@ which rules are in effect, to better craft an attack.<a href="#section-10.1-6.1.
 <dd class="break"></dd>
 <dt id="I-D.ietf-netmod-acl-extensions">[I-D.ietf-netmod-acl-extensions]</dt>
         <dd>
-<span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Barguil, S.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Extensions to the Access Control Lists (ACLs) YANG Model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-acl-extensions-04</span>, <time datetime="2023-12-19" class="refDate">19 December 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-04">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-04</a>&gt;</span>. </dd>
+<span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Barguil, S.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Extensions to the Access Control Lists (ACLs) YANG Model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-acl-extensions-06</span>, <time datetime="2024-01-30" class="refDate">30 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-06">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-nvo3-encap">[I-D.ietf-nvo3-encap]</dt>
         <dd>
@@ -2695,9 +2695,11 @@ located in the enterprise DC network starting at 8:30:00 of January 20,
 at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-4">The following example illustrates the configuration of an SDN controller
+<p id="appendix-A.1-4">The example shown in <a href="#ex-controller-ucl" class="auto internal xref">Figure 3</a> illustrates the configuration of an SDN controller
    using the group-based ACL:<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.1-5">
+<span id="name-example-of-ucl-configuratio"></span><div id="ex-controller-ucl">
+<figure id="figure-3">
+          <div class="alignLeft art-text artwork" id="appendix-A.1-5.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2784,7 +2786,11 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.1-5" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-example-of-ucl-configuratio" class="selfRef">Example of UCL Configuration</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -2802,10 +2808,12 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
    the source endpoint directly from the packet field
    <span>[<a href="#I-D.smith-vxlan-group-policy" class="cite xref">I-D.smith-vxlan-group-policy</a>]</span>. This example does not intend to be exhaustive.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-3">Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication. The following example
-   shows ACL configurations delivered from the controller to the PEP. This
+   predefined or acquired via device authentication. <a href="#ex-PEP-ucl" class="auto internal xref">Figure 4</a>
+   shows the ACL configuration delivered from the controller to the PEP. This
    example is consistent with the example presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.2-4">
+<span id="name-example-of-pep-configuratio"></span><div id="ex-PEP-ucl">
+<figure id="figure-4">
+          <div class="alignLeft art-text artwork" id="appendix-A.2-4.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2890,14 +2898,18 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.2-4" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-example-of-pep-configuratio" class="selfRef">Example of PEP Configuration</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
 <div id="PEP-acl">
 <section id="appendix-A.3">
-        <h3 id="name-configuring-the-pep-using-a">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-configuring-the-pep-using-a" class="section-name selfRef">Configuring the PEP Using Address-based ACL</a>
+        <h3 id="name-configuring-peps-using-addr">
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-configuring-peps-using-addr" class="section-name selfRef">Configuring PEPs Using Address-based ACLs</a>
         </h3>
 <p id="appendix-A.3-1">The section illustrates an example of configuring a PEP using
    IP address based ACL. IP address based access control policies could
@@ -2908,11 +2920,13 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
    The SDN controller associates the user group to which the employee
    belongs with the user address according to step 1 to 4 in <a href="#overview" class="auto internal xref">Section 4.1</a>.<a href="#appendix-A.3-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.3-3">Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication. The following
-   example shows IPv4 address based ACL configurations delivered from
+   predefined or acquired via device authentication. <a href="#ex-PEP-acl" class="auto internal xref">Figure 5</a>
+   shows an IPv4 address based ACL configuration delivered from
    the controller to the PEP. This example is consistent with the example
    presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-4">
+<span id="name-example-of-pep-configuration"></span><div id="ex-PEP-acl">
+<figure id="figure-5">
+          <div class="alignLeft art-text artwork" id="appendix-A.3-4.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2981,10 +2995,16 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
     &lt;/aces&gt;
   &lt;/acl&gt;
 &lt;/acls&gt;
-</pre><a href="#appendix-A.3-4" class="pilcrow">¶</a>
+</pre>
 </div>
-<p id="appendix-A.3-5">The following shows an example of the same policy but with a destination IPv6 prefix.<a href="#appendix-A.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-6">
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-example-of-pep-configuration" class="selfRef">Example of PEP Configuration</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-A.3-5"><a href="#ex-PEP-acl-ipv6" class="auto internal xref">Figure 6</a> shows an example of the same policy but with a destination IPv6 prefix.<a href="#appendix-A.3-5" class="pilcrow">¶</a></p>
+<span id="name-example-of-pep-configuration-"></span><div id="ex-PEP-acl-ipv6">
+<figure id="figure-6">
+          <div class="alignLeft art-text artwork" id="appendix-A.3-6.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -3038,7 +3058,11 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.3-6" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-example-of-pep-configuration-" class="selfRef">Example of PEP Configuration (IPv6)</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -3055,7 +3079,7 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
           <p id="appendix-B-2.1.1">Tree overview and examples update to reflect the latest schedule module<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">Clairfy why we define endpoint group ID as string<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.2.1">Clarify why we define endpoint group ID as string<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.3">
           <p id="appendix-B-2.3.1">Exclude the mapping of string to tagging mechanism from the document scope<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
