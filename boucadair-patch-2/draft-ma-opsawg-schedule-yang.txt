@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 August 2024                                 M. Boucadair, Ed.
+Expires: 2 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         29 January 2024
+                                                         30 January 2024
 
 
                 A Common YANG Data Model for Scheduling
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
@@ -423,7 +423,9 @@ Table of Contents
 
    Appendix B.1 provides an example about how that could be used.
    Implementations may support a basic recurrence rule or an advanced
-   one as needed, by declaring different features.
+   one as needed, by declaring different features.  Whether only one or
+   both features are supported is implementation specific and depend on
+   specific scheduling context.
 
    These groupings can also be augmented to support specific needs.  As
    an example, Appendix B.2 demonstrates how additional parameters can
@@ -1221,7 +1223,7 @@ A.3.  The "recurrence-with-date-times" Grouping
    {
      "recurrence-first": {
        "date-time-start": "2025-12-01T09:00:00Z",
-       "duration": "PT00:00:15"
+       "duration": "PT00:15:00"
      },
      "frequency": "ietf-schedule:minutely",
      "interval": 30,
@@ -1229,11 +1231,11 @@ A.3.  The "recurrence-with-date-times" Grouping
      "period": [
        {
          "period-start": "2025-12-01T18:00:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        },
        {
          "period-start": "2025-12-01T18:30:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        }
       ]
    }

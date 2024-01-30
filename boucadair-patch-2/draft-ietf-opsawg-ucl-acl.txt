@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 1 August 2024                                 M. Boucadair, Ed.
+Expires: 2 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         29 January 2024
+                                                         30 January 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
@@ -500,7 +500,7 @@ Table of Contents
 
   module: ietf-ucl-acl
 
-    augment /acl:acls/acl:acl:
+    augment /acl:acls:
       +--rw endpoint-groups
          +--rw endpoint-group* [group-id]
             +--rw group-id      string
@@ -842,14 +842,14 @@ Table of Contents
 
      typedef group-id-reference {
        type leafref {
-         path "/acl:acls/acl:acl/uacl:endpoint-groups"
+         path "/acl:acls/uacl:endpoint-groups"
             + "/uacl:endpoint-group/uacl:group-id";
        }
        description
          "Defines a reference to a group identifier.";
      }
 
-     augment "/acl:acls/acl:acl" {
+     augment "/acl:acls" {
        description
          "Adds a container for endpoint group definition.";
        container endpoint-groups {
@@ -1060,10 +1060,10 @@ Table of Contents
    network and security operations.  These are the subtrees and data
    nodes and their sensitivity/vulnerability:
 
-   *  /acl:acls/acl:acl/uacl:endpoint-groups/uacl:endpoint-group:  This
-         list specifies all the endpoint group entries.  Unauthorized
-         write access to this list can allow intruders to modify the
-         entries so as to forge an endpoint group that does not exist or
+   *  /acl:acls/uacl:endpoint-groups/uacl:endpoint-group:  This list
+         specifies all the endpoint group entries.  Unauthorized write
+         access to this list can allow intruders to modify the entries
+         so as to forge an endpoint group that does not exist or
          maliciously delete an existing endpoint group, which could be
          used to craft an attack.
 
@@ -1223,9 +1223,9 @@ Table of Contents
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
               "Extensions to the Access Control Lists (ACLs) YANG
               Model", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-acl-extensions-04, 19 December 2023,
+              netmod-acl-extensions-06, 30 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              acl-extensions-04>.
+              acl-extensions-06>.
 
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
@@ -1335,9 +1335,6 @@ A.1.  Configuring the Controller Using Group based ACL
 
    <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
          xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-     <acl>
-       <name>sample-group-acl</name>
-       <type>uacl:group-acl-type</type>
        <endpoint-groups
          xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
          <endpoint-group>
@@ -1353,6 +1350,9 @@ A.1.  Configuring the Controller Using Group based ACL
            <group-type>device-group</group-type>
          </endpoint-group>
        </endpoint-groups>
+       <acl>
+       <name>sample-group-acl</name>
+       <type>uacl:group-acl-type</type>
        <aces>
          <ace>
            <name>rule1</name>
