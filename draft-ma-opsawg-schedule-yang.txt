@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 10 June 2024                                  M. Boucadair, Ed.
+Expires: 2 August 2024                                 M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         8 December 2023
+                                                         30 January 2024
 
 
                 A Common YANG Data Model for Scheduling
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 June 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1095,9 +1095,9 @@ Table of Contents
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
               Model and RADIUS Extension for Policy-based Network Access
               Control", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ucl-acl-01, 17 October 2023,
+              opsawg-ucl-acl-02, 7 December 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ucl-acl-01>.
+              ucl-acl-02>.
 
    [I-D.ietf-tvr-use-cases]
               Birrane, E. J., Kuhn, N., Qu, Y., Taylor, R., and L.
@@ -1221,7 +1221,7 @@ A.3.  The "recurrence-with-date-times" Grouping
    {
      "recurrence-first": {
        "date-time-start": "2025-12-01T09:00:00Z",
-       "duration": "PT00:00:15"
+       "duration": "PT00:15:00"
      },
      "frequency": "ietf-schedule:minutely",
      "interval": 30,
@@ -1229,11 +1229,11 @@ A.3.  The "recurrence-with-date-times" Grouping
      "period": [
        {
          "period-start": "2025-12-01T18:00:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        },
        {
          "period-start": "2025-12-01T18:30:00Z",
-         "duration": "PT00:00:20"
+         "duration": "PT00:20:00"
        }
       ]
    }
