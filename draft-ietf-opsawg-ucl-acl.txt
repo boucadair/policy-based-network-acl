@@ -500,7 +500,7 @@ Table of Contents
 
   module: ietf-ucl-acl
 
-    augment /acl:acls/acl:acl:
+    augment /acl:acls:
       +--rw endpoint-groups
          +--rw endpoint-group* [group-id]
             +--rw group-id      string
@@ -842,14 +842,14 @@ Table of Contents
 
      typedef group-id-reference {
        type leafref {
-         path "/acl:acls/acl:acl/uacl:endpoint-groups"
+         path "/acl:acls/uacl:endpoint-groups"
             + "/uacl:endpoint-group/uacl:group-id";
        }
        description
          "Defines a reference to a group identifier.";
      }
 
-     augment "/acl:acls/acl:acl" {
+     augment "/acl:acls" {
        description
          "Adds a container for endpoint group definition.";
        container endpoint-groups {
@@ -1060,10 +1060,10 @@ Table of Contents
    network and security operations.  These are the subtrees and data
    nodes and their sensitivity/vulnerability:
 
-   *  /acl:acls/acl:acl/uacl:endpoint-groups/uacl:endpoint-group:  This
-         list specifies all the endpoint group entries.  Unauthorized
-         write access to this list can allow intruders to modify the
-         entries so as to forge an endpoint group that does not exist or
+   *  /acl:acls/uacl:endpoint-groups/uacl:endpoint-group:  This list
+         specifies all the endpoint group entries.  Unauthorized write
+         access to this list can allow intruders to modify the entries
+         so as to forge an endpoint group that does not exist or
          maliciously delete an existing endpoint group, which could be
          used to craft an attack.
 

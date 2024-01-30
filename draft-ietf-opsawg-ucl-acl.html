@@ -1792,7 +1792,7 @@ the PEP. <a href="#PEP-ucl" class="auto internal xref">Appendix A.2</a> and <a h
 <pre>
 module: ietf-ucl-acl
 
-  augment /acl:acls/acl:acl:
+  augment /acl:acls:
     +--rw endpoint-groups
        +--rw endpoint-group* [group-id]
           +--rw group-id      string
@@ -2135,14 +2135,14 @@ module ietf-ucl-acl {
 
   typedef group-id-reference {
     type leafref {
-      path "/acl:acls/acl:acl/uacl:endpoint-groups"
+      path "/acl:acls/uacl:endpoint-groups"
          + "/uacl:endpoint-group/uacl:group-id";
     }
     description
       "Defines a reference to a group identifier.";
   }
 
-  augment "/acl:acls/acl:acl" {
+  augment "/acl:acls" {
     description
       "Adds a container for endpoint group definition.";
     container endpoint-groups {
@@ -2396,7 +2396,7 @@ module ietf-ucl-acl {
 <ul class="normal">
 <li class="normal" id="section-10.1-4.1">
             <span class="break"></span><dl class="dlParallel" id="section-10.1-4.1.1">
-              <dt id="section-10.1-4.1.1.1">/acl:acls/acl:acl/uacl:endpoint-groups/uacl:endpoint-group:</dt>
+              <dt id="section-10.1-4.1.1.1">/acl:acls/uacl:endpoint-groups/uacl:endpoint-group:</dt>
               <dd style="margin-left: 1.5em" id="section-10.1-4.1.1.2">
                 <p id="section-10.1-4.1.1.2.1">This list specifies all the endpoint group entries. Unauthorized write access to this
 list can allow intruders to modify the entries so as to forge an endpoint
