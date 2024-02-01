@@ -1449,20 +1449,20 @@ A.2.  Configuring a PEP Using Group-based ACL
 
    <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
          xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+     <endpoint-groups
+         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
+       <endpoint-group>
+         <group-id>R&amp;D</group-id>
+         <group-type>user-group</group-type>
+       </endpoint-group>
+       <endpoint-group>
+         <group-id>R&amp;D BYOD</group-id>
+         <group-type>user-group</group-type>
+       </endpoint-group>
+     </endpoint-groups>
      <acl>
        <name>sample-group-acl</name>
        <type>uacl:mixed-ipv4-group-type</type>
-       <endpoint-groups
-         xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-         <endpoint-group>
-           <group-id>R&amp;D</group-id>
-           <group-type>user-group</group-type>
-         </endpoint-group>
-         <endpoint-group>
-           <group-id>R&amp;D BYOD</group-id>
-           <group-type>user-group</group-type>
-         </endpoint-group>
-       </endpoint-groups>
        <aces>
          <ace>
            <name>rule1</name>
@@ -1675,6 +1675,13 @@ A.3.  Configuring PEPs Using Address-based ACLs
                Figure 6: Example of PEP Configuration (IPv6)
 
 Appendix B.  Changes between Revisions
+
+   v02 - v03
+
+   *  List endpoint-groups definition under acls and examples update to
+      reflect the latest module
+
+   *  Add contact info in the UCL module
 
    v01 - v02
 
