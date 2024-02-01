@@ -1344,9 +1344,6 @@ A.1.  Configuring the Controller Using Group based ACL
 
    <acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
          xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
-     <acl>
-       <name>sample-group-acl</name>
-       <type>uacl:group-acl-type</type>
        <endpoint-groups
          xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl">
          <endpoint-group>
@@ -1362,6 +1359,9 @@ A.1.  Configuring the Controller Using Group based ACL
            <group-type>device-group</group-type>
          </endpoint-group>
        </endpoint-groups>
+       <acl>
+       <name>sample-group-acl</name>
+       <type>uacl:group-acl-type</type>
        <aces>
          <ace>
            <name>rule1</name>

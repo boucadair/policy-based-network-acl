@@ -2716,9 +2716,6 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
 
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
       xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
-  &lt;acl&gt;
-    &lt;name&gt;sample-group-acl&lt;/name&gt;
-    &lt;type&gt;uacl:group-acl-type&lt;/type&gt;
     &lt;endpoint-groups
       xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
       &lt;endpoint-group&gt;
@@ -2734,6 +2731,9 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
         &lt;group-type&gt;device-group&lt;/group-type&gt;
       &lt;/endpoint-group&gt;
     &lt;/endpoint-groups&gt;
+    &lt;acl&gt;
+    &lt;name&gt;sample-group-acl&lt;/name&gt;
+    &lt;type&gt;uacl:group-acl-type&lt;/type&gt;
     &lt;aces&gt;
       &lt;ace&gt;
         &lt;name&gt;rule1&lt;/name&gt;
