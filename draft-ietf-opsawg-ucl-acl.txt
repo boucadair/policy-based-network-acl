@@ -103,7 +103,7 @@ Table of Contents
    Appendix A.  Examples Usage
      A.1.  Configuring the Controller Using Group based ACL
      A.2.  Configuring a PEP Using Group-based ACL
-     A.3.  Configuring the PEP Using Address-based ACL
+     A.3.  Configuring PEPs Using Address-based ACLs
    Appendix B.  Changes between Revisions
    Acknowledgments
    Authors' Addresses
@@ -1335,7 +1335,7 @@ A.1.  Configuring the Controller Using Group based ACL
       Standard Time) and ending at 18:00:00 in Pacific Standard Time on
       December 31, 2025.
 
-   The following example illustrates the configuration of an SDN
+   The example shown in Figure 3 illustrates the configuration of an SDN
    controller using the group-based ACL:
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1423,6 +1423,8 @@ A.1.  Configuring the Controller Using Group based ACL
      </acl>
    </acls>
 
+                   Figure 3: Example of UCL Configuration
+
 A.2.  Configuring a PEP Using Group-based ACL
 
    This section illustrates an example to configure a PEP using the
@@ -1437,10 +1439,9 @@ A.2.  Configuring a PEP Using Group-based ACL
    exhaustive.
 
    Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication.  The following
-   example shows ACL configurations delivered from the controller to the
-   PEP.  This example is consistent with the example presented in
-   Appendix A.1.
+   predefined or acquired via device authentication.  Figure 4 shows the
+   ACL configuration delivered from the controller to the PEP.  This
+   example is consistent with the example presented in Appendix A.1.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1525,7 +1526,9 @@ A.2.  Configuring a PEP Using Group-based ACL
      </acl>
    </acls>
 
-A.3.  Configuring the PEP Using Address-based ACL
+                   Figure 4: Example of PEP Configuration
+
+A.3.  Configuring PEPs Using Address-based ACLs
 
    The section illustrates an example of configuring a PEP using IP
    address based ACL.  IP address based access control policies could be
@@ -1539,10 +1542,10 @@ A.3.  Configuring the PEP Using Address-based ACL
    Section 4.1.
 
    Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication.  The following
-   example shows IPv4 address based ACL configurations delivered from
-   the controller to the PEP.  This example is consistent with the
-   example presented in Appendix A.1.
+   predefined or acquired via device authentication.  Figure 5 shows an
+   IPv4 address based ACL configuration delivered from the controller to
+   the PEP.  This example is consistent with the example presented in
+   Appendix A.1.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1612,8 +1615,10 @@ A.3.  Configuring the PEP Using Address-based ACL
      </acl>
    </acls>
 
-   The following shows an example of the same policy but with a
-   destination IPv6 prefix.
+                   Figure 5: Example of PEP Configuration
+
+   Figure 6 shows an example of the same policy but with a destination
+   IPv6 prefix.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1667,6 +1672,8 @@ A.3.  Configuring the PEP Using Address-based ACL
      </acl>
    </acls>
 
+               Figure 6: Example of PEP Configuration (IPv6)
+
 Appendix B.  Changes between Revisions
 
    v01 - v02
@@ -1674,7 +1681,7 @@ Appendix B.  Changes between Revisions
    *  Tree overview and examples update to reflect the latest schedule
       module
 
-   *  Clairfy why we define endpoint group ID as string
+   *  Clarify why we define endpoint group ID as string
 
    *  Exclude the mapping of string to tagging mechanism from the
       document scope
