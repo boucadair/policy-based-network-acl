@@ -983,6 +983,9 @@ Table of Contents
 
 6.  Security Considerations
 
+   This section uses the template described in Section 3.7 of
+   [I-D.ietf-netmod-rfc8407bis].
+
    The "ietf-schedule" YANG module specified in this document defines
    schema for data that is designed to be accessed via network
    management protocols such as NETCONF [RFC6241] or RESTCONF [RFC8040].
@@ -1101,6 +1104,14 @@ Table of Contents
               Progress, Internet-Draft, draft-ietf-netmod-eca-policy-01,
               19 February 2021, <https://datatracker.ietf.org/doc/html/
               draft-ietf-netmod-eca-policy-01>.
+
+   [I-D.ietf-netmod-rfc8407bis]
+              Boucadair, M. and Q. Wu, "Guidelines for Authors and
+              Reviewers of Documents Containing YANG Data Models", Work
+              in Progress, Internet-Draft, draft-ietf-netmod-rfc8407bis-
+              08, 16 February 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              rfc8407bis-08>.
 
    [I-D.ietf-opsawg-ucl-acl]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data

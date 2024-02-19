@@ -2175,23 +2175,24 @@ module ietf-schedule {
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">The "ietf-schedule" YANG module specified in this document defines schema for data
+<p id="section-6-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The "ietf-schedule" YANG module specified in this document defines schema for data
    that is designed to be accessed via network management protocols such
    as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  The lowest NETCONF layer
    is the secure transport layer, and the mandatory-to-implement secure
    transport is Secure Shell (SSH) <span>[<a href="#RFC6242" class="cite xref">RFC6242</a>]</span>.  The lowest RESTCONF layer
    is HTTPS, and the mandatory-to-implement secure transport is TLS
-   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
+   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
-   RESTCONF protocol operations and content.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">The "ietf-schedule" module defines a set of types and
+   RESTCONF protocol operations and content.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">The "ietf-schedule" module defines a set of types and
    groupings.  These nodes are intended to be reused by other YANG
    modules.  The module by itself does not expose any data nodes that
    are writable, data nodes that contain read-only state, or RPCs.  As
    such, there are no additional security issues related to the "ietf-
-   schedule" module that need to be considered.<a href="#section-6-3" class="pilcrow">¶</a></p>
+   schedule" module that need to be considered.<a href="#section-6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2308,6 +2309,10 @@ module ietf-schedule {
 <dt id="I-D.ietf-netmod-eca-policy">[I-D.ietf-netmod-eca-policy]</dt>
         <dd>
 <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Bryskin, I.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Liu, X.</span>, and <span class="refAuthor">B. Claise</span>, <span class="refTitle">"A YANG Data model for ECA Policy Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-eca-policy-01</span>, <time datetime="2021-02-19" class="refDate">19 February 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-eca-policy-01">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-eca-policy-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
+        <dd>
+<span class="refAuthor">Boucadair, M.</span> and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-08</span>, <time datetime="2024-02-16" class="refDate">16 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-opsawg-ucl-acl">[I-D.ietf-opsawg-ucl-acl]</dt>
         <dd>
