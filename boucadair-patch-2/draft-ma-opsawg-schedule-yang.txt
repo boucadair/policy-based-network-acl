@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 2 August 2024                                 M. Boucadair, Ed.
+Expires: 22 August 2024                                M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                         30 January 2024
+                                                        19 February 2024
 
 
                 A Common YANG Data Model for Scheduling
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 August 2024.
+   This Internet-Draft will expire on 22 August 2024.
 
 Copyright Notice
 
@@ -458,7 +458,16 @@ Table of Contents
        "IETF OPSAWG Working Group";
      contact
        "WG Web: <https://datatracker.ietf.org/wg/opsawg/>
-        WG List: <mailto:opsawg@ietf.org>";
+        WG List: <mailto:opsawg@ietf.org>
+
+        Editor:   Qiufang Ma
+                  <mailto:maqiufang1@huawei.com
+        Author:   Qin Wu
+                  <mailto:bill.wu@huawei.com>
+        Editor:   Mohamed Boucadair
+                  <mailto:mohamed.boucadair@orange.com>
+        Author:   Daniel King
+                  <mailto:d.king@lancaster.ac.uk>";
      description
        "This YANG module defines two groupings for iCalendar (Internet
         Calendaring and Scheduling Core Object Specification) data
@@ -1097,16 +1106,16 @@ Table of Contents
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
               Model and RADIUS Extension for Policy-based Network Access
               Control", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ucl-acl-02, 7 December 2023,
+              opsawg-ucl-acl-03, 2 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ucl-acl-02>.
+              ucl-acl-03>.
 
    [I-D.ietf-tvr-use-cases]
               Birrane, E. J., Kuhn, N., Qu, Y., Taylor, R., and L.
               Zhang, "TVR (Time-Variant Routing) Use Cases", Work in
-              Progress, Internet-Draft, draft-ietf-tvr-use-cases-04, 19
-              November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tvr-use-cases-04>.
+              Progress, Internet-Draft, draft-ietf-tvr-use-cases-05, 16
+              February 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tvr-use-cases-05>.
 
    [I-D.united-tvr-schedule-yang]
               Qu, Y., Lindem, A., Kinzie, E., Fedyk, D., and M.

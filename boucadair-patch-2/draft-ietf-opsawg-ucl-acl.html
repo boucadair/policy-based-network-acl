@@ -19,21 +19,21 @@
    communicate the user group identifier as part of identification and
    authorization information. 
     " name="description">
-<meta content="xml2rfc 3.19.1" name="generator">
+<meta content="xml2rfc 3.19.4" name="generator">
 <meta content="ACL" name="keyword">
 <meta content="Policy-based" name="keyword">
 <meta content="BYOD" name="keyword">
 <meta content="Access control" name="keyword">
 <meta content="draft-ietf-opsawg-ucl-acl-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.1
+  xml2rfc 3.19.4
     Python 3.11.6
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.1.0
+    platformdirs 4.2.0
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
@@ -1038,11 +1038,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">A Policy-based Network Access Control</td>
-<td class="right">January 2024</td>
+<td class="right">February 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 2 August 2024</td>
+<td class="center">Expires 22 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,12 +1055,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-opsawg-ucl-acl-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-30" class="published">30 January 2024</time>
+<time datetime="2024-02-19" class="published">19 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-02">2 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-22">22 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1259,7 +1259,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-configuring-a-pep-using-gro" class="internal xref">Configuring a PEP Using Group-based ACL</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.3">
-                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-the-pep-using-a" class="internal xref">Configuring the PEP Using Address-based ACL</a></p>
+                <p id="section-toc.1-1.13.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-configuring-peps-using-addr" class="internal xref">Configuring PEPs Using Address-based ACLs</a></p>
 </li>
             </ul>
 </li>
@@ -1920,7 +1920,16 @@ module ietf-ucl-acl {
     "IETF OPSWG Working Group";
   contact
     "WG Web: &lt;https://datatracker.ietf.org/wg/opsawg/&gt;
-     WG List: &lt;mailto:opsawg@ietf.org&gt;";
+     WG List: &lt;mailto:opsawg@ietf.org&gt;
+
+     Editor:   Qiufang Ma
+               &lt;mailto:maqiufang1@huawei.com
+     Author:   Qin Wu
+               &lt;mailto:bill.wu@huawei.com&gt;
+     Editor:   Mohamed Boucadair
+               &lt;mailto:mohamed.boucadair@orange.com&gt;
+     Author:   Daniel King
+               &lt;mailto:d.king@lancaster.ac.uk&gt;";
   description
     "This YANG module augments the IETF access control lists (ACLs)
      module and is meant to ensure consistent enforcement of ACL
@@ -2376,62 +2385,64 @@ module ietf-ucl-acl {
         <h3 id="name-yang">
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-yang" class="section-name selfRef">YANG</a>
         </h3>
-<p id="section-10.1-1">The YANG modules specified in this document defines schema for data
+<p id="section-10.1-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">The YANG modules specified in this document defines schema for data
    that is designed to be accessed via network management protocols such
    as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  The lowest NETCONF layer
    is the secure transport layer, and the mandatory-to-implement secure
    transport is Secure Shell (SSH) <span>[<a href="#RFC6242" class="cite xref">RFC6242</a>]</span>.  The lowest RESTCONF layer
    is HTTPS, and the mandatory-to-implement secure transport is TLS
-   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
-<p id="section-10.1-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
+   <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+<p id="section-10.1-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
-   RESTCONF protocol operations and content.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">There are a number of data nodes defined in the "ietf-ucl-acl" YANG module that are
+   RESTCONF protocol operations and content.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-4">There are a number of data nodes defined in the "ietf-ucl-acl" YANG module that are
    writable, creatable, and deletable (i.e., config true, which is the
    default).  These data nodes may be considered sensitive or vulnerable
-   in some network environments.  Write operations to these data nodes
-   could have a negative effect on network and security operations. These are the
-   subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+   in some network environments. Write operations (e.g., edit-config) and delete
+   operations to these data nodes without proper protection or authentication can
+   have a negative effect on network operations. Specifically,
+   the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-10.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-10.1-4.1">
-            <span class="break"></span><dl class="dlParallel" id="section-10.1-4.1.1">
-              <dt id="section-10.1-4.1.1.1">/acl:acls/uacl:endpoint-groups/uacl:endpoint-group:</dt>
-              <dd style="margin-left: 1.5em" id="section-10.1-4.1.1.2">
-                <p id="section-10.1-4.1.1.2.1">This list specifies all the endpoint group entries. Unauthorized write access to this
+<li class="normal" id="section-10.1-5.1">
+            <span class="break"></span><dl class="dlParallel" id="section-10.1-5.1.1">
+              <dt id="section-10.1-5.1.1.1">/acl:acls/uacl:endpoint-groups/uacl:endpoint-group:</dt>
+              <dd style="margin-left: 1.5em" id="section-10.1-5.1.1.2">
+                <p id="section-10.1-5.1.1.2.1">This list specifies all the endpoint group entries. Unauthorized write access to this
 list can allow intruders to modify the entries so as to forge an endpoint
 group that does not exist or maliciously delete an existing endpoint group,
-which could be used to craft an attack.<a href="#section-10.1-4.1.1.2.1" class="pilcrow">¶</a></p>
+which could be used to craft an attack.<a href="#section-10.1-5.1.1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
 </li>
-          <li class="normal" id="section-10.1-4.2">
-            <span class="break"></span><dl class="dlParallel" id="section-10.1-4.2.1">
-              <dt id="section-10.1-4.2.1.1">/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/uacl:endpoint-group:</dt>
-              <dd style="margin-left: 1.5em" id="section-10.1-4.2.1.2">
-                <p id="section-10.1-4.2.1.2.1">This subtree specifies a source and/or endpoint group index as match criteria in the
+          <li class="normal" id="section-10.1-5.2">
+            <span class="break"></span><dl class="dlParallel" id="section-10.1-5.2.1">
+              <dt id="section-10.1-5.2.1.1">/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/uacl:endpoint-group:</dt>
+              <dd style="margin-left: 1.5em" id="section-10.1-5.2.1.2">
+                <p id="section-10.1-5.2.1.2.1">This subtree specifies a source and/or endpoint group index as match criteria in the
 ACEs. Unauthorized write access to this data node may allow intruders to
 modify the group identity so as to permit access that should not be
-permitted, or deny access that should be permitted.<a href="#section-10.1-4.2.1.2.1" class="pilcrow">¶</a></p>
+permitted, or deny access that should be permitted.<a href="#section-10.1-5.2.1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
 </li>
         </ul>
-<p id="section-10.1-5">Some of the readable data nodes in the "ietf-ucl-acl" YANG module may
+<p id="section-10.1-6">Some of the readable data nodes in the "ietf-ucl-acl" YANG module may
   be considered sensitive or vulnerable in some network environments. It
   is thus important to control read access (e.g., via get, get-config,
-  or notification) to these data nodes. These are the subtrees and data
-  nodes and their sensitivity/vulnerability:<a href="#section-10.1-5" class="pilcrow">¶</a></p>
+  or notification) to these data nodes.  Specifically,
+  the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-10.1-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-10.1-6.1">
-            <span class="break"></span><dl class="dlParallel" id="section-10.1-6.1.1">
-              <dt id="section-10.1-6.1.1.1">/acl:acls/acl:acl/acl:aces/acl:ace/uacl:time-range:</dt>
-              <dd style="margin-left: 1.5em" id="section-10.1-6.1.1.2">
-                <p id="section-10.1-6.1.1.2.1">This subtree specifies when the access control entry rules are in effect. An
+<li class="normal" id="section-10.1-7.1">
+            <span class="break"></span><dl class="dlParallel" id="section-10.1-7.1.1">
+              <dt id="section-10.1-7.1.1.1">/acl:acls/acl:acl/acl:aces/acl:ace/uacl:time-range:</dt>
+              <dd style="margin-left: 1.5em" id="section-10.1-7.1.1.2">
+                <p id="section-10.1-7.1.1.2.1">This subtree specifies when the access control entry rules are in effect. An
 unauthorized read access of the list will allow the attacker to determine
-which rules are in effect, to better craft an attack.<a href="#section-10.1-6.1.1.2.1" class="pilcrow">¶</a></p>
+which rules are in effect, to better craft an attack.<a href="#section-10.1-7.1.1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -2531,7 +2542,7 @@ which rules are in effect, to better craft an attack.<a href="#section-10.1-6.1.
 <dl class="references">
 <dt id="I-D.ma-opsawg-schedule-yang">[I-D.ma-opsawg-schedule-yang]</dt>
         <dd>
-<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ma-opsawg-schedule-yang-02</span>, <time datetime="2023-12-03" class="refDate">3 December 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-02">https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Ma, Q.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">D. King</span>, <span class="refTitle">"A Common YANG Data Model for Scheduling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ma-opsawg-schedule-yang-03</span>, <time datetime="2024-02-02" class="refDate">2 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-03">https://datatracker.ietf.org/doc/html/draft-ma-opsawg-schedule-yang-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2609,6 +2620,10 @@ which rules are in effect, to better craft an attack.<a href="#section-10.1-6.1.
 <dt id="I-D.ietf-netmod-acl-extensions">[I-D.ietf-netmod-acl-extensions]</dt>
         <dd>
 <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Barguil, S.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Extensions to the Access Control Lists (ACLs) YANG Model"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-acl-extensions-06</span>, <time datetime="2024-01-30" class="refDate">30 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-06">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions-06</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
+        <dd>
+<span class="refAuthor">Boucadair, M.</span> and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-08</span>, <time datetime="2024-02-16" class="refDate">16 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-nvo3-encap">[I-D.ietf-nvo3-encap]</dt>
         <dd>
@@ -2695,9 +2710,11 @@ located in the enterprise DC network starting at 8:30:00 of January 20,
 at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-4">The following example illustrates the configuration of an SDN controller
+<p id="appendix-A.1-4">The example shown in <a href="#ex-controller-ucl" class="auto internal xref">Figure 3</a> illustrates the configuration of an SDN controller
    using the group-based ACL:<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.1-5">
+<span id="name-example-of-ucl-configuratio"></span><div id="ex-controller-ucl">
+<figure id="figure-3">
+          <div class="alignLeft art-text artwork" id="appendix-A.1-5.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2784,7 +2801,11 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.1-5" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-example-of-ucl-configuratio" class="selfRef">Example of UCL Configuration</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -2802,10 +2823,12 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
    the source endpoint directly from the packet field
    <span>[<a href="#I-D.smith-vxlan-group-policy" class="cite xref">I-D.smith-vxlan-group-policy</a>]</span>. This example does not intend to be exhaustive.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-3">Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication. The following example
-   shows ACL configurations delivered from the controller to the PEP. This
+   predefined or acquired via device authentication. <a href="#ex-PEP-ucl" class="auto internal xref">Figure 4</a>
+   shows the ACL configuration delivered from the controller to the PEP. This
    example is consistent with the example presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.2-4">
+<span id="name-example-of-pep-configuratio"></span><div id="ex-PEP-ucl">
+<figure id="figure-4">
+          <div class="alignLeft art-text artwork" id="appendix-A.2-4.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2813,20 +2836,20 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
 
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"
       xmlns:uacl="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
+  &lt;endpoint-groups
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
+    &lt;endpoint-group&gt;
+      &lt;group-id&gt;R&amp;amp;D&lt;/group-id&gt;
+      &lt;group-type&gt;user-group&lt;/group-type&gt;
+    &lt;/endpoint-group&gt;
+    &lt;endpoint-group&gt;
+      &lt;group-id&gt;R&amp;amp;D BYOD&lt;/group-id&gt;
+      &lt;group-type&gt;user-group&lt;/group-type&gt;
+    &lt;/endpoint-group&gt;
+  &lt;/endpoint-groups&gt;
   &lt;acl&gt;
     &lt;name&gt;sample-group-acl&lt;/name&gt;
     &lt;type&gt;uacl:mixed-ipv4-group-type&lt;/type&gt;
-    &lt;endpoint-groups
-      xmlns="urn:ietf:params:xml:ns:yang:ietf-ucl-acl"&gt;
-      &lt;endpoint-group&gt;
-        &lt;group-id&gt;R&amp;amp;D&lt;/group-id&gt;
-        &lt;group-type&gt;user-group&lt;/group-type&gt;
-      &lt;/endpoint-group&gt;
-      &lt;endpoint-group&gt;
-        &lt;group-id&gt;R&amp;amp;D BYOD&lt;/group-id&gt;
-        &lt;group-type&gt;user-group&lt;/group-type&gt;
-      &lt;/endpoint-group&gt;
-    &lt;/endpoint-groups&gt;
     &lt;aces&gt;
       &lt;ace&gt;
         &lt;name&gt;rule1&lt;/name&gt;
@@ -2890,14 +2913,18 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.2-4" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-example-of-pep-configuratio" class="selfRef">Example of PEP Configuration</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
 <div id="PEP-acl">
 <section id="appendix-A.3">
-        <h3 id="name-configuring-the-pep-using-a">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-configuring-the-pep-using-a" class="section-name selfRef">Configuring the PEP Using Address-based ACL</a>
+        <h3 id="name-configuring-peps-using-addr">
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-configuring-peps-using-addr" class="section-name selfRef">Configuring PEPs Using Address-based ACLs</a>
         </h3>
 <p id="appendix-A.3-1">The section illustrates an example of configuring a PEP using
    IP address based ACL. IP address based access control policies could
@@ -2908,11 +2935,13 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
    The SDN controller associates the user group to which the employee
    belongs with the user address according to step 1 to 4 in <a href="#overview" class="auto internal xref">Section 4.1</a>.<a href="#appendix-A.3-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.3-3">Assume the mapping between device group ID and IP addresses is
-   predefined or acquired via device authentication. The following
-   example shows IPv4 address based ACL configurations delivered from
+   predefined or acquired via device authentication. <a href="#ex-PEP-acl" class="auto internal xref">Figure 5</a>
+   shows an IPv4 address based ACL configuration delivered from
    the controller to the PEP. This example is consistent with the example
    presented in <a href="#controller-ucl" class="auto internal xref">Appendix A.1</a>.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-4">
+<span id="name-example-of-pep-configuration"></span><div id="ex-PEP-acl">
+<figure id="figure-5">
+          <div class="alignLeft art-text artwork" id="appendix-A.3-4.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2981,10 +3010,16 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
     &lt;/aces&gt;
   &lt;/acl&gt;
 &lt;/acls&gt;
-</pre><a href="#appendix-A.3-4" class="pilcrow">¶</a>
+</pre>
 </div>
-<p id="appendix-A.3-5">The following shows an example of the same policy but with a destination IPv6 prefix.<a href="#appendix-A.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3-6">
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-example-of-pep-configuration" class="selfRef">Example of PEP Configuration</a>
+          </figcaption></figure>
+</div>
+<p id="appendix-A.3-5"><a href="#ex-PEP-acl-ipv6" class="auto internal xref">Figure 6</a> shows an example of the same policy but with a destination IPv6 prefix.<a href="#appendix-A.3-5" class="pilcrow">¶</a></p>
+<span id="name-example-of-pep-configuration-"></span><div id="ex-PEP-acl-ipv6">
+<figure id="figure-6">
+          <div class="alignLeft art-text artwork" id="appendix-A.3-6.1">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2992,20 +3027,16 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
 &lt;acls xmlns="urn:ietf:params:xml:ns:yang:ietf-access-control-list"&gt;
   &lt;acl&gt;
     &lt;name&gt;another-sample-but-with-ipv6&lt;/name&gt;
-
     &lt;type&gt;ipv6-acl-type&lt;/type&gt;
-
     &lt;aces&gt;
       &lt;ace&gt;
         &lt;name&gt;rule1&lt;/name&gt;
-
         &lt;matches&gt;
           &lt;ipv6&gt;
             &lt;destination-ipv6-network&gt;2001:db8::/64&lt;/destination-\
                                                         ipv6-network&gt;
           &lt;/ipv6&gt;
         &lt;/matches&gt;
-
         &lt;actions&gt;
           &lt;forwarding&gt;accept&lt;/forwarding&gt;
         &lt;/actions&gt;
@@ -3038,7 +3069,11 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
   &lt;/acl&gt;
 &lt;/acls&gt;
 
-</pre><a href="#appendix-A.3-6" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-example-of-pep-configuration-" class="selfRef">Example of PEP Configuration (IPv6)</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -3049,52 +3084,61 @@ at 18:00:00 in Pacific Standard Time on December 31, 2025.<a href="#appendix-A.1
       <h2 id="name-changes-between-revisions">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-changes-between-revisions" class="section-name selfRef">Changes between Revisions</a>
       </h2>
-<p id="appendix-B-1">v01 - v02<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">v02 - v03<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">Tree overview and examples update to reflect the latest schedule module<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.1.1">List endpoint-groups definition under acls and examples update to reflect the latest module<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">Clairfy why we define endpoint group ID as string<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">Exclude the mapping of string to tagging mechanism from the document scope<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.4">
-          <p id="appendix-B-2.4.1">Add implementation considerations section to discuss the deployment scenarios and possible tradeoff<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.5">
-          <p id="appendix-B-2.5.1">Add application group, define endpoint group type as "identityref" in YANG data model<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-2.6">
-          <p id="appendix-B-2.6.1">Editorial changes, e.g., remove the NACL definition, fix long lines.<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.2.1">Add contact info in the UCL module<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-B-3">v00 - v01<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">v01 - v02<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-4.1">
-          <p id="appendix-B-4.1.1">Change the document title and add a reference to "policy"<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.1.1">Tree overview and examples update to reflect the latest schedule module<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.2">
-          <p id="appendix-B-4.2.1">Split the definition of schedule YANG module into a seperate document<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.2.1">Clarify why we define endpoint group ID as string<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.3">
-          <p id="appendix-B-4.3.1">Add reference to draft-dekok-radext-deprecating-radius for authentication method recommendations<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.3.1">Exclude the mapping of string to tagging mechanism from the document scope<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.4">
-          <p id="appendix-B-4.4.1">Change endpoint group-id as a string, and fix related examples accordingly<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.4.1">Add implementation considerations section to discuss the deployment scenarios and possible tradeoff<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.5">
-          <p id="appendix-B-4.5.1">Use typedef to ease leafref of the node<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.5.1">Add application group, define endpoint group type as "identityref" in YANG data model<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.6">
-          <p id="appendix-B-4.6.1">Tweaks to the RADIUS section and add a restriction to the length based on comments from RADEXT<a href="#appendix-B-4.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.6.1">Editorial changes, e.g., remove the NACL definition, fix long lines.<a href="#appendix-B-4.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-4.7">
-          <p id="appendix-B-4.7.1">Add IPv6 examples<a href="#appendix-B-4.7.1" class="pilcrow">¶</a></p>
+      </ul>
+<p id="appendix-B-5">v00 - v01<a href="#appendix-B-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-6.1">
+          <p id="appendix-B-6.1.1">Change the document title and add a reference to "policy"<a href="#appendix-B-6.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-4.8">
-          <p id="appendix-B-4.8.1">Editorial changes<a href="#appendix-B-4.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-6.2">
+          <p id="appendix-B-6.2.1">Split the definition of schedule YANG module into a seperate document<a href="#appendix-B-6.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.3">
+          <p id="appendix-B-6.3.1">Add reference to draft-dekok-radext-deprecating-radius for authentication method recommendations<a href="#appendix-B-6.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.4">
+          <p id="appendix-B-6.4.1">Change endpoint group-id as a string, and fix related examples accordingly<a href="#appendix-B-6.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.5">
+          <p id="appendix-B-6.5.1">Use typedef to ease leafref of the node<a href="#appendix-B-6.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.6">
+          <p id="appendix-B-6.6.1">Tweaks to the RADIUS section and add a restriction to the length based on comments from RADEXT<a href="#appendix-B-6.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.7">
+          <p id="appendix-B-6.7.1">Add IPv6 examples<a href="#appendix-B-6.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-6.8">
+          <p id="appendix-B-6.8.1">Editorial changes<a href="#appendix-B-6.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
