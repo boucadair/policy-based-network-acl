@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 23 August 2024                                M. Boucadair, Ed.
+Expires: 30 August 2024                                M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                        20 February 2024
+                                                        27 February 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2024.
+   This Internet-Draft will expire on 30 August 2024.
 
 Copyright Notice
 
@@ -1228,10 +1228,10 @@ Table of Contents
 
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
-              Use Cases and Requirements", Work in Progress, Internet-
-              Draft, draft-ietf-madinas-use-cases-07, 11 January 2024,
+              Use Cases", Work in Progress, Internet-Draft, draft-ietf-
+              madinas-use-cases-08, 22 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-madinas-
-              use-cases-07>.
+              use-cases-08>.
 
    [I-D.ietf-netmod-acl-extensions]
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
