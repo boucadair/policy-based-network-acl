@@ -73,7 +73,7 @@ Table of Contents
      1.1.  Editorial Note (To be removed by RFC Editor)
    2.  Conventions and Definitions
    3.  Module Overview
-     3.1.  "generic-schedule-params" Grouping
+     3.1.  The "generic-schedule-params" Grouping
      3.2.  The "period-of-time" Grouping
      3.3.  The "recurrence" Grouping
      3.4.  The "recurrence-with-date-times" Grouping
@@ -196,7 +196,7 @@ Table of Contents
    Each of these groupings is presented in the following subsections.
    Examples are provided in Appendix A.
 
-3.1.  "generic-schedule-params" Grouping
+3.1.  The "generic-schedule-params" Grouping
 
    This grouping specifies a set of configuration parameters that are
    used by a system for validating requested schedules.  These
@@ -1360,12 +1360,12 @@ Table of Contents
               draft-ietf-netmod-eca-policy-01>.
 
    [I-D.ietf-netmod-rfc8407bis]
-              Boucadair, M. and Q. Wu, "Guidelines for Authors and
-              Reviewers of Documents Containing YANG Data Models", Work
-              in Progress, Internet-Draft, draft-ietf-netmod-rfc8407bis-
-              08, 16 February 2024,
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-09, 28 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-08>.
+              rfc8407bis-09>.
 
    [I-D.ietf-opsawg-ucl-acl]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
