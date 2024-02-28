@@ -198,12 +198,12 @@ Table of Contents
 
 3.1.  The "generic-schedule-params" Grouping
 
-   This grouping specifies a set of configuration parameters that are
-   used by a system for validating requested schedules.  These
-   parameters apply to all schedules on a system and are meant to
-   provide guards against stale configuration, too short schedule
-   requests that would prevent validation by admins of some critical
-   systems, etc.
+   The "generic-schedule-params" grouping specifies a set of
+   configuration parameters that are used by a system for validating
+   requested schedules.  These parameters apply to all schedules on a
+   system and are meant to provide guards against stale configuration,
+   too short schedule requests that would prevent validation by admins
+   of some critical systems, etc.
 
      grouping generic-schedule-params:
        +-- time-zone-identifier?   sys:timezone-name
