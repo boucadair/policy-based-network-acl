@@ -175,6 +175,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        ...
      grouping recurrence:
