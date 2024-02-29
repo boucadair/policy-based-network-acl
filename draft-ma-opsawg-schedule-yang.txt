@@ -578,8 +578,6 @@ Table of Contents
    This module imports types defined in [I-D.ietf-netmod-rfc6991-bis].
 
    <CODE BEGINS> file "ietf-schedule@2023-01-19.yang"
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
    module ietf-schedule {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-schedule";
@@ -838,29 +836,26 @@ Table of Contents
        leaf min-allowed-start {
          type yang:date-and-time;
          description
-           "Specifies the date and time before which a requested \
-                                                                schedule
-            instance cannot be accepted by the entity. Specifically,
-            a requested schedule will be rejected if the first occurence
-            of that new schedule is to be scheduled before 'min-allowed\
-                                                              -start'.";
+           "Specifies the date and time before which a requested
+            schedule instance cannot be accepted by the entity.
+            Specifically, a requested schedule will be rejected if the
+            first occurence of that new schedule is to be scheduled
+            before 'min-allowed-start'.";
        }
        leaf max-allowed-end {
          type yang:date-and-time;
          description
-           "A requested schedule will be rejected if the last occurence
-            of that schedule or its duratioon exceed 'max-allowed-end'.\
-                                                                      ";
+           "A requested schedule will be rejected if the last
+            occurence of that schedule or its duratioon exceed
+            'max-allowed-end'.";
        }
        leaf discard-action {
          type enumeration {
            enum warning {
              description
-               "A warning message is generated when a schedule is \
-                                                               discarded
-                when enforcing the guards in this grouping or it is \
-                                                                received
-                out-of-date.";
+               "A warning message is generated when a schedule is
+                discarded when enforcing the guards in this grouping
+                or it is received out-of-date.";
            }
            enum silently-discard {
              description
@@ -1231,11 +1226,9 @@ Table of Contents
        leaf schedule-id {
          type string;
          description
-           "The schedule identifier that globally identifies a \
-                                                             schedule in
-             a device, controller, network, etc. The unicity scope \
-                                                                 depends
-             on the implementation.";
+           "The schedule identifier that globally identifies a
+            schedule in a device, controller, network, etc.
+            The unicity scope depends on the implementation.";
        }
        leaf state {
          type identityref {
@@ -1264,8 +1257,8 @@ Table of Contents
            "The timestamp that the schedule is last updated.";
        }
        leaf counter {
-         when "derived-from-or-self(../schedule-type, 'schedule:\
-                                                          recurrence')";
+         when "derived-from-or-self(../schedule-type, "
+            + "'schedule:recurrence')";
          type uint32;
          config false;
          description
@@ -1273,17 +1266,17 @@ Table of Contents
             The count wraps around when it reaches the maximum value.";
        }
        leaf last-occurrence {
-         when "derived-from-or-self(../schedule-type, 'schedule:\
-                                                          recurrence')";
+         when "derived-from-or-self(../schedule-type, "
+            + "'schedule:recurrence')";
          type yang:date-and-time;
          config false;
          description
            "The timestamp of last occurrence.";
        }
        leaf upcoming-occurrence {
-         when "derived-from-or-self(../schedule-type, 'schedule:\
-                                                           recurrence')"
-             +"and derived-from-or-self(../state, 'schedule:enabled')";
+         when "derived-from-or-self(../schedule-type, "
+            + "'schedule:recurrence')"
+            + "and derived-from-or-self(../state, 'schedule:enabled')";
          type yang:date-and-time;
          config false;
          description
