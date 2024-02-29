@@ -13,8 +13,8 @@
        This document defines a common schedule YANG module which is
    designed to be applicable for scheduling information such as event, policy,
    services, or resources based on date and time. For the sake of better modularity,
-   the module includes basic, intermediate, and advanced versions of schedule groupings.
-   In addition, a common schedule status grouping is also defined. 
+   the module includes basic, intermediate, and advanced versions of recurrence
+   related groupings. In addition, a common schedule status grouping is also defined. 
     " name="description">
 <meta content="xml2rfc 3.19.4" name="generator">
 <meta content="calendaring" name="keyword">
@@ -1039,7 +1039,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ma, et al.</td>
-<td class="center">Expires 31 August 2024</td>
+<td class="center">Expires 1 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ma-opsawg-schedule-yang-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-28" class="published">28 February 2024</time>
+<time datetime="2024-02-29" class="published">29 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-31">31 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-01">1 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,8 +1087,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-abstract-1">This document defines a common schedule YANG module which is
    designed to be applicable for scheduling information such as event, policy,
    services, or resources based on date and time. For the sake of better modularity,
-   the module includes basic, intermediate, and advanced versions of schedule groupings.
-   In addition, a common schedule status grouping is also defined.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+   the module includes basic, intermediate, and advanced versions of recurrence
+   related groupings. In addition, a common schedule status grouping is also defined.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1120,7 +1120,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1317,7 +1317,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-1">The "ietf-schedule" module (<a href="#sec-schedule" class="auto internal xref">Section 6</a>) defines the following groupings:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-2.1">
-          <p id="section-3-2.1.1">"generic-schedule-params" {#sec-gen}<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.1.1">"generic-schedule-params" (<a href="#sec-gen" class="auto internal xref">Section 3.1</a>)<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.2">
           <p id="section-3-2.2.1">"period-of-time" (<a href="#sec-period" class="auto internal xref">Section 3.2</a>)<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
@@ -1368,7 +1368,7 @@ module: ietf-schedule
         <h3 id="name-the-generic-schedule-params">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-the-generic-schedule-params" class="section-name selfRef">The "generic-schedule-params" Grouping</a>
         </h3>
-<p id="section-3.1-1">The "generic-schedule-params" grouping specifies a set of configuration parameters that are
+<p id="section-3.1-1">The "generic-schedule-params" grouping (<a href="#gsp-tree" class="auto internal xref">Figure 2</a>) specifies a set of configuration parameters that are
 used by a system for validating requested schedules. These parameters
 apply to all schedules on a system and are meant to provide guards against
 stale configuration, too short schedule requests that would
@@ -1377,6 +1377,8 @@ prevent validation by admins of some critical systems, etc.<a href="#section-3.1
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-3.1-2.1">
 <pre>
+module: ietf-schedule
+
   grouping generic-schedule-params:
     +-- time-zone-identifier?   sys:timezone-name
     +-- validity?               yang:date-and-time
@@ -1384,6 +1386,16 @@ prevent validation by admins of some critical systems, etc.<a href="#section-3.1
     +-- min-allowed-start?      yang:date-and-time
     +-- max-allowed-end?        yang:date-and-time
     +-- discard-action?         enumeration
+  grouping period-of-time:
+    ...
+  grouping recurrence:
+    ...
+  grouping recurrence-with-date-times:
+    ...
+  grouping icalendar-recurrence:
+    ...
+  grouping schedule-status:
+    ...
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1407,6 +1419,8 @@ prevent validation by admins of some critical systems, etc.<a href="#section-3.1
 <pre>
 module: ietf-schedule
 
+  grouping generic-schedule-params:
+    ...
   grouping period-of-time:
     +-- period-start?           yang:date-and-time
     +-- time-zone-identifier?   sys:timezone-name
@@ -1444,6 +1458,8 @@ module: ietf-schedule
 <pre>
 module: ietf-schedule
 
+  grouping generic-schedule-params:
+    ...
   grouping period-of-time:
     ...
   grouping recurrence:
@@ -1496,6 +1512,8 @@ module: ietf-schedule
 <pre>
 module: ietf-schedule
 
+  grouping generic-schedule-params:
+    ...
   grouping period-of-time:
     ...
   grouping recurrence:
@@ -1562,6 +1580,8 @@ module: ietf-schedule
 <pre>
 module: ietf-schedule
 
+  grouping generic-schedule-params:
+    ...
   grouping period-of-time:
     ...
   grouping recurrence:
@@ -1656,6 +1676,8 @@ module: ietf-schedule
 <pre>
 module: ietf-schedule
 
+  grouping generic-schedule-params:
+    ...
   grouping period-of-time:
     ...
   grouping recurrence:
@@ -2492,7 +2514,7 @@ module ietf-schedule {
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This section uses the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-09#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The "ietf-schedule" YANG module specified in this document defines schema for data
    that is designed to be accessed via network management protocols such
    as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  The lowest NETCONF layer
@@ -2629,7 +2651,7 @@ module ietf-schedule {
 <dd class="break"></dd>
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span> and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-08</span>, <time datetime="2024-02-16" class="refDate">16 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-09</span>, <time datetime="2024-02-28" class="refDate">28 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-09">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-opsawg-ucl-acl">[I-D.ietf-opsawg-ucl-acl]</dt>
         <dd>

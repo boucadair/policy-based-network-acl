@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 31 August 2024                                M. Boucadair, Ed.
+Expires: 1 September 2024                              M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                        28 February 2024
+                                                        29 February 2024
 
 
                 A Common YANG Data Model for Scheduling
@@ -21,8 +21,8 @@ Abstract
    to be applicable for scheduling information such as event, policy,
    services, or resources based on date and time.  For the sake of
    better modularity, the module includes basic, intermediate, and
-   advanced versions of schedule groupings.  In addition, a common
-   schedule status grouping is also defined.
+   advanced versions of recurrence related groupings.  In addition, a
+   common schedule status grouping is also defined.
 
 Discussion Venues
 
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2024.
+   This Internet-Draft will expire on 1 September 2024.
 
 Copyright Notice
 
@@ -161,7 +161,7 @@ Table of Contents
    The "ietf-schedule" module (Section 6) defines the following
    groupings:
 
-   *  "generic-schedule-params" {#sec-gen}
+   *  "generic-schedule-params" (Section 3.1)
 
    *  "period-of-time" (Section 3.2)
 
@@ -198,12 +198,14 @@ Table of Contents
 
 3.1.  The "generic-schedule-params" Grouping
 
-   The "generic-schedule-params" grouping specifies a set of
+   The "generic-schedule-params" grouping (Figure 2) specifies a set of
    configuration parameters that are used by a system for validating
    requested schedules.  These parameters apply to all schedules on a
    system and are meant to provide guards against stale configuration,
    too short schedule requests that would prevent validation by admins
    of some critical systems, etc.
+
+   module: ietf-schedule
 
      grouping generic-schedule-params:
        +-- time-zone-identifier?   sys:timezone-name
@@ -212,6 +214,16 @@ Table of Contents
        +-- min-allowed-start?      yang:date-and-time
        +-- max-allowed-end?        yang:date-and-time
        +-- discard-action?         enumeration
+     grouping period-of-time:
+       ...
+     grouping recurrence:
+       ...
+     grouping recurrence-with-date-times:
+       ...
+     grouping icalendar-recurrence:
+       ...
+     grouping schedule-status:
+       ...
 
           Figure 2: Generic Schedule Configuration Tree Structure
 
@@ -225,6 +237,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        +-- period-start?           yang:date-and-time
        +-- time-zone-identifier?   sys:timezone-name
@@ -252,6 +266,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        ...
      grouping recurrence:
@@ -301,6 +317,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        ...
      grouping recurrence:
@@ -360,6 +378,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        ...
      grouping recurrence:
@@ -455,6 +475,8 @@ Table of Contents
 
    module: ietf-schedule
 
+     grouping generic-schedule-params:
+       ...
      grouping period-of-time:
        ...
      grouping recurrence:
@@ -1396,12 +1418,12 @@ Table of Contents
               draft-ietf-netmod-eca-policy-01>.
 
    [I-D.ietf-netmod-rfc8407bis]
-              Boucadair, M. and Q. Wu, "Guidelines for Authors and
-              Reviewers of Documents Containing YANG Data Models", Work
-              in Progress, Internet-Draft, draft-ietf-netmod-rfc8407bis-
-              08, 16 February 2024,
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-09, 28 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-08>.
+              rfc8407bis-09>.
 
    [I-D.ietf-opsawg-ucl-acl]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A YANG Data
