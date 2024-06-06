@@ -620,7 +620,7 @@ Table of Contents
      import ietf-schedule {
        prefix schedule;
        reference
-         "RFC XXXX: A Policy-based Network Access Control";
+         "RFC SSSS: A Common YANG Data Model for Scheduling";
      }
 
      organization
@@ -660,7 +660,70 @@ Table of Contents
        description
          "Initial revision.";
        reference
-         "RFC XXXX: A Policy-based Network Access Control";
+         "RFC XXXX: A YANG Data Model and RADIUS Extension for
+                    Policy-based Network Access Control";
+     }
+
+     feature schedule {
+       description
+         "Indicates support of schedule-based ACEs.";
+     }
+
+     feature match-on-group {
+       description
+         "Indicates support of matching on endpoint groups.";
+     }
+
+     feature group {
+       if-feature "uacl:match-on-group";
+       description
+         "Indicates support of group-based ACLs.";
+     }
+
+     feature mixed-ipv4-group {
+       if-feature "acl:match-on-ipv4 and uacl:match-on-group";
+       description
+         "IPv4 and group ACL combinations supported.";
+     }
+
+     feature mixed-ipv6-group {
+       if-feature "acl:match-on-ipv6 and uacl:match-on-group";
+       description
+         "IPv6 and group ACL combinations supported.";
+     }
+
+     feature mixed-ipv4-ipv6-group {
+       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
+       description
+         "IPv4, IPv6, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-group {
+       if-feature "acl:match-on-eth and uacl:match-on-group";
+       description
+         "Eth and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv4, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv6, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "acl:match-on-ipv6 and uacl:match-on-group";
+       description
+         "Eth, IPv4, IPv6, and group ACL combinations supported.";
      }
 
      identity group-acl-type {
@@ -792,63 +855,6 @@ Table of Contents
          "Identity for the application endpoint group.";
      }
 
-     feature match-on-group {
-       description
-         "The implementation supports matching on endpoint groups.";
-     }
-
-     feature group {
-       if-feature "uacl:match-on-group";
-       description
-         "Indicates support of group-based ACLs.";
-     }
-
-     feature mixed-ipv4-group {
-       if-feature "acl:match-on-ipv4 and uacl:match-on-group";
-       description
-         "IPv4 and group ACL combinations supported.";
-     }
-
-     feature mixed-ipv6-group {
-       if-feature "acl:match-on-ipv6 and uacl:match-on-group";
-       description
-         "IPv6 and group ACL combinations supported.";
-     }
-
-     feature mixed-ipv4-ipv6-group {
-       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and "
-                + "uacl:match-on-group";
-       description
-         "IPv4, IPv6, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-group {
-       if-feature "acl:match-on-eth and uacl:match-on-group";
-       description
-         "Eth and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv4-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
-                + "uacl:match-on-group";
-       description
-         "Eth, IPv4, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv6-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv6 and "
-                + "uacl:match-on-group";
-       description
-         "Eth, IPv6, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv4-ipv6-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
-                + "acl:match-on-ipv6 and uacl:match-on-group";
-       description
-         "Eth, IPv4, IPv6, and group ACL combinations supported.";
-     }
-
      typedef group-id-reference {
        type leafref {
          path "/acl:acls/uacl:endpoint-groups"
@@ -859,6 +865,7 @@ Table of Contents
      }
 
      augment "/acl:acls" {
+       if-feature "uacl:group";
        description
          "Adds a container for endpoint group definition.";
        container endpoint-groups {
@@ -888,13 +895,13 @@ Table of Contents
      }
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
+       if-feature "uacl:match-on-group";
        description
          "Specifies how a source and/or destination endpoint group
           index can be referenced as the match criteria in the ACEs.";
        container endpoint-group {
          when "derived-from-or-self(/acl:acls/acl:acl/acl:type, "
             + "'uacl:group-acl-type')";
-         if-feature "match-on-group";
          description
            "Adds new match types.";
          leaf source-group-id {
@@ -911,6 +918,7 @@ Table of Contents
      }
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
+       if-feature "uacl:schedule";
        description
          "Adds schedule parameters to allow the ACE to take effect
           based on date and time.";
