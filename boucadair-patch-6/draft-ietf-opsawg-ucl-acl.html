@@ -2195,7 +2195,6 @@ module ietf-ucl-acl {
     container endpoint-group {
       when "derived-from-or-self(/acl:acls/acl:acl/acl:type, "
          + "'uacl:group-acl-type')";
-      if-feature "match-on-group";
       description
         "Adds new match types.";
       leaf source-group-id {
