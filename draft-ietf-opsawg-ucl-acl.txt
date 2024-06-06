@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 24 October 2024                               M. Boucadair, Ed.
+Expires: 8 December 2024                               M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                           22 April 2024
+                                                             6 June 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -25,9 +25,10 @@ Abstract
    of the mapping between a user group identifier and a set of IP/MAC
    addresses to enforce policy-based network access control.
 
-   In addition, the document defines a RADIUS attribute that is used to
-   communicate the user group identifier as part of identification and
-   authorization information.
+   In addition, the document defines a Remote Authentication Dial-in
+   User Service (RADIUS) attribute that is used to communicate the user
+   group identifier as part of identification and authorization
+   information.
 
 Discussion Venues
 
@@ -56,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2024.
+   This Internet-Draft will expire on 8 December 2024.
 
 Copyright Notice
 
@@ -104,7 +105,6 @@ Table of Contents
      A.1.  Configuring the Controller Using Group based ACL
      A.2.  Configuring a PEP Using Group-based ACL
      A.3.  Configuring PEPs Using Address-based ACLs
-   Appendix B.  Changes between Revisions
    Acknowledgments
    Authors' Addresses
 
@@ -119,7 +119,7 @@ Table of Contents
    for large-scale enterprises compared to conventional network access
    management approaches.  Examples of such challenges are listed below:
 
-   *  Endpoints do not have a stable IP address.  For example, Wireless
+   *  Endpoints do not have stable IP addresses.  For example, Wireless
       LAN (WLAN) and VPN clients, as well as back-end Virtual Machine
       (VM)-based servers, can move; their IP addresses could change as a
       result.  This means that relying on IP/transport fields (e.g., the
@@ -173,7 +173,7 @@ Table of Contents
    to dedicated fields (e.g., Group Based Policy (GBP) discussed in
    Section 6.2.3 of [I-D.ietf-nvo3-encap]).
 
-   The YANG data models in this document conform to the Network
+   The YANG data model in this document conforms to the Network
    Management Datastore Architecture (NMDA) defined in [RFC8342].
 
 1.1.  Editorial Note (To be removed by RFC Editor)
@@ -364,7 +364,7 @@ Table of Contents
       credentials, e.g., user name, password, group information, and
       other user attributes.  This document does not restrict what
       authentication method is used.  Administrators may refer to, e.g.,
-      Section 7.3 of [I-D.dekok-radext-deprecating-radius] for
+      Section 7.4 of [I-D.ietf-radext-deprecating-radius] for
       authentication method recommendations.  If the authentication
       request succeeds, the user is placed in a user group the identity
       of which is returned to the network access server as the
@@ -492,7 +492,7 @@ Table of Contents
 5.1.  The UCL Extension to the ACL Model
 
    This module specifies an extension to the "ietf-access-control-list"
-   model [RFC8519].  This extension adds endpoint groups so that an
+   module [RFC8519].  This extension adds endpoint groups so that an
    endpoint group identifier can be matched upon, and also enable access
    control policy activation based on date and time conditions.
 
@@ -602,8 +602,8 @@ Table of Contents
 6.1.  The "ietf-ucl-acl" YANG Module
 
    This module imports types and groupings defined in the "ietf-
-   schedule" YANG module in [I-D.ietf-netmod-schedule-yang].  It also
-   augments the "ietf-access-control-list" module defined in [RFC8519].
+   schedule" module [I-D.ietf-netmod-schedule-yang].  It also augments
+   the "ietf-access-control-list" module [RFC8519].
 
    <CODE BEGINS> file "ietf-ucl-acl@2023-01-19.yang"
    module ietf-ucl-acl {
@@ -1124,9 +1124,9 @@ Table of Contents
    Module Names" registry [RFC6020].
 
            name:               ietf-ucl-acl
-           namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-acl
            prefix:             uacl
-           maintained by IANA: N
+           namespace:          urn:ietf:params:xml:ns:yang:ietf-ucl-acl
+           maintained by IANA? N
            reference:          RFC XXXX
 
 11.2.  RADIUS
@@ -1149,9 +1149,9 @@ Table of Contents
    [I-D.ietf-netmod-schedule-yang]
               Ma, Q., Wu, Q., Boucadair, M., and D. King, "A Common YANG
               Data Model for Scheduling", Work in Progress, Internet-
-              Draft, draft-ietf-netmod-schedule-yang-00, 16 April 2024,
+              Draft, draft-ietf-netmod-schedule-yang-01, 27 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              schedule-yang-00>.
+              schedule-yang-01>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1219,13 +1219,6 @@ Table of Contents
 
 12.2.  Informative References
 
-   [I-D.dekok-radext-deprecating-radius]
-              DeKok, A., "Deprecating Insecure Practices in RADIUS",
-              Work in Progress, Internet-Draft, draft-dekok-radext-
-              deprecating-radius-05, 23 October 2023,
-              <https://datatracker.ietf.org/doc/html/draft-dekok-radext-
-              deprecating-radius-05>.
-
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
               Use Cases", Work in Progress, Internet-Draft, draft-ietf-
@@ -1237,9 +1230,9 @@ Table of Contents
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
               "Extensions to the Access Control Lists (ACLs) YANG
               Model", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-acl-extensions-06, 30 January 2024,
+              netmod-acl-extensions-10, 29 May 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              acl-extensions-06>.
+              acl-extensions-10>.
 
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
@@ -1255,6 +1248,13 @@ Table of Contents
               Progress, Internet-Draft, draft-ietf-nvo3-encap-12, 19
               February 2024, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nvo3-encap-12>.
+
+   [I-D.ietf-radext-deprecating-radius]
+              DeKok, A., "Deprecating Insecure Practices in RADIUS",
+              Work in Progress, Internet-Draft, draft-ietf-radext-
+              deprecating-radius-01, 29 April 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-radext-
+              deprecating-radius-01>.
 
    [I-D.smith-vxlan-group-policy]
               Smith, M. and L. Kreeger, "VXLAN Group Policy Option",
@@ -1543,7 +1543,7 @@ A.2.  Configuring a PEP Using Group-based ACL
 
 A.3.  Configuring PEPs Using Address-based ACLs
 
-   The section illustrates an example of configuring a PEP using IP
+   The section describes an example of configuring a PEP using IP
    address based ACL.  IP address based access control policies could be
    applied to the PEP that may not understand the group information,
    e.g., firewall.
@@ -1682,56 +1682,6 @@ A.3.  Configuring PEPs Using Address-based ACLs
    </acls>
 
                Figure 6: Example of PEP Configuration (IPv6)
-
-Appendix B.  Changes between Revisions
-
-   v02 - v03
-
-   *  List endpoint-groups definition under acls and examples update to
-      reflect the latest module
-
-   *  Add contact info in the UCL module
-
-   v01 - v02
-
-   *  Tree overview and examples update to reflect the latest schedule
-      module
-
-   *  Clarify why we define endpoint group ID as string
-
-   *  Exclude the mapping of string to tagging mechanism from the
-      document scope
-
-   *  Add implementation considerations section to discuss the
-      deployment scenarios and possible tradeoff
-
-   *  Add application group, define endpoint group type as "identityref"
-      in YANG data model
-
-   *  Editorial changes, e.g., remove the NACL definition, fix long
-      lines.
-
-   v00 - v01
-
-   *  Change the document title and add a reference to "policy"
-
-   *  Split the definition of schedule YANG module into a seperate
-      document
-
-   *  Add reference to draft-dekok-radext-deprecating-radius for
-      authentication method recommendations
-
-   *  Change endpoint group-id as a string, and fix related examples
-      accordingly
-
-   *  Use typedef to ease leafref of the node
-
-   *  Tweaks to the RADIUS section and add a restriction to the length
-      based on comments from RADEXT
-
-   *  Add IPv6 examples
-
-   *  Editorial changes
 
 Acknowledgments
 
