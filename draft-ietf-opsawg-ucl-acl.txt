@@ -188,7 +188,10 @@ Table of Contents
 
    Please apply the following replacements:
 
-   *  XXXX --> the assigned RFC number for this draft
+   *  XXXX --> the assigned RFC number for this document
+
+   *  SSSS --> the assigned RFC number for
+      [I-D.ietf-netmod-schedule-yang]
 
    *  2023-01-19 --> the actual date of the publication of this document
 
@@ -974,19 +977,22 @@ Table of Contents
 
    The User-Access-Group-ID Attribute is structured as follows:
 
-    Type
+   Type
       TBA1
 
-    Length
+   Length
       This field indicates the total length, in octets, of all fields of
       this attribute, including the Type, Length, Extended-Type, and the
-      "Value". The Length MUST be at most 67 octets.
+      "Value".
 
-    Data Type
-      string ({{Section 3.5 of RFC8044}})
+  
+      The Length MUST be at most 67 octets.
 
-    Value
-       This field contains the user group ID.
+   Data Type
+      string (Section 3.5 of [RFC8044])
+
+   Value
+      This field contains the user group ID.
 
 8.  RADIUS Attributes
 
