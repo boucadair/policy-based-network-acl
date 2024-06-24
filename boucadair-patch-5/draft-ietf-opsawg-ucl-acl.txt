@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 8 December 2024                               M. Boucadair, Ed.
+Expires: 26 December 2024                              M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                             6 June 2024
+                                                            24 June 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2024.
+   This Internet-Draft will expire on 26 December 2024.
 
 Copyright Notice
 
@@ -188,7 +188,10 @@ Table of Contents
 
    Please apply the following replacements:
 
-   *  XXXX --> the assigned RFC number for this draft
+   *  XXXX --> the assigned RFC number for this document
+
+   *  SSSS --> the assigned RFC number for
+      [I-D.ietf-netmod-schedule-yang]
 
    *  2023-01-19 --> the actual date of the publication of this document
 
@@ -498,73 +501,66 @@ Table of Contents
 
    Figure 2 provides the tree structure of the "ietf-ucl-acl" module.
 
-  module: ietf-ucl-acl
+   module: ietf-ucl-acl
 
-    augment /acl:acls:
-      +--rw endpoint-groups
-         +--rw endpoint-group* [group-id]
-            +--rw group-id      string
-            +--rw group-type?   identityref
-    augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
-      +--rw endpoint-group {match-on-group}?
-         +--rw source-group-id?        group-id-reference
-         +--rw destination-group-id?   group-id-reference
-    augment /acl:acls/acl:acl/acl:aces/acl:ace:
-      +--rw effective-schedule
-         +--rw (schedule-type)?
-            +--:(period)
-            |  +--rw period-start?             yang:date-and-time
-            |  +--rw time-zone-identifier?     sys:timezone-name
-            |  +--rw (period-type)?
-            |     +--:(explicit)
-            |     |  +--rw period-end?         yang:date-and-time
-            |     +--:(duration)
-            |        +--rw duration?           duration
-            +--:(recurrence) {schedule:icalendar-recurrence-supported}?
-               +--rw recurrence-first
-               |  +--rw date-time-start?        union
-               |  +--rw time-zone-identifier?   sys:timezone-name
-               |  +--rw duration?               duration
-               +--rw frequency?                identityref
-               +--rw interval?                 uint32
-               +--rw (recurrence-bound)?
-               |  +--:(until)
-               |  |  +--rw until?              union
-               |  +--:(count)
-               |     +--rw count?              uint32
-               +--rw (date-times-choice)?
-               |  +--:(date-time)
-               |  |  +--rw date-times*         yang:date-and-time
-               |  +--:(date)
-               |  |  +--rw dates*              yang:date-no-zone
-               |  +--:(period-timeticks)
-               |  |  +--rw period-timeticks* [period-start]
-               |  |     +--rw period-start    yang:timeticks
-               |  |     +--rw period-end?     yang:timeticks
-               |  +--:(period)
-               |     +--rw period* [period-start]
-               |        +--rw period-start            yang:date-and-time
-               |        +--rw time-zone-identifier?   sys:timezone-name
-               |        +--rw (period-type)?
-               |           +--:(explicit)
-               |           |  +--rw period-end?       yang:date-and-time
-               |           +--:(duration)
-               |              +--rw duration?         duration
-               +--rw bysecond*                 uint32
-               +--rw byminute*                 uint32
-               +--rw byhour*                   uint32
-               +--rw byday* [weekday]
-               |  +--rw direction*   int32
-               |  +--rw weekday      schedule:weekday
-               +--rw bymonthday*               int32
-               +--rw byyearday*                int32
-               +--rw byyearweek*               int32
-               +--rw byyearmonth*              uint32
-               +--rw bysetpos*                 int32
-               +--rw workweek-start?           schedule:weekday
-               +--rw exception-dates*          union
+     augment /acl:acls:
+       +--rw endpoint-groups {uacl:group}?
+          +--rw endpoint-group* [group-id]
+             +--rw group-id      string
+             +--rw group-type?   identityref
+     augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+       +--rw endpoint-group {uacl:match-on-group}?
+          +--rw source-group-id?        group-id-reference
+          +--rw destination-group-id?   group-id-reference
+     augment /acl:acls/acl:acl/acl:aces/acl:ace:
+       +--rw effective-schedule {uacl:schedule}?
+          +--rw (schedule-type)?
+             +--:(period)
+             |  +--rw period-description?       string
+             |  +--rw period-start              yang:date-and-time
+             |  +--rw time-zone-identifier?     sys:timezone-name
+             |  +--rw (period-type)?
+             |     +--:(explicit)
+             |     |  +--rw period-end?         yang:date-and-time
+             |     +--:(duration)
+             |        +--rw duration?           duration
+             +--:(recurrence) {schedule:icalendar-recurrence-supported}?
+                +--rw recurrence-first
+                |  +--rw date-time-start?        yang:date-and-time
+                |  +--rw duration?               duration
+                |  +--rw time-zone-identifier?   sys:timezone-name
+                +--rw (recurrence-bound)?
+                |  +--:(until)
+                |  |  +--rw until?              yang:date-and-time
+                |  +--:(count)
+                |     +--rw count?              uint32
+                +--rw recurrence-description?   string
+                +--rw frequency                 identityref
+                +--rw interval?                 uint32
+                +--rw period* [period-start]
+                |  +--rw period-description?     string
+                |  +--rw period-start            yang:date-and-time
+                |  +--rw time-zone-identifier?   sys:timezone-name
+                |  +--rw (period-type)?
+                |     +--:(explicit)
+                |     |  +--rw period-end?       yang:date-and-time
+                |     +--:(duration)
+                |        +--rw duration?         duration
+                +--rw bysecond*                 uint32
+                +--rw byminute*                 uint32
+                +--rw byhour*                   uint32
+                +--rw byday* [weekday]
+                |  +--rw direction*   int32
+                |  +--rw weekday      schedule:weekday
+                +--rw bymonthday*               int32
+                +--rw byyearday*                int32
+                +--rw byyearweek*               int32
+                +--rw byyearmonth*              uint32
+                +--rw bysetpos*                 int32
+                +--rw workweek-start?           schedule:weekday
+                +--rw exception-dates*          yang:date-and-time
 
-                         Figure 2: UCL Extension
+                          Figure 2: UCL Extension
 
    The first part of the data model augments the "acl" list in the
    "ietf-access-control-list" model [RFC8519] with a "endpoint-groups"
@@ -620,7 +616,7 @@ Table of Contents
      import ietf-schedule {
        prefix schedule;
        reference
-         "RFC XXXX: A Policy-based Network Access Control";
+         "RFC SSSS: A Common YANG Data Model for Scheduling";
      }
 
      organization
@@ -660,7 +656,70 @@ Table of Contents
        description
          "Initial revision.";
        reference
-         "RFC XXXX: A Policy-based Network Access Control";
+         "RFC XXXX: A YANG Data Model and RADIUS Extension for
+                    Policy-based Network Access Control";
+     }
+
+     feature schedule {
+       description
+         "Indicates support of schedule-based ACEs.";
+     }
+
+     feature match-on-group {
+       description
+         "Indicates support of matching on endpoint groups.";
+     }
+
+     feature group {
+       if-feature "uacl:match-on-group";
+       description
+         "Indicates support of group-based ACLs.";
+     }
+
+     feature mixed-ipv4-group {
+       if-feature "acl:match-on-ipv4 and uacl:match-on-group";
+       description
+         "IPv4 and group ACL combinations supported.";
+     }
+
+     feature mixed-ipv6-group {
+       if-feature "acl:match-on-ipv6 and uacl:match-on-group";
+       description
+         "IPv6 and group ACL combinations supported.";
+     }
+
+     feature mixed-ipv4-ipv6-group {
+       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
+       description
+         "IPv4, IPv6, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-group {
+       if-feature "acl:match-on-eth and uacl:match-on-group";
+       description
+         "Eth and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv4, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv6 and "
+                + "uacl:match-on-group";
+       description
+         "Eth, IPv6, and group ACL combinations supported.";
+     }
+
+     feature mixed-eth-ipv4-ipv6-group {
+       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
+                + "acl:match-on-ipv6 and uacl:match-on-group";
+       description
+         "Eth, IPv4, IPv6, and group ACL combinations supported.";
      }
 
      identity group-acl-type {
@@ -792,63 +851,6 @@ Table of Contents
          "Identity for the application endpoint group.";
      }
 
-     feature match-on-group {
-       description
-         "The implementation supports matching on endpoint groups.";
-     }
-
-     feature group {
-       if-feature "uacl:match-on-group";
-       description
-         "Indicates support of group-based ACLs.";
-     }
-
-     feature mixed-ipv4-group {
-       if-feature "acl:match-on-ipv4 and uacl:match-on-group";
-       description
-         "IPv4 and group ACL combinations supported.";
-     }
-
-     feature mixed-ipv6-group {
-       if-feature "acl:match-on-ipv6 and uacl:match-on-group";
-       description
-         "IPv6 and group ACL combinations supported.";
-     }
-
-     feature mixed-ipv4-ipv6-group {
-       if-feature "acl:match-on-ipv4 and acl:match-on-ipv6 and "
-                + "uacl:match-on-group";
-       description
-         "IPv4, IPv6, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-group {
-       if-feature "acl:match-on-eth and uacl:match-on-group";
-       description
-         "Eth and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv4-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
-                + "uacl:match-on-group";
-       description
-         "Eth, IPv4, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv6-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv6 and "
-                + "uacl:match-on-group";
-       description
-         "Eth, IPv6, and group ACL combinations supported.";
-     }
-
-     feature mixed-eth-ipv4-ipv6-group {
-       if-feature "acl:match-on-eth and acl:match-on-ipv4 and "
-                + "acl:match-on-ipv6 and uacl:match-on-group";
-       description
-         "Eth, IPv4, IPv6, and group ACL combinations supported.";
-     }
-
      typedef group-id-reference {
        type leafref {
          path "/acl:acls/uacl:endpoint-groups"
@@ -859,6 +861,7 @@ Table of Contents
      }
 
      augment "/acl:acls" {
+       if-feature "uacl:group";
        description
          "Adds a container for endpoint group definition.";
        container endpoint-groups {
@@ -888,13 +891,13 @@ Table of Contents
      }
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches" {
+       if-feature "uacl:match-on-group";
        description
          "Specifies how a source and/or destination endpoint group
           index can be referenced as the match criteria in the ACEs.";
        container endpoint-group {
          when "derived-from-or-self(/acl:acls/acl:acl/acl:type, "
             + "'uacl:group-acl-type')";
-         if-feature "match-on-group";
          description
            "Adds new match types.";
          leaf source-group-id {
@@ -911,6 +914,7 @@ Table of Contents
      }
 
      augment "/acl:acls/acl:acl/acl:aces/acl:ace" {
+       if-feature "uacl:schedule";
        description
          "Adds schedule parameters to allow the ACE to take effect
           based on date and time.";
@@ -976,19 +980,22 @@ Table of Contents
 
    The User-Access-Group-ID Attribute is structured as follows:
 
-    Type
+   Type
       TBA1
 
-    Length
+   Length
       This field indicates the total length, in octets, of all fields of
       this attribute, including the Type, Length, Extended-Type, and the
-      "Value". The Length MUST be at most 67 octets.
+      "Value".
 
-    Data Type
-      string ({{Section 3.5 of RFC8044}})
+  
+      The Length MUST be at most 67 octets.
 
-    Value
-       This field contains the user group ID.
+   Data Type
+      string (Section 3.5 of [RFC8044])
+
+   Value
+      This field contains the user group ID.
 
 8.  RADIUS Attributes
 
@@ -1222,9 +1229,9 @@ Table of Contents
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
               Use Cases", Work in Progress, Internet-Draft, draft-ietf-
-              madinas-use-cases-09, 29 February 2024,
+              madinas-use-cases-10, 23 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-madinas-
-              use-cases-09>.
+              use-cases-10>.
 
    [I-D.ietf-netmod-acl-extensions]
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
@@ -1238,9 +1245,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-11, 18 April 2024,
+              netmod-rfc8407bis-12, 21 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-11>.
+              rfc8407bis-12>.
 
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
