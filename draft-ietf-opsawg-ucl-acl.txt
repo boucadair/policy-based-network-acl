@@ -5,11 +5,11 @@
 OPSAWG                                                        Q. Ma, Ed.
 Internet-Draft                                                     Q. Wu
 Intended status: Standards Track                                  Huawei
-Expires: 8 December 2024                               M. Boucadair, Ed.
+Expires: 27 December 2024                              M. Boucadair, Ed.
                                                                   Orange
                                                                  D. King
                                                     Lancaster University
-                                                             6 June 2024
+                                                            25 June 2024
 
 
  A YANG Data Model and RADIUS Extension for Policy-based Network Access
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2024.
+   This Internet-Draft will expire on 27 December 2024.
 
 Copyright Notice
 
@@ -516,26 +516,29 @@ Table of Contents
        +--rw effective-schedule {uacl:schedule}?
           +--rw (schedule-type)?
              +--:(period)
-             |  +--rw period-start?           yang:date-and-time
-             |  +--rw time-zone-identifier?   sys:timezone-name
+             |  +--rw period-description?       string
+             |  +--rw period-start              yang:date-and-time
+             |  +--rw time-zone-identifier?     sys:timezone-name
              |  +--rw (period-type)?
              |     +--:(explicit)
-             |     |  +--rw period-end?       yang:date-and-time
+             |     |  +--rw period-end?         yang:date-and-time
              |     +--:(duration)
-             |        +--rw duration?         duration
+             |        +--rw duration?           duration
              +--:(recurrence) {schedule:icalendar-recurrence-supported}?
                 +--rw recurrence-first
                 |  +--rw date-time-start?        yang:date-and-time
                 |  +--rw duration?               duration
                 |  +--rw time-zone-identifier?   sys:timezone-name
-                +--rw frequency               identityref
-                +--rw interval?               uint32
                 +--rw (recurrence-bound)?
                 |  +--:(until)
-                |  |  +--rw until?            yang:date-and-time
+                |  |  +--rw until?              yang:date-and-time
                 |  +--:(count)
-                |     +--rw count?            uint32
+                |     +--rw count?              uint32
+                +--rw recurrence-description?   string
+                +--rw frequency                 identityref
+                +--rw interval?                 uint32
                 +--rw period* [period-start]
+                |  +--rw period-description?     string
                 |  +--rw period-start            yang:date-and-time
                 |  +--rw time-zone-identifier?   sys:timezone-name
                 |  +--rw (period-type)?
@@ -543,19 +546,19 @@ Table of Contents
                 |     |  +--rw period-end?       yang:date-and-time
                 |     +--:(duration)
                 |        +--rw duration?         duration
-                +--rw bysecond*               uint32
-                +--rw byminute*               uint32
-                +--rw byhour*                 uint32
+                +--rw bysecond*                 uint32
+                +--rw byminute*                 uint32
+                +--rw byhour*                   uint32
                 +--rw byday* [weekday]
                 |  +--rw direction*   int32
                 |  +--rw weekday      schedule:weekday
-                +--rw bymonthday*             int32
-                +--rw byyearday*              int32
-                +--rw byyearweek*             int32
-                +--rw byyearmonth*            uint32
-                +--rw bysetpos*               int32
-                +--rw workweek-start?         schedule:weekday
-                +--rw exception-dates*        yang:date-and-time
+                +--rw bymonthday*               int32
+                +--rw byyearday*                int32
+                +--rw byyearweek*               int32
+                +--rw byyearmonth*              uint32
+                +--rw bysetpos*                 int32
+                +--rw workweek-start?           schedule:weekday
+                +--rw exception-dates*          yang:date-and-time
 
                           Figure 2: UCL Extension
 
@@ -1226,9 +1229,9 @@ Table of Contents
    [I-D.ietf-madinas-use-cases]
               Henry, J. and Y. Lee, "Randomized and Changing MAC Address
               Use Cases", Work in Progress, Internet-Draft, draft-ietf-
-              madinas-use-cases-09, 29 February 2024,
+              madinas-use-cases-10, 23 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-madinas-
-              use-cases-09>.
+              use-cases-10>.
 
    [I-D.ietf-netmod-acl-extensions]
               de Dios, O. G., Barguil, S., Boucadair, M., and Q. Wu,
@@ -1242,9 +1245,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-11, 18 April 2024,
+              netmod-rfc8407bis-12, 21 June 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-11>.
+              rfc8407bis-12>.
 
    [I-D.ietf-nvo3-encap]
               Boutros, S. and D. E. Eastlake, "Network Virtualization
