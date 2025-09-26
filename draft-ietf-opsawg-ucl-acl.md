@@ -328,7 +328,7 @@ informative:
    Step 4:
    :  Either the AAA server or the NAS notifies an SDN controller
       of the mapping between the user group ID and related common packet
-      header attributes (e.g., IP/MAC address).
+      header attributes (e.g., IP/MAC address). The exact details of how such notification is made are out the scope of this specification.
 
    Step 5:
    :  Either group or IP/MAC address based access control policies
@@ -500,7 +500,7 @@ The User-Access-Group-ID Attribute is structured as follows:
    : This field indicates the total length, in octets, of all fields of
    this attribute, including the Type, Length, Extended-Type, and the
    "Value".
-   : The Length MUST be at most 67 octets.
+   : The Length MUST be at most 67 octets. The maximum length is 67 octets to accommodate the maximum group ID of 64 octets plus one octet for Type, one octet for Length, and one octet for Extended-Length.
 
    Data Type
    : string ({{Section 3.5 of !RFC8044}})
